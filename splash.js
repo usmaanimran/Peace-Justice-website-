@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const gavel = document.getElementById("gavel");
     const body = document.getElementById("mainBody");
 
-    // Typewriter Effect Logic 
+    // Typewriter Effect Logic
     const textToType = "Peace & Justice";
     let charIndex = 0;
     const typingSpeed = 70; 
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 countdownText.textContent = `Entering site in ${timeLeft}...`;
             } else {
                 clearInterval(interval);
-                // The HTML meta tag will handle the actual redirect now
+                
             }
         }, 1000);
     }
@@ -51,10 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (gavel) gavel.classList.add("gavel-active");
             if (body) body.classList.add("shake");
             
-           
+            
             document.body.classList.add("page-fade-out");
 
-            // Wait for the fade out to finish
+            // Wait for the fade out to finish 
             setTimeout(() => {
                 window.location.href = "home.html";
             }, 500); 
