@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peace & Justice | Home</title>
-    
     <link rel="stylesheet" href="style.css">
-    
     <style>
         .home-gallery-section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; text-align: center; }
         .content-link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin-top: 40px; }
@@ -25,7 +23,6 @@
                 <img src="crow.png" alt="Peace and Justice Logo" class="nav-logo">
                 <span class="site-title">Peace <span class="text-gradient">&</span> Justice</span>
             </a>
-
             <nav class="main-nav">
                 <ul>
                     <li><a href="home.html" class="active">Home</a></li>
@@ -38,8 +35,8 @@
             </nav>
         </div>
     </header>
+
     <main class="main-content">
-        
         <section class="card-container" style="padding-top: 80px;">
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=600" alt="Scales of Justice sitting on a desk">
@@ -51,7 +48,6 @@
                     <li>Eradication of systemic corruption.</li>
                 </ul>
             </div>
-
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=600" alt="People collaborating across a table reviewing documents">
                 <h3>Why It <span class="text-gradient">Matters</span></h3>
@@ -62,7 +58,6 @@
                     <li>Citizens relying on public service transparency.</li>
                 </ul>
             </div>
-
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&q=80&w=600" alt="A group of people holding their hands together in solidarity">
                 <h3>Take <span class="text-gradient">Action</span></h3>
@@ -81,38 +76,34 @@
             
             <div class="content-link-grid">
                 <a href="content_ST1.html" class="content-link-tile">
-                    <h4 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 10px;">Institutional Corruption</h4>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 10px;">Institutional Corruption</h3>
                     <span style="font-size: 0.85rem; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase;">Read Article &rarr;</span>
                 </a>
-                
                 <a href="content_ST2.html" class="content-link-tile">
-                    <h4 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 10px;">Youth Peacebuilding</h4>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 10px;">Youth Peacebuilding</h3>
                     <span style="font-size: 0.85rem; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase;">Read Article &rarr;</span>
                 </a>
-
                 <a href="content_ST3.html" class="content-link-tile">
-                    <h4 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 10px;">Access to Justice</h4>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 10px;">Access to Justice</h3>
                     <span style="font-size: 0.85rem; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase;">Read Article &rarr;</span>
                 </a>
-
                 <a href="content_ST4.html" class="content-link-tile">
-                    <h4 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 10px;">Tech for Transparency</h4>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 10px;">Tech for Transparency</h3>
                     <span style="font-size: 0.85rem; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase;">Read Article &rarr;</span>
                 </a>
             </div>
         </section>
-
     </main>
+
     <footer class="site-footer">
         <div class="footer-container">
             <div class="student-info">
-                <h4>Page Author</h4>
+                <h3>Page Author</h3>
                 <p><strong>Name:</strong> Usmaan Imran</p>
                 <p><strong>Student ID:</strong> 20240530</p>
             </div>
-            
             <div class="footer-links">
-                <h4>Developer Links</h4>
+                <h3>Developer Links</h3>
                 <ul>
                     <li><a href="pageEditor_ST1.html">Page Editor</a></li>
                     <li><a href="validation_ST1.html">Validation Page</a></li>
@@ -124,10 +115,10 @@
             <p>&copy; 2026 Humpty Dumpty | Peace & Justice Initiative.</p>
         </div>
     </footer>
+    
     <script>
         const header = document.querySelector('.site-header');
         window.addEventListener('scroll', () => {
-            // scroll buffer
             if (window.scrollY > 80 && !header.classList.contains('header-scrolled')) {
                 header.classList.add('header-scrolled');
             } else if (window.scrollY < 20 && header.classList.contains('header-scrolled')) {
@@ -135,6 +126,5 @@
             }
         });
     </script>
-
 </body>
 </html>
