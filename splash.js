@@ -2,17 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // UI Elements
     const titleElement = document.getElementById("typewriterText");
     const fadeElements = document.querySelectorAll(".fade-in-element");
-    const progressBar = document.getElementById("progressBar");
+    const countdownText = document.getElementById("countdownText");
     const skipBtn = document.getElementById("skipBtn");
     const gavel = document.getElementById("gavel");
     const body = document.getElementById("mainBody");
 
-    // Typewriter Effect Logic
+    // Typewriter Effect Logic 
     const textToType = "Peace & Justice";
     let charIndex = 0;
-    const typingSpeed = 120; 
+    const typingSpeed = 70; 
 
-    // Add the blinking cursor immediately
     titleElement.classList.add("typewriter-cursor");
 
     function typeWriter() {
@@ -21,53 +20,44 @@ document.addEventListener("DOMContentLoaded", () => {
             charIndex++;
             setTimeout(typeWriter, typingSpeed);
         } else {
-           
+            
             fadeElements.forEach(el => el.classList.add("visible"));
-            
-            
-            setTimeout(startProgressBar, 500);
+            startCountdown();
         }
     }
 
-    
-    setTimeout(typeWriter, 400);
+    setTimeout(typeWriter, 200);
 
-   
-    const loadingDuration = 3500; 
-
-    function startProgressBar() {
-        let startTime = Date.now();
-
-        function updateProgress() {
-            let elapsed = Date.now() - startTime;
-            let percentage = Math.min((elapsed / loadingDuration) * 100, 100);
-            
-            progressBar.style.width = percentage + "%";
-
-            if (elapsed < loadingDuration) {
-                requestAnimationFrame(updateProgress);
+    // Visible Countdown Logic
+    let timeLeft = 4;
+    function startCountdown() {
+        countdownText.textContent = `Entering site in ${timeLeft}...`;
+        const interval = setInterval(() => {
+            timeLeft--;
+            if (timeLeft > 0) {
+                countdownText.textContent = `Entering site in ${timeLeft}...`;
             } else {
-                // redirect
-                window.location.href = "home.html";
+                clearInterval(interval);
+                // The HTML meta tag will handle the actual redirect now
             }
-        }
-        
-        requestAnimationFrame(updateProgress);
+        }, 1000);
     }
 
-    // Gavel Slam & Manual Skip
+    // Manual Skip
     if (skipBtn) {
         skipBtn.addEventListener("click", (e) => {
             e.preventDefault(); 
             
-            // Visual impact
             if (gavel) gavel.classList.add("gavel-active");
             if (body) body.classList.add("shake");
+            
+           
+            document.body.classList.add("page-fade-out");
 
-            // Redirect 
+            // Wait for the fade out to finish
             setTimeout(() => {
                 window.location.href = "home.html";
-            }, 400); 
+            }, 500); 
         });
     }
 });
