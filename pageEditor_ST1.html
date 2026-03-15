@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | Page Editor (Usmaan)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .editor-container { max-width: 1000px; margin: 40px auto 80px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; backdrop-filter: blur(16px); padding: 50px; }
+        .editor-header { text-align: center; margin-bottom: 40px; border-bottom: 2px solid var(--accent-cyan); padding-bottom: 20px; }
+        .editor-header h1 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 10px; }
+        .editor-header p { color: var(--accent-cyan); font-weight: bold; letter-spacing: 1px; }
+        .toc { background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 8px; margin-bottom: 40px; }
+        .toc ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 15px; }
+        .toc a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; border: 1px solid var(--glass-border); padding: 5px 10px; border-radius: 4px; transition: all 0.3s; }
+        .toc a:hover { background: var(--accent-purple); border-color: var(--accent-purple); }
+        .editor-section { margin-bottom: 50px; padding-top: 20px; }
+        .editor-section h2 { font-family: var(--font-heading); font-size: 1.8rem; color: var(--accent-cyan); margin-bottom: 15px; }
+        .editor-section h3 { font-size: 1.2rem; color: #fff; margin: 20px 0 10px; border-left: 3px solid var(--accent-purple); padding-left: 10px; }
+        .editor-section p { line-height: 1.6; color: var(--text-muted); margin-bottom: 15px; font-size: 0.95rem; }
+        .editor-section ul { margin-bottom: 15px; padding-left: 20px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;}
+        .code-ref { font-family: monospace; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; color: var(--accent-glow); }
+        .live-link { display: inline-block; background: var(--accent-cyan); color: #000; padding: 5px 15px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.85rem; margin-bottom: 15px; transition: transform 0.2s;}
+        .live-link:hover { transform: scale(1.05); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+        th, td { border: 1px solid var(--glass-border); padding: 12px; text-align: left; color: var(--text-muted); }
+        th { background: rgba(0, 240, 255, 0.1); color: #fff; font-weight: 600; }
+        tr:nth-child(even) { background: rgba(0, 0, 0, 0.2); }
+    </style>
+</head>
+<body class="page-fade-in">
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link">
+                <img src="crow.png" alt="Peace and Justice Logo" class="nav-logo">
+                <span class="site-title">Peace <span class="text-gradient">&</span> Justice</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="editor-container">
+            
+            <div class="editor-header">
+                <h1>Developer Report & Page Editor</h1>
+                <p>Usmaan Imran | Student ID: 20240530 | Role: Student 1 (Implementation Lead)</p>
+            </div>
+
+            <nav class="toc">
+                <ul>
+                    <li><a href="#tasks">1. Completed Tasks</a></li>
+                    <li><a href="#tech">2. Technical Implementation</a></li>
+                    <li><a href="#challenges">3. Challenges & Lessons</a></li>
+                    <li><a href="#accessibility">4. Accessibility</a></li>
+                    <li><a href="#janet">5. JANET Compliance</a></li>
+                    <li><a href="#meetings">6. Meeting Log</a></li>
+                    <li><a href="#references">7. References</a></li>
+                </ul>
+            </nav>
+
+            <section id="tasks" class="editor-section">
+                <h2>1. Completed Tasks & Responsibilities</h2>
+                <p>As Student 1 (the Implementation Lead) for Humpty Dumpty, my primary responsibility was establishing the core technical foundation and visual identity for our UN SDG 16 website. I successfully implemented:</p>
+                <ul>
+                    <li>The Global CSS architecture and shared HTML template (`style.css`).</li>
+                    <li>The central Home Page (`home.html`).</li>
+                    <li>The interactive JavaScript-driven Gallery Page (`gallery.html`).</li>
+                    <li>An individual Content Page detailing Institutional Corruption (`content_ST1.html`).</li>
+                </ul>
+            </section>
+
+            <section id="tech" class="editor-section">
+                <h2>2. Technical Description of Implemented Pages</h2>
+                
+                <h3>Global CSS & Template Structure</h3>
+                <p>I designed a dark-themed "cyber-glass" aesthetic using CSS variables (<span class="code-ref">:root</span>) to maintain strict color consistency across the team's files. The shared template relies on semantic HTML5 tags (<span class="code-ref">&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;footer&gt;</span>). For layout control, I heavily utilized CSS Flexbox to ensure the navigation bar and footer elements respond cleanly to viewport changes. To protect the integrity of the design, I inserted explicit "DO NOT MODIFY" comments bounding the template areas.</p>
+
+                <h3>Home Page</h3>
+                <a href="home.html" target="_blank" class="live-link">View Live Home Page &rarr;</a> | <a href="validation_ST1.html#home-val" class="live-link" style="background: transparent; border: 1px solid var(--accent-cyan); color: var(--accent-cyan);">View Validation</a>
+                <p>The Home Page leverages CSS Grid and Flexbox for its layout. The core mission is displayed using a card-based UI. I achieved the "frosted glass" look (Glassmorphism) by combining <span class="code-ref">background: rgba(...)</span> with the <span class="code-ref">backdrop-filter: blur()</span> property. The page also includes embedded CSS to style the interactive "Explore Our Research" tiles, featuring CSS transitions (<span class="code-ref">transform: scale()</span>) that provide immediate visual feedback upon user hover.</p>
+
+                <h3>Gallery Page</h3>
+                <a href="gallery.html" target="_blank" class="live-link">View Live Gallery Page &rarr;</a> | <a href="validation_ST1.html#gallery-val" class="live-link" style="background: transparent; border: 1px solid var(--accent-cyan); color: var(--accent-cyan);">View Validation</a>
+                <p>The Gallery employs a responsive CSS Grid (<span class="code-ref">grid-template-columns: repeat(auto-fit, minmax(...))</span>) to arrange the thumbnails. The core functionality is driven by JavaScript. When a thumbnail is clicked, the <span class="code-ref">openModal()</span> function extracts data (image source, alt text, and hidden paragraph descriptions) from the DOM and injects it into a centralized modal overlay. I also implemented JavaScript customization controls that modify the DOM's inline styles to toggle Light/Dark themes and dynamically adjust the <span class="code-ref">fontSize</span> in REM units without reloading the page.</p>
+
+                <h3>Content Page (Institutional Corruption)</h3>
+                <a href="content_ST1.html" target="_blank" class="live-link">View Live Content Page &rarr;</a> | <a href="validation_ST1.html#content-val" class="live-link" style="background: transparent; border: 1px solid var(--accent-cyan); color: var(--accent-cyan);">View Validation</a>
+                <p>This page demonstrates structured content hierarchy using <span class="code-ref">&lt;h1&gt;</span> down to <span class="code-ref">&lt;h3&gt;</span> tags. For navigation, I implemented an internal Table of Contents using HTML anchor links (<span class="code-ref">href="#id"</span>). Furthermore, I engineered a "Go to Top" button entirely out of HTML/CSS by setting its container to <span class="code-ref">position: fixed; bottom: 30px;</span>, ensuring it remains accessible regardless of scroll depth.</p>
+            </section>
+
+            <section id="challenges" class="editor-section">
+                <h2>3. Challenges & Lessons Learned</h2>
+                <p>One major technical challenge was "scroll thrashing" on the shared navigation header. I initially used a basic JavaScript scroll listener to shrink the header when the user scrolled past 50px. However, if the user scrolled very slowly at that exact threshold, the document height change would cause the header to infinitely loop between its expanded and shrunk states. I resolved this by adding hysteresis (a buffer) to the logic—the header shrinks at &gt;80px, but doesn't expand again until the user scrolls back above &lt;20px. This taught me the importance of edge-case testing in UI event listeners.</p>
+            </section>
+
+            <section id="accessibility" class="editor-section">
+                <h2>4. Accessibility Considerations</h2>
+                <p>Accessibility was prioritized across all my pages to ensure inclusivity. Every image utilized in the Home, Gallery, and Content pages includes descriptive <span class="code-ref">alt</span> text, enabling screen readers to interpret visual information. Furthermore, I enforced strict contrast ratios in the global CSS; text elements use high-contrast whites and light greys against the deep dark background to assist users with visual impairments. Semantic tags were used strictly for their intended structural purposes, avoiding the misuse of <span class="code-ref">&lt;div&gt;</span> tags where <span class="code-ref">&lt;article&gt;</span> or <span class="code-ref">&lt;section&gt;</span> was more appropriate.</p>
+            </section>
+
+            <section id="janet" class="editor-section">
+                <h2>5. JANET Compliance</h2>
+                <p>The website strictly adheres to the JANET Acceptable Use Policy. All content focuses academically and constructively on SDG 16 (Peace, Justice, and Strong Institutions) without engaging in defamatory, offensive, or politically partisan material. The site does not host commercial advertising, nor does it consume excessive network bandwidth (all images are highly compressed and appropriately sized). Furthermore, all external visual assets were sourced from royalty-free platforms (Unsplash) and are fully referenced to respect intellectual property rights.</p>
+            </section>
+
+            <section id="meetings" class="editor-section">
+                <h2>6. Group Meetings & Contribution Log</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date / Format</th>
+                            <th>Objective</th>
+                            <th>Attended?</th>
+                            <th>My Individual Contribution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12 Feb 2026<br>(Face-to-Face)</td>
+                            <td>Agree on SDG topic and assign Student roles.</td>
+                            <td>Yes</td>
+                            <td>I advocated for SDG 16 and volunteered for the Implementation Lead (Student 1) role to handle the global CSS.</td>
+                        </tr>
+                        <tr>
+                            <td>19 Feb 2026<br>(Online - Discord)</td>
+                            <td>Finalize color palette, fonts, and wireframe the Home Page.</td>
+                            <td>Yes</td>
+                            <td>I presented a mockup of the "cyber-glass" dark theme and shared the initial `style.css` draft with the team.</td>
+                        </tr>
+                        <tr>
+                            <td>26 Feb 2026<br>(Online - Discord)</td>
+                            <td>Review Splash screen integration and Gallery logic.</td>
+                            <td>Yes</td>
+                            <td>I helped Student 2 format their Splash background to fit the rubric and drafted the JavaScript modal logic for my Gallery.</td>
+                        </tr>
+                        <tr>
+                            <td>05 Mar 2026<br>(Face-to-Face)</td>
+                            <td>Content page drafting and internal link testing.</td>
+                            <td>Yes</td>
+                            <td>I tested the internal Table of Contents anchor links and distributed the header scroll-glitch fix to the team.</td>
+                        </tr>
+                        <tr>
+                            <td>12 Mar 2026<br>(Online - Discord)</td>
+                            <td>Cross-page navigation audit.</td>
+                            <td>Yes</td>
+                            <td>I verified that all teammates had correctly applied the `class="active"` CSS logic to their respective navbar links.</td>
+                        </tr>
+                        <tr>
+                            <td>18 Mar 2026<br>(Hybrid)</td>
+                            <td>Final W3C validation checks and ZIP compilation.</td>
+                            <td>Yes</td>
+                            <td>I ran all my pages through the W3C validator, documented the zero-error results, and prepared my final Page Editor.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="references" class="editor-section">
+                <h2>7. References</h2>
+                <ul>
+                    <li>University of Westminster. (2025). <i>Coursework Specification (2025/26): Website Design and Development</i>.</li>
+                    <li>Unsplash. (2026). Royalty-free imagery for UI components. Retrieved from <a href="https://unsplash.com" style="color: var(--accent-cyan);">https://unsplash.com</a></li>
+                    <li>W3C Markup Validation Service. (2026). Retrieved from <a href="https://validator.w3.org/" style="color: var(--accent-cyan);">https://validator.w3.org/</a></li>
+                </ul>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Usmaan Imran</p>
+                <p><strong>Student ID:</strong> 20240530</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST1.html">Page Editor</a></li>
+                    <li><a href="validation_ST1.html">Validation Page</a></li>
+                    <li><a href="#accessibility">Accessibility & Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty | Peace & Justice Initiative.</p>
+        </div>
+    </footer>
+
+    <script>
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80 && !header.classList.contains('header-scrolled')) { header.classList.add('header-scrolled'); } 
+            else if (window.scrollY < 20 && header.classList.contains('header-scrolled')) { header.classList.remove('header-scrolled'); }
+        });
+    </script>
+</body>
+</html>

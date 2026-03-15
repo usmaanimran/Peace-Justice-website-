@@ -1,0 +1,205 @@
+/* ==========================================
+   TEAM SHARED GLOBAL STYLES (DO NOT MODIFY)
+   ==========================================
+   Student 1 (Usmaan Imran) is responsible for this section. 
+   Teammates MUST NOT change these variables, shared 
+   components, or layout rules to ensure consistency.
+   ========================================== */
+   
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+    /* Core Color Palette */
+    --bg-dark: #030508;       
+    --accent-cyan: #00f0ff;   
+    --accent-purple: #7000ff; 
+    --accent-glow: #38bdf8;
+    
+    
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Glassmorphism Variables */
+    --glass-bg: rgba(15, 20, 35, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Global Reset & Smooth Scroll Foundation */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+   
+    scroll-behavior: smooth; 
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.15), transparent 40%);
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
+    background-size: cover;       
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================
+   CUSTOM "GLASS" SCROLLBAR
+   Provides a premium, ultra-thin aesthetic
+   ========================================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { 
+    background: rgba(3, 5, 8, 0.5); 
+    backdrop-filter: blur(10px); 
+}
+::-webkit-scrollbar-thumb { 
+    background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple)); 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3); /* Base glow */
+    transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover { 
+    background: linear-gradient(180deg, #fff, var(--accent-cyan)); 
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.8); /* Intensified glow on hover */
+}
+
+/* Text Gradient Utility */
+.text-gradient {
+    background: linear-gradient(90deg, var(--accent-cyan), #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* ==========================================
+   SHARED COMPONENTS (Cards & Layout)
+   ========================================== */
+.card-container { display: flex; flex-wrap: wrap; gap: 35px; justify-content: center; padding: 20px; perspective: 1000px; }
+
+/* 3D Tilt Effect applied to cards */
+.card { 
+    background: var(--glass-bg); 
+    border: 1px solid var(--glass-border); 
+    border-radius: 16px; 
+    padding: 25px; 
+    width: 340px; 
+    backdrop-filter: blur(16px); 
+    -webkit-backdrop-filter: blur(16px); 
+    
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    position: relative; 
+    overflow: hidden; 
+    transform-style: preserve-3d;
+}
+.card::before { 
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; 
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent); opacity: 0.5; 
+}
+
+.card:hover { 
+    transform: translateY(-12px) rotateX(2deg) rotateY(-2deg) scale(1.02); 
+    border-color: rgba(0, 240, 255, 0.4); 
+    box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.6), 5px -5px 20px rgba(0, 240, 255, 0.15); 
+    z-index: 10;
+}
+.card h3 { color: var(--text-main); font-family: var(--font-heading); margin-bottom: 12px; font-size: 1.5rem; }
+.card img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+.card p { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); }
+
+/* ==========================================
+   NAVIGATION & HEADER
+   ========================================== */
+/* ==========================================
+   NAVIGATION & HEADER (Fixed 1px Flash)
+   ========================================== */
+.site-header { 
+    position: sticky; top: 0; z-index: 1000; 
+    background: transparent; 
+    padding: 30px 0; width: 100%; max-width: 100%; margin: 0 auto; 
+    border: 1px solid transparent; 
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+.site-header.header-scrolled { 
+    background: rgba(15, 20, 35, 0.75); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); 
+    padding: 12px 0; width: 85%; max-width: 1050px; margin-top: 15px;
+    border-radius: 40px; 
+    border: 1px solid var(--glass-border); 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 240, 255, 0.15); 
+}
+.nav-container { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; transition: all 0.4s ease; }
+.header-scrolled .nav-container { width: 95%; }
+
+.logo-link { display: flex; align-items: center; text-decoration: none; color: var(--text-main); }
+.nav-logo { height: 50px; margin-right: 15px; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5)); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.nav-logo:hover { filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.9)); transform: rotate(-10deg) scale(1.1); }
+.header-scrolled .nav-logo { height: 32px; }
+
+.site-title { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; letter-spacing: 0.5px; transition: font-size 0.4s ease; }
+.header-scrolled .site-title { font-size: 1.3rem; }
+
+.main-nav ul { list-style: none; display: flex; gap: 30px; transition: gap 0.4s ease; }
+.header-scrolled .main-nav ul { gap: 20px; }
+.main-nav a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 5px 0; position: relative; transition: color 0.3s ease; }
+
+
+.main-nav a::after { 
+    content: ''; position: absolute; width: 0%; height: 2px; bottom: -4px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-purple), transparent); 
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease; 
+}
+.main-nav a:hover { color: #fff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); }
+.main-nav a:hover::after, .main-nav a.active::after { width: 100%; box-shadow: 0 0 15px var(--accent-cyan); }
+.main-nav a.active { color: var(--accent-cyan); text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
+
+
+.page-fade-in { 
+    animation: scaleBlurFade 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
+}
+@keyframes scaleBlurFade { 
+    0% { opacity: 0; filter: blur(20px); transform: scale(0.96); } 
+    100% { opacity: 1; filter: blur(0); transform: scale(1); } 
+}
+
+
+.reveal-element { 
+    opacity: 0; 
+    filter: blur(15px); 
+    transform: translateY(50px) scale(0.95); 
+    transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1); 
+    will-change: transform, opacity, filter;
+}
+.reveal-element.visible { 
+    opacity: 1; 
+    filter: blur(0); 
+    transform: translateY(0) scale(1); 
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.25s; }
+.delay-3 { transition-delay: 0.4s; }
+.delay-4 { transition-delay: 0.55s; }
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+.site-footer { background-color: rgba(2, 3, 5, 0.9); backdrop-filter: blur(10px); border-top: 1px solid var(--glass-border); padding: 50px 0 20px 0; margin-top: auto; color: var(--text-muted); }
+.footer-container { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.footer-container h3 { color: var(--text-main); font-family: var(--font-heading); margin-bottom: 15px; font-size: 1.2rem; }
+.student-info p { margin-bottom: 8px; font-size: 0.95rem; }
+.footer-links ul { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a { color: var(--accent-cyan); text-decoration: none; font-size: 0.95rem; transition: all 0.3s ease; }
+.footer-links a:hover { color: #fff; text-shadow: 0 0 8px var(--accent-cyan); letter-spacing: 1px; }
+.footer-bottom { text-align: center; padding-top: 20px; font-size: 0.85rem; opacity: 0.5; }
+
+
+
