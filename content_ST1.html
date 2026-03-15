@@ -7,116 +7,134 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .article-container { max-width: 900px; margin: 40px auto 80px; padding: 0 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; backdrop-filter: blur(10px); padding: 40px; }
+        
         .table-of-contents { background: rgba(0, 240, 255, 0.05); border-left: 4px solid var(--accent-cyan); padding: 20px 25px; margin: 30px 0; border-radius: 0 8px 8px 0; }
         .table-of-contents h2 { margin-bottom: 15px; font-family: var(--font-heading); color: var(--text-main); font-size: 1.5rem; }
         .table-of-contents ul { list-style: none; padding: 0; }
         .table-of-contents li { margin-bottom: 10px; }
-        .table-of-contents a { color: var(--accent-cyan); text-decoration: none; transition: color 0.3s; font-weight: 600; }
-        .table-of-contents a:hover { color: var(--accent-purple); text-decoration: underline; }
+        .table-of-contents a { color: var(--accent-cyan); text-decoration: none; transition: all 0.3s ease; font-weight: 600; }
+        
+        .table-of-contents a:hover { color: var(--accent-purple); text-shadow: 0 0 8px rgba(112, 0, 255, 0.6); padding-left: 5px; }
+        
         .content-section { margin-bottom: 50px; padding-top: 20px; }
-        .content-section h2 { font-family: var(--font-heading); color: var(--accent-cyan); font-size: 2rem; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+        .content-section h2 { font-family: var(--font-heading); color: var(--accent-cyan); font-size: 2rem; margin-bottom: 20px; border-bottom: 1px dashed var(--glass-border); padding-bottom: 10px; }
         .content-section p { line-height: 1.8; color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; }
-        .styled-image { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.1); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6); margin: 20px 0; transition: transform 0.4s ease, border-color 0.4s ease; }
-        .styled-image:hover { transform: scale(1.02); border-color: var(--accent-purple); }
-        .go-top-btn { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-weight: bold; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0, 240, 255, 0.4); z-index: 1000; transition: all 0.3s ease; }
-        .go-top-btn:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 240, 255, 0.6); color: #fff; }
+        
+        .styled-image { width: 100%; height: auto; max-height: 400px; object-fit: cover; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.05); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6); margin: 20px 0; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .styled-image:hover { transform: scale(1.03) translateY(-5px); border-color: rgba(0, 240, 255, 0.5); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.2); }
+
+        /* Go To Top Button - Always visible, fixed position */
+        .go-top-btn { 
+            position: fixed; bottom: 30px; right: 30px; 
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); 
+            color: #fff; width: 55px; height: 55px; border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; 
+            text-decoration: none; font-weight: bold; font-size: 1.5rem; 
+            z-index: 1000; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.4); 
+        }
+        
+        .go-top-btn:hover { 
+            transform: scale(1.15) translateY(-5px); 
+            box-shadow: 0 10px 30px rgba(112, 0, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.8); 
+        }
     </style>
 </head>
-<body class="page-fade-in" id="top"> 
 
-    <header class="site-header">
-        <div class="nav-container">
-            <a href="home.html" class="logo-link">
-                <img src="crow.png" alt="Peace and Justice Logo" class="nav-logo">
-                <span class="site-title">Peace <span class="text-gradient">&</span> Justice</span>
-            </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="ais.html">Action Simulator</a></li>
-                    <li><a href="feedback.html">Feedback</a></li>
-                    <li><a href="team.html">Team</a></li>
-                    <li><a href="sitemap.html">Sitemap</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body id="top"> 
 
-    <main class="main-content">
-        <article class="article-container">
-            <h1 style="font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 20px;">The Fight Against <span class="text-gradient">Institutional Corruption</span></h1>
-            <p style="text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">A deep dive into how systemic bribery, fraud, and lack of transparency undermine Sustainable Development Goal 16, and what it takes to rebuild public trust.</p>
+    <div class="page-fade-in"> 
 
-            <nav class="table-of-contents">
-                <h2>Table of Contents</h2>
-                <ul>
-                    <li><a href="#introduction">&rarr; 1. The Hidden Cost of Corruption</a></li>
-                    <li><a href="#judicial-integrity">&rarr; 2. Judicial Integrity & Access to Justice</a></li>
-                    <li><a href="#tech-solutions">&rarr; 3. Technological Transparency</a></li>
-                    <li><a href="#taking-action">&rarr; 4. Taking Action as Citizens</a></li>
-                </ul>
-            </nav>
+        <header class="site-header">
+            <div class="nav-container">
+                <a href="home.html" class="logo-link">
+                    <img src="crow.png" alt="Peace and Justice Logo" class="nav-logo">
+                    <span class="site-title">Peace <span class="text-gradient">&</span> Justice</span>
+                </a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="ais.html">Action Simulator</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="sitemap.html">Sitemap</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
-            <section id="introduction" class="content-section">
-                <h2>1. The Hidden Cost of Corruption</h2>
-                <p>Corruption is often described as a victimless crime, a quiet exchange of envelopes in back rooms. However, the reality is that institutional corruption steals resources directly from the public. When governments and large corporations engage in bribery, embezzlement, or tax evasion, the funds that should be allocated to healthcare, education, and infrastructure are drained away.</p>
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000" alt="Data charts showing financial loss" class="styled-image">
-                <p>According to international economic monitors, billions of dollars are lost annually to corrupt practices. This lack of transparency doesn't just damage the economy; it actively destabilizes societies, eroding the public's trust in leadership and creating an environment where inequality can rapidly expand.</p>
-            </section>
+        <main class="main-content">
+            <article class="article-container">
+    <h1 class="reveal-element" style="font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 20px;">The Fight Against <span class="text-gradient">Institutional Corruption</span></h1>
+    <p class="reveal-element delay-1" style="text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">A deep dive into how systemic bribery, fraud, and lack of transparency undermine Sustainable Development Goal 16, and what it takes to rebuild public trust.</p>
+                <nav class="table-of-contents reveal-element delay-2">
+                    <h2>Table of Contents</h2>
+                    <ul>
+                        <li><a href="#introduction">&rarr; 1. The Hidden Cost of Corruption</a></li>
+                        <li><a href="#judicial-integrity">&rarr; 2. Judicial Integrity & Access to Justice</a></li>
+                        <li><a href="#tech-solutions">&rarr; 3. Technological Transparency</a></li>
+                        <li><a href="#taking-action">&rarr; 4. Taking Action as Citizens</a></li>
+                    </ul>
+                </nav>
 
-            <section id="judicial-integrity" class="content-section">
-                <h2>2. Judicial Integrity & Access to Justice</h2>
-                <p>For SDG 16 to be achieved, the law must apply equally to everyone. Unfortunately, when the justice system itself becomes compromised, the most vulnerable populations suffer the most. If judges can be bought, or if legal representation is only effective for the wealthy, the entire concept of "Justice" collapses.</p>
-                <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=1000" alt="Wooden gavel resting on a sounding block" class="styled-image">
-                <p>Reforming judicial integrity involves strict oversight, the protection of whistleblowers, and ensuring that legal processes are fully transparent. Independent anti-corruption commissions play a vital role in auditing these systems, ensuring that no individual, regardless of their political or financial power, sits above the law.</p>
-            </section>
+                <section id="introduction" class="content-section reveal-element">
+                    <h2>1. The Hidden Cost of Corruption</h2>
+                    <p>Corruption is often described as a victimless crime, a quiet exchange of envelopes in back rooms. However, the reality is that institutional corruption steals resources directly from the public. When governments and large corporations engage in bribery, embezzlement, or tax evasion, the funds that should be allocated to healthcare, education, and infrastructure are drained away.</p>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000" alt="Data charts showing financial loss" class="styled-image">
+                    <p>According to international economic monitors, billions of dollars are lost annually to corrupt practices. This lack of transparency doesn't just damage the economy; it actively destabilizes societies, eroding the public's trust in leadership and creating an environment where inequality can rapidly expand.</p>
+                </section>
 
-            <section id="tech-solutions" class="content-section">
-                <h2>3. Technological Transparency</h2>
-                <p>One of the most powerful weapons against institutional corruption in the modern era is technology. Digital record-keeping, open-source governmental budgets, and blockchain-based public procurement systems make it increasingly difficult for funds to "disappear" without a trace.</p>
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000" alt="Digital network glowing over a map of the world" class="styled-image">
-                <p>By moving public services online—from issuing driver's licenses to registering businesses—governments can effectively eliminate the "middlemen" who traditionally demand bribes for basic services. E-governance portals ensure that every transaction is logged, auditable, and accessible to journalists and watchdog organizations.</p>
-            </section>
+                <section id="judicial-integrity" class="content-section reveal-element">
+                    <h2>2. Judicial Integrity & Access to Justice</h2>
+                    <p>For SDG 16 to be achieved, the law must apply equally to everyone. Unfortunately, when the justice system itself becomes compromised, the most vulnerable populations suffer the most. If judges can be bought, or if legal representation is only effective for the wealthy, the entire concept of "Justice" collapses.</p>
+                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=1000" alt="Wooden gavel resting on a sounding block" class="styled-image">
+                    <p>Reforming judicial integrity involves strict oversight, the protection of whistleblowers, and ensuring that legal processes are fully transparent. Independent anti-corruption commissions play a vital role in auditing these systems, ensuring that no individual, regardless of their political or financial power, sits above the law.</p>
+                </section>
 
-            <section id="taking-action" class="content-section">
-                <h2>4. Taking Action as Citizens</h2>
-                <p>Combating systemic corruption requires more than just new laws; it requires a cultural shift driven by active citizens. While the problem seems impossibly large, everyday individuals have immense power to force institutional change through collective action and uncompromising ethics.</p>
-                <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&q=80&w=1000" alt="A group of people standing together in solidarity" class="styled-image">
-                <p>Citizens must engage with local politics, demand transparent spending from their representatives, and utilize freedom of information requests to audit public works. Furthermore, supporting investigative journalism and non-governmental organizations dedicated to monitoring human rights ensures that corrupt practices cannot remain hidden in the dark.</p>
-            </section>
-        </article>
-    </main>
+                <section id="tech-solutions" class="content-section reveal-element">
+                    <h2>3. Technological Transparency</h2>
+                    <p>One of the most powerful weapons against institutional corruption in the modern era is technology. Digital record-keeping, open-source governmental budgets, and blockchain-based public procurement systems make it increasingly difficult for funds to "disappear" without a trace.</p>
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000" alt="Digital network glowing over a map of the world" class="styled-image">
+                    <p>By moving public services online—from issuing driver's licenses to registering businesses—governments can effectively eliminate the "middlemen" who traditionally demand bribes for basic services. E-governance portals ensure that every transaction is logged, auditable, and accessible to journalists and watchdog organizations.</p>
+                </section>
+
+                <section id="taking-action" class="content-section reveal-element">
+                    <h2>4. Taking Action as Citizens</h2>
+                    <p>Combating systemic corruption requires more than just new laws; it requires a cultural shift driven by active citizens. While the problem seems impossibly large, everyday individuals have immense power to force institutional change through collective action and uncompromising ethics.</p>
+                    <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&q=80&w=1000" alt="A group of people standing together in solidarity" class="styled-image">
+                    <p>Citizens must engage with local politics, demand transparent spending from their representatives, and utilize freedom of information requests to audit public works. Furthermore, supporting investigative journalism and non-governmental organizations dedicated to monitoring human rights ensures that corrupt practices cannot remain hidden in the dark.</p>
+                </section>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="student-info">
+                    <h3>Page Author</h3>
+                    <p><strong>Name:</strong> Usmaan Imran</p>
+                    <p><strong>Student ID:</strong> 20240530</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Developer Links</h3>
+                    <ul>
+                        <li><a href="pageEditor_ST1.html">Page Editor</a></li>
+                        <li><a href="validation_ST1.html">Validation Page</a></li>
+                        <li><a href="#accessibility">Accessibility & Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Humpty Dumpty | Peace & Justice Initiative.</p>
+            </div>
+        </footer>
+
+    </div>
 
     <a href="#top" class="go-top-btn" title="Go to top">&uarr;</a>
 
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="student-info">
-                <h3>Page Author</h3>
-                <p><strong>Name:</strong> Usmaan Imran</p>
-                <p><strong>Student ID:</strong> 20240530</p>
-            </div>
-            <div class="footer-links">
-                <h3>Developer Links</h3>
-                <ul>
-                    <li><a href="pageEditor_ST1.html">Page Editor</a></li>
-                    <li><a href="validation_ST1.html">Validation Page</a></li>
-                    <li><a href="#accessibility">Accessibility & Compliance</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Humpty Dumpty | Peace & Justice Initiative.</p>
-        </div>
-    </footer>
+    <script src="main.js"></script>
 
-    <script>
-        const header = document.querySelector('.site-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 80 && !header.classList.contains('header-scrolled')) { header.classList.add('header-scrolled'); } 
-            else if (window.scrollY < 20 && header.classList.contains('header-scrolled')) { header.classList.remove('header-scrolled'); }
-        });
-    </script>
 </body>
 </html>
