@@ -1,60 +1,65 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // UI Elements
-    const titleElement = document.getElementById("typewriterText");
-    const fadeElements = document.querySelectorAll(".fade-in-element");
     const countdownText = document.getElementById("countdownText");
     const skipBtn = document.getElementById("skipBtn");
-    const gavel = document.getElementById("gavel");
-    const body = document.getElementById("mainBody");
+    const splashWrapper = document.getElementById("splashWrapper");
+    const splashBg = document.querySelector(".splash-bg");
+    const flashOverlay = document.getElementById("flashOverlay");
+    const particlesContainer = document.getElementById("particles-container");
 
-    // Typewriter Effect Logic
-    const textToType = "Peace & Justice";
-    let charIndex = 0;
-    const typingSpeed = 70; 
-
-    titleElement.classList.add("typewriter-cursor");
-
-    function typeWriter() {
-        if (charIndex < textToType.length) {
-            titleElement.textContent += textToType.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeWriter, typingSpeed);
-        } else {
+    //Particles
+    function createParticles() {
+        const particleCount = 30; // Amount
+        for (let i = 0; i < particleCount; i++) {
+            let particle = document.createElement("div");
+            particle.classList.add("particle");
             
-            fadeElements.forEach(el => el.classList.add("visible"));
-            startCountdown();
+            // Randomize position
+            let size = Math.random() * 4 + 1; 
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.animationDuration = `${Math.random() * 3 + 3}s`; 
+            particle.style.animationDelay = `${Math.random() * 2}s`;
+            
+            particlesContainer.appendChild(particle);
         }
     }
+    createParticles();
 
-    setTimeout(typeWriter, 200);
-
-    // Visible Countdown Logic
-    let timeLeft = 4;
-    function startCountdown() {
-        countdownText.textContent = `Entering site in ${timeLeft}...`;
-        const interval = setInterval(() => {
-            timeLeft--;
-            if (timeLeft > 0) {
-                countdownText.textContent = `Entering site in ${timeLeft}...`;
-            } else {
-                clearInterval(interval);
-                
-            }
-        }, 1000);
+    // Exit Function 
+    function triggerHyperDive() {
+        splashWrapper.classList.add("warp-card");
+        splashBg.classList.add("warp-bg");
+        if (flashOverlay) flashOverlay.classList.add("flash-active");
     }
 
-    // Manual Skip
+    // Countdown 
+    let timeLeft = 4;
+    const countdownInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft > 0) {
+            countdownText.textContent = `Entering site in ${timeLeft}...`;
+        } else {
+            countdownText.textContent = "Redirecting...";
+            clearInterval(countdownInterval);
+        }
+    }, 1000);
+
+    // Auto Transitio
+    setTimeout(() => {
+        triggerHyperDive();
+    }, 3400);
+
+    // Skip Override
     if (skipBtn) {
         skipBtn.addEventListener("click", (e) => {
             e.preventDefault(); 
-            
-            if (gavel) gavel.classList.add("gavel-active");
-            if (body) body.classList.add("shake");
+            clearInterval(countdownInterval);
             
             
-            document.body.classList.add("page-fade-out");
-
-            // Wait for the fade out to finish 
+            triggerHyperDive();
+            
+            
             setTimeout(() => {
                 window.location.href = "home.html";
             }, 500); 
