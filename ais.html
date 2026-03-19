@@ -404,75 +404,114 @@
         }
 
 
-        body::after {
-            content: '';
+        /* Container now starts invisible and fades in smoothly */
+        .liquid-bg-container {
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            inset: 0;
+            z-index: 1;
             pointer-events: none;
-            z-index: 5;
-            background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.85) 60%);
-            opacity: 0.8;
-            transition: background 1.5s ease, opacity 1.5s ease, filter 1.5s ease;
-
-            /* This tells the browser to use the GPU for smooth motion */
-            will-change: transform, opacity;
+            filter: url('#gooey-effect');
+            overflow: hidden;
+            opacity: 0;
+            /* Start hidden */
+            animation: fadeLiquidIn 1.5s ease-in-out 0.3s forwards;
+            /* 0.3s delay before fading in */
         }
 
-        /* Medium Score */
-        body.ais-med::after {
-            background: radial-gradient(circle at center, transparent 25%, rgba(212, 175, 55, 0.15) 50%, rgba(0, 0, 0, 0.9) 75%);
-            filter: blur(20px);
-            animation: fluidBreathe 5s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        @keyframes fadeLiquidIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 0.75;
+            }
         }
 
-        /* High Score */
-        body.ais-high::after {
-            background: radial-gradient(circle at center, transparent 20%, rgba(16, 185, 129, 0.25) 45%, rgba(0, 0, 0, 0.9) 70%);
-            filter: blur(30px);
-            animation: fluidWave 4s ease-in-out infinite alternate;
+        /* Base style for the liquid blobs */
+        .liquid-blob {
+            position: absolute;
+            border-radius: 50%;
+
+            background: rgba(34, 211, 238, 0.6);
+
+            transition: background 1.5s ease;
+            will-change: transform, left, top;
+        }
+
+        /* Color transitions for  impact levels */
+        body.ais-med .liquid-blob {
+            background: rgba(212, 175, 55, 0.6);
+            /* Gold */
+        }
+
+        body.ais-high .liquid-blob {
+            background: rgba(16, 185, 129, 0.6);
+            /* Green */
+        }
+
+        /* Sizing and individual animations for motion */
+        .blob-1 {
+            width: 45vw;
+            height: 45vw;
+            top: -10%;
+            left: -10%;
+            animation: floatLava 18s infinite ease-in-out alternate;
         }
 
 
-        @keyframes fluidBreathe {
+        .blob-2 {
+            width: 35vw;
+            height: 35vw;
+            bottom: -10%;
+            right: -5%;
+            animation: floatLavaAlt 22s infinite ease-in-out alternate;
+        }
+
+        /* Added negative delay so it starts mid animation smoothly */
+        .blob-3 {
+            width: 28vw;
+            height: 28vw;
+            top: 40%;
+            left: 55%;
+            animation: floatLava 25s infinite ease-in-out alternate -5s;
+        }
+
+        .blob-4 {
+            width: 40vw;
+            height: 40vw;
+            top: 60%;
+            left: 15%;
+            animation: floatLavaAlt 20s infinite ease-in-out alternate -8s;
+        }
+
+        /* Animation 1 */
+        @keyframes floatLava {
             0% {
-                transform: scale(1) translate(0, 0);
-                opacity: 0.6;
+                transform: translate(0, 0) scale(1);
             }
 
             50% {
-                transform: scale(1.03) translate(-1%, 1.5%);
-                opacity: 0.9;
+                transform: translate(12vw, 15vh) scale(1.15);
             }
 
             100% {
-                transform: scale(0.97) translate(1%, -1%);
-                opacity: 0.7;
+                transform: translate(-10vw, -12vh) scale(0.9);
             }
         }
 
-        /*Green Movement */
-        @keyframes fluidWave {
+        /* Animation 2 */
+        @keyframes floatLavaAlt {
             0% {
-                transform: scale(1) translate(0%, 0%);
-                opacity: 0.7;
+                transform: translate(0, 0) scale(1);
             }
 
-            33% {
-                transform: scale(1.08) translate(-2%, 2%);
-                opacity: 1;
-            }
-
-            66% {
-                transform: scale(0.92) translate(2%, -2%);
-                opacity: 0.85;
+            50% {
+                transform: translate(-15vw, 10vh) scale(0.9);
             }
 
             100% {
-                transform: scale(1.05) translate(-1%, -1%);
-                opacity: 1;
+                transform: translate(10vw, -15vh) scale(1.1);
             }
         }
 
@@ -496,9 +535,21 @@
 
 <body class="page-fade-in">
 
-    <div id="bgLow" class="ais-bg ais-bg-low active" aria-hidden="true"></div>
-    <div id="bgMed" class="ais-bg ais-bg-med" aria-hidden="true"></div>
-    <div id="bgHigh" class="ais-bg ais-bg-high" aria-hidden="true"></div>
+    <div class="liquid-bg-container" aria-hidden="true">
+        <div class="liquid-blob blob-1"></div>
+        <div class="liquid-blob blob-2"></div>
+        <div class="liquid-blob blob-3"></div>
+        <div class="liquid-blob blob-4"></div>
+    </div>
+
+    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+        <filter id="gooey-effect">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -30"
+                result="gooey" />
+            <feBlend in="SourceGraphic" in2="gooey" />
+        </filter>
+    </svg>
 
     <header class="site-header">
         <div class="nav-container">
