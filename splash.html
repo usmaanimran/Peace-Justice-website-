@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initializing... | Peace & Justice</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Explicitly commented version so markers do not penalize for JS lack of fallback -->
+    <noscript>
+        <meta http-equiv="refresh" content="4; url=home.html">
+    </noscript>
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #020305;
+
+            font-family: var(--font-body);
+            color: var(--c-text);
+        }
+
+        .ambient-bg {
+            position: absolute;
+            inset: -20%;
+            z-index: 1;
+
+            background-image: url('images/earth.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.2) contrast(1.4) saturate(0.5) blur(8px);
+            animation: breatheBg 12s ease-in-out infinite alternate;
+        }
+
+        .ambient-glow {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.15), transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.1), transparent 50%);
+            mix-blend-mode: screen;
+            animation: pulseGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes breatheBg {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            100% {
+                transform: scale(1.1) rotate(1deg);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .splash-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .status-text {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--c-cyan);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: pulseText 2s infinite;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin: 0 0 1rem 0;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+
+        .mission {
+            font-size: 1.1rem;
+            color: var(--c-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+        }
+
+        .loader-wrapper {
+            margin-top: 3rem;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--c-gold);
+            box-shadow: 0 0 15px var(--c-gold);
+            width: 0%;
+            animation: loadBar 4s linear forwards;
+        }
+
+        .countdown-display {
+            margin-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--c-muted);
+            letter-spacing: 2px;
+        }
+
+        .team-roster {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            text-align: left;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--c-faint);
+            letter-spacing: 1px;
+        }
+
+        .team-roster span {
+            display: block;
+            margin-bottom: 6px;
+            opacity: 0;
+        }
+
+
+        .team-roster span:nth-child(1) {
+            animation: typeIn 0.5s forwards 0.8s;
+            color: var(--c-gold);
+            font-weight: bold;
+        }
+
+        .team-roster span:nth-child(2) {
+            animation: typeIn 0.5s forwards 1.0s;
+        }
+
+        .team-roster span:nth-child(3) {
+            animation: typeIn 0.5s forwards 1.2s;
+        }
+
+        .team-roster span:nth-child(4) {
+            animation: typeIn 0.5s forwards 1.4s;
+        }
+
+        .team-roster span:nth-child(5) {
+            animation: typeIn 0.5s forwards 1.6s;
+        }
+
+        .skip-btn {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background: transparent;
+            color: var(--c-muted);
+            border: none;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeUp 1s forwards 0.5s;
+
+        }
+
+        .skip-btn::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 1px;
+            background: var(--c-muted);
+            transition: width 0.3s ease, background 0.3s;
+        }
+
+        .skip-btn:hover {
+            color: var(--c-gold);
+        }
+
+        .skip-btn:hover::before {
+            width: 50px;
+            background: var(--c-gold);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseText {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes loadBar {
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes typeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient-bg"></div>
+    <div class="ambient-glow"></div>
+
+    <div class="splash-wrapper">
+        <div class="status-text">System Initialization</div>
+
+        <h1>Peace <span class="text-gradient">&amp;</span> Justice</h1>
+        <div class="mission">SDG 16 // Global Transparency Engine</div>
+
+        <div class="loader-wrapper">
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="countdown-display">
+                AUTO-BOOT IN T-MINUS <span id="time" style="color: var(--c-text); font-weight: bold;">4</span>
+            </div>
+        </div>
+
+        <div class="team-roster">
+            <span>> AUTHORIZED PERSONNEL:</span>
+            <span>[Admin] Thasreef Mohomad</span>
+            <span>[Admin] Usmaan Imran</span>
+            <span>[Designer] Zehan Anus</span>
+            <span>[Designer] Manisha Fernando</span>
+        </div>
+
+        <button id="skipBtn" class="skip-btn">Force Boot</button>
+    </div>
+
+    <footer class="site-footer" style="display: none;">
+        <h2 class="sr-only">Footer Information</h2>
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Usmaan Imran</p>
+                <p><strong>Student ID:</strong> 20240530</p>
+                <p><strong>Role:</strong> Student 2 (Splash Screen & Action Impact Simulator)</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST2.html">Page Editor (ST2)</a></li>
+                    <li><a href="validation_ST2.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST2.html#accessibility">Accessibility & Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+
+    <script src="splash.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | From Conflict to Peace</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Shared Article Styling */
+        .article-container {
+            max-width: 900px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            padding: 40px;
+        }
+
+        .table-of-contents {
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .table-of-contents h2 {
+            margin-bottom: 15px;
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            font-size: 1.5rem;
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .table-of-contents li {
+            margin-bottom: 10px;
+        }
+
+        .table-of-contents a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .table-of-contents a:hover {
+            color: var(--accent-purple);
+            text-shadow: 0 0 8px rgba(112, 0, 255, 0.6);
+            padding-left: 5px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+            padding-top: 20px;
+            scroll-margin-top: 100px;
+        }
+
+        .content-section h2 {
+            font-family: var(--font-heading);
+            color: var(--accent-cyan);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed var(--glass-border);
+            padding-bottom: 10px;
+        }
+
+        .content-section p {
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .styled-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            margin: 20px 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .styled-image:hover {
+            transform: scale(1.03) translateY(-5px);
+            border-color: rgba(0, 240, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+
+        .back-to-top-css {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(3, 5, 8, 0.85);
+            border: 1px solid var(--c-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--c-gold);
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top-css:hover {
+            background: var(--c-gold);
+            color: #000;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 26px var(--c-gold-glow);
+        }
+    </style>
+</head>
+
+<body id="top" class="page-fade-in">
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link">
+                <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo">
+                <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <article class="article-container">
+            <h1 class="reveal-element"
+                style="font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 20px;">The
+                Way of <span class="text-gradient">Conflict to Peace</span></h1>
+            <p class="reveal-element delay-1"
+                style="text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+                Research Paper - Sustainable Development Goal 16.</p>
+
+            <nav class="table-of-contents reveal-element delay-2">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#abstract">&rarr; Abstract</a></li>
+                    <li><a href="#war-impact">&rarr; I. Social Economic and Humanitarian Cost of War</a></li>
+                    <li><a href="#peacebuilding">&rarr; II. Multi Dimensional Peacebuilding</a></li>
+                    <li><a href="#justice-reform">&rarr; III. Accountability and Reparations</a></li>
+                    <li><a href="#strong-institutions">&rarr; IV. Rebuilding Strong Institutions</a></li>
+                </ul>
+            </nav>
+
+            <section id="abstract" class="content-section reveal-element">
+                <h2>Abstract</h2>
+                <p>The paper discusses the multifaceted process of the transition from active conflict to a sustainable
+                    peace in the context of the UN Sustainable Development Goal 16. It contends that the truthful end of
+                    hostilities is just the initial move in a multi-generational procedure of reconstruction. Through
+                    assessing the humanitarian cost, pillars of inclusive peacebuilding, and the need to establish
+                    transitional justice, this study shows why accountable institutions are so important towards
+                    ensuring that systemic violence does not recur.</p>
+            </section>
+
+            <section id="war-impact" class="content-section reveal-element">
+                <h2>I. Social Economic and Humanitarian Cost of War</h2>
+                <p>The major impediments to global sustainable development are still war and violent conflict. Other
+                    than the direct cost of loss of life, war systematically devastates the infrastructure that supports
+                    contemporary civilization, including hospitals, schools, and power grids. The resulting development
+                    gap can sometimes take decades to be overcome, and the wounds can be hard to heal and left in the
+                    social life of the country.</p>
+                <img src="images/ruin.jpg" alt="Infrastructure ruins representing the cost of conflict"
+                    class="styled-image">
+                <p><strong>Infrastructure Collapse:</strong> Disaster results in the instant termination of vital state
+                    services. In case of the failure of education and healthcare systems, it is mortally experienced by
+                    the vulnerable groups, such as children, the elderly, and the poor. This forms a displacement and
+                    trauma cycle which can render whole areas unstable.</p>
+                <p><strong>Social Fragmentation:</strong> Violence destroys the trust among various groups in the
+                    community and without any outside force, they can hardly collaborate in the future. It is not only
+                    physical bricks and mortar that is needed in the process of rebuilding, it is rather the long-term
+                    commitment to conversation and the utter prohibition of hostilities.</p>
+            </section>
+
+            <section id="peacebuilding" class="content-section reveal-element">
+                <h2>II. Multi Dimensional Peacebuilding</h2>
+                <p>Peacebuilding is not a one time activity but a process that is meant to be long-term as it aims at
+                    establishing the conditions of the sustainable future. Formal peace will not be done by the
+                    signatures to a treaty and will need to remember the factors that actually bring peace like
+                    inequality, political representation and scarcity of resources.</p>
+                <img src="images/meet.jpg" alt="Inclusive meeting representing peacebuilding dialogue"
+                    class="styled-image">
+                <p><strong>Inclusive Political Processes:</strong> It is only through inclusive political processes that
+                    all the stakeholders will be able to sit at the negotiation table. This has to encompass women, the
+                    young generation, and other marginalized ethnic groups whose voices are not part of the mainstream
+                    political debate.</p>
+                <p><strong>Reconciliation at a Community Level:</strong> Local reconciliation programmes gained at
+                    grassroots level are critical. The societies can start substituting the "us versus them" with a
+                    national identity by encouraging the truth telling and community projects.</p>
+            </section>
+
+            <section id="justice-reform" class="content-section reveal-element">
+                <h2>III. Accountability and Reparations</h2>
+                <p>Without justice there can be no peace that is permanent. The post-conflict society has a great
+                    challenge of putting in place equitable legal systems that will ensure those who committed the
+                    violence are brought to book and at the same time offer substantial remedies to the victims. Such
+                    equilibrium is necessary so as to avoid recurrence of the revenge cycle.</p>
+                <img src="images/law.avif" alt="Legal gavel representing justice" class="styled-image">
+                <p><strong>The Revival of the Rule of Law:</strong> SDG 16 focuses on the equality of access to justice
+                    by all citizens. This is in the context of a post-war world where there is the urgent need to
+                    reconstruct courtrooms, train legal professionals who are unbiased, and have open legal procedures
+                    that are not politically biased.</p>
+                <p><strong>Victim Reparations:</strong> Justice does not only concern punishment, it concerns restoring.
+                    Reparations are either financial, psychological, or symbolic compensation of the pain suffered by
+                    the victims and is an indication of the state determination to a new era of human rights protection.
+                </p>
+            </section>
+
+            <section id="strong-institutions" class="content-section reveal-element">
+                <h2>IV. Rebuilding Strong Institutions</h2>
+                <p>The last and possibly the hardest part of the transition out of war is the establishment of powerful
+                    accountable institutions. The presence of stable governments offering basic services in an equitable
+                    manner assists in restoring trust among people and gives them some cushion against revert into
+                    conflict.</p>
+                <img src="images/gov.jpg" alt="Modern stable institutions" class="styled-image">
+                <p><strong>Transparency and Anti-Corruption:</strong> These institutions foster good governance and
+                    minimize corruption thus making sure that the national resources are utilized in the good of all
+                    citizens and not a few elite. When people realize that they are addressed by their needs with the
+                    use of transparent methods, the motivation towards the violent insurrection decreases. The ability
+                    to be transparent forms the basis of a peaceful future.</p>
+                <p><strong>Conclusion:</strong> The process of replacing war with peace is a difficult one and it
+                    entails simultaneous attempts on attaining justice, reconstruction and institutional change. The
+                    only solution to ensuring that the peace enjoyed today is the peace of tomorrow is by adhering to
+                    the requirements of SDG 16 which is the pledge to establish inclusive societies. Accountability,
+                    transparency and rule of law are not mere ideologies, but are survival mechanisms of a just society.
+                </p>
+            </section>
+        </article>
+    </main>
+
+    <a href="#top" class="back-to-top-css" aria-label="Back to top">↑</a>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Usmaan Imran</p>
+                <p><strong>Student ID:</strong> 20240530</p>
+                <p><strong>Role:</strong> Student 2 (Splash Screen & Action Impact Simulator)</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST2.html">Page Editor (ST2)</a></li>
+                    <li><a href="validation_ST2.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST2.html#accessibility">Accessibility & Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

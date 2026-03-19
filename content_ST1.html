@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | Institutional Corruption</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .article-container {
+            max-width: 900px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            padding: 40px;
+        }
+
+        .table-of-contents {
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .table-of-contents h2 {
+            margin-bottom: 15px;
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            font-size: 1.5rem;
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .table-of-contents li {
+            margin-bottom: 10px;
+        }
+
+        .table-of-contents a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .table-of-contents a:hover {
+            color: var(--accent-purple);
+            text-shadow: 0 0 8px rgba(112, 0, 255, 0.6);
+            padding-left: 5px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+
+        .content-section h2 {
+            font-family: var(--font-heading);
+            color: var(--accent-cyan);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed var(--glass-border);
+            padding-bottom: 10px;
+        }
+
+        .content-section p {
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .styled-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            margin: 20px 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .styled-image:hover {
+            transform: scale(1.03) translateY(-5px);
+            border-color: rgba(0, 240, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+
+        .back-to-top-css {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(3, 5, 8, 0.85);
+            border: 1px solid var(--c-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--c-gold);
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top-css:hover {
+            background: var(--c-gold);
+            color: #000;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 26px var(--c-gold-glow);
+        }
+    </style>
+</head>
+
+<body id="top" class="page-fade-in">
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link">
+                <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo">
+                <span class="site-title">Peace <span class="text-gradient">&</span> Justice</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <article class="article-container">
+            <h1 class="reveal-element"
+                style="font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 20px;">
+                Institutional <span class="text-gradient">Corruption</span>: The Architecture of Systems Erosion</h1>
+            <p class="reveal-element delay-1"
+                style="text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+                Research Paper - Sustainable Development Goal 16.</p>
+
+            <nav class="table-of-contents reveal-element delay-2">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#abstract">&rarr; Abstract</a></li>
+                    <li><a href="#economic-social">&rarr; I. Economic and Social Aspects of Systemic Bribery</a></li>
+                    <li><a href="#judicial-erosion">&rarr; II. Erosion by the Courts: The Rule of Law</a></li>
+                    <li><a href="#tech-structures">&rarr; III. Technological Structures of Accountability</a></li>
+                    <li><a href="#civic-mandate">&rarr; IV. The Civic Mandate & Conclusion</a></li>
+                </ul>
+            </nav>
+
+            <section id="abstract" class="content-section reveal-element">
+                <h2>Abstract</h2>
+                <p>The concept of institutional corruption is a complete violation of the social contract between a
+                    state and its citizens. Although this tendency has a very limited economic scope, this paper
+                    believes that the systemic bribery, fraud, and lack of transparency are the major causes of
+                    instability in society. Through the analysis of the macroeconomic cost on the state resources, the
+                    damage of the judicial integrity, and the new role of transparency with the help of technologies,
+                    the study observes key frameworks of restoring the trust in the people and meeting the goals of SDG
+                    16.</p>
+            </section>
+
+            <section id="economic-social" class="content-section reveal-element">
+                <h2>I. Economic and Social Aspects of Systemic Bribery</h2>
+                <p>Corruption has been often wrongly described as a victimless transaction where no one was harmed.
+                    Across the board, it is a predatory tool, which directly robs the society of the resources. In case
+                    governments and corporations resort to bribery or evasion of taxes, they eat money that can be spent
+                    on healthcare, infrastructure and education.</p>
+                <img src="images/chart.png" alt="Data charts showing financial loss" class="styled-image">
+                <p><strong>Macroeconomic Displacement:</strong> According to the monitors of world economies, billions
+                    of dollars are wasted every year due to corruption, which is an opportunity cost that halts the
+                    development of a country.</p>
+                <p><strong>Social Destabilization:</strong> In addition to the monetary cost, corruption destroys the
+                    confidence that the people have in authority and institutional credibility. This erosion provides a
+                    unstable environment in which inequality grows fast because people who lack financial power are out
+                    of critical services.</p>
+            </section>
+
+            <section id="judicial-erosion" class="content-section reveal-element">
+                <h2>II. Erosion by the courts: the rule of law and its accessibility</h2>
+                <p>The realization of SDG 16 lies on the tenet that the law should be equally applied to all people.
+                    Nevertheless, in the case when the whole justice system is corrupted internally, the whole idea of
+                    Justice fails.</p>
+                <img src="images/gavel.avif" alt="Wooden gavel resting on a sounding block" class="styled-image">
+                <p><strong>A Vulnerability Gap:</strong> The poor will be the worst hit when the judiciary is corrupt
+                    since they will not have the money to manoeuvre through a corrupted system. When the judges become
+                    susceptible to financial or political pressure, then the legal system will no longer be a defender
+                    of rights but rather an instrument of oppression.</p>
+                <p><strong>Institutional Safeguards:</strong> Reform of judicial integrity will not only have to be
+                    provided by new legislation, it must also encompass rigorous supervision, whistleblower protection,
+                    and autonomous anti-corruption commissions. Such institutions should be given the authority to check
+                    the legal procedures and no one, irrespective of his or her status can be above the law.</p>
+            </section>
+
+            <section id="tech-structures" class="content-section reveal-element">
+                <h2>III. Technological Structures of Institutional Accountability</h2>
+                <p>The modern technology is one of the best tools to use against institutional corruption. Governments
+                    can also greatly affect the discretionary power that is the root cause of bribery by
+                    disintermediating human agents with automated, open systems.</p>
+                <img src="images/chain.jpg" alt="Digital network of blockchain currency" class="styled-image">
+                <p><strong>Digital Record-Keeping and E-Governance:</strong> Public service: Services like business
+                    registration or issuing a license are digitized and thus do not require the traditional middlemen
+                    who normally take up bribes to render basic services.</p>
+                <p><strong>Blockchain and Auditable Trails:</strong> The new technologies, such as blockchain-based
+                    public procurement systems, can ensure that funds cannot be lost without leaving any trace. Such
+                    portals will provide that all the transactions are recorded and can be accessed by the investigative
+                    journalists and watchdog bodies, an atmosphere of extreme transparency is created.</p>
+            </section>
+
+            <section id="civic-mandate" class="content-section reveal-element">
+                <h2>IV. The Civic Mandate & Conclusion</h2>
+                <p>A cultural change that is supported by a dynamic and proactive citizenry is necessary to supplement
+                    all the technical solutions and laws. It may seem that the magnitude of the systemic corruption is
+                    too immense to challenge, but the collective action is an effective tool in changing the
+                    institution.</p>
+                <img src="images/protest.jpg" alt="An individual protesting" class="styled-image">
+                <p><strong>The Power of Transparency Requests:</strong> The citizens are required to actively
+                    participate in the local politics and use the Freedom of Information requests to audit the
+                    government works and demand the representatives to spend the money transparently.</p>
+                <p><strong>Fostering Independent Watchdogs:</strong> When one encourages investigative journalism and
+                    the work of non-governmental organizations (NGOs) that aim at promoting human rights, he or she will
+                    contribute to the fact that corrupt practices are no longer a secret of the sea.</p>
+                <p><strong>Conclusion:</strong> Peaceful and just society is a precondition of dismantling institutional
+                    corruption. Through technological openness and judicial accountability as well as vocal civic
+                    engagement of citizens, countries can move out of the state of war and distrust to that of
+                    sustainable and inclusive peace. Based on the SDG 16 objectives, the way forward will involve a
+                    stern approach to accountability in all the levels of society.</p>
+            </section>
+        </article>
+    </main>
+
+    <a href="#top" class="back-to-top-css" aria-label="Back to top">↑</a>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Thasreef Mohomad</p>
+                <p><strong>Student ID:</strong> 20240991</p>
+                <p><strong>Role:</strong> Core Implementation & Architecture</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST1.html">Page Editor (ST1)</a></li>
+                    <li><a href="validation_ST1.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST1.html#accessibility">Accessibility & Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

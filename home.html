@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | Home</title>
+    <meta name="description" content="Advocating for global stability, equal rights, and transparency — UN SDG 16.">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-watermark {
+            position: absolute;
+            font-size: clamp(14vw, 22vw, 30vw);
+            font-family: var(--font-heading);
+            color: rgba(212, 175, 55, 0.03);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .bento-section {
+            position: relative;
+            z-index: 2;
+        }
+
+        .mission-list {
+            list-style: none;
+            margin-top: var(--sp-sm);
+            padding: 0;
+        }
+
+        .mission-list li {
+            position: relative;
+            padding-left: 1.1rem;
+            color: var(--c-muted);
+        }
+    </style>
+
+</head>
+
+<body class="page-fade-in">
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden"
+        aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="img-hover" color-interpolation-filters="sRGB">
+                <feOffset in="SourceGraphic" dx="-2.5" dy="0" result="shifted" />
+                <feColorMatrix in="shifted" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                    result="gb" />
+                <feBlend in="SourceGraphic" in2="gb" mode="screen" />
+            </filter>
+        </defs>
+    </svg>
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link" aria-label="Home — SDG 16 Peace and Justice">
+                <img src="images/crow.png" alt="" class="nav-logo" aria-hidden="true"
+                    onerror="this.style.display='none'">
+                <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
+                aria-controls="main-nav-list" type="button">☰</button>
+            <nav class="main-nav" aria-label="Primary Navigation">
+                <ul id="main-nav-list">
+                    <li><a href="home.html" class="active" aria-current="page">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content">
+        <section class="hero-section" aria-labelledby="hero-title">
+            <div class="hero-watermark" aria-hidden="true">SDG 16</div>
+            <p class="hero-kicker reveal reveal-delay-1">UN Sustainable Development Goal</p>
+            <h1 id="hero-title" class="reveal reveal-delay-2">Peace, Justice<br><span class="text-gradient">&amp;
+                    Institutions</span></h1>
+            <p class="reveal reveal-delay-3">Advocating for the global stability, equal rights, and transparency
+                required to build a sustainable and just future for all.</p>
+        </section>
+        <section aria-labelledby="pillars-heading">
+            <h2 id="pillars-heading" class="sr-only">Our Core Pillars</h2>
+            <div class="card-container">
+                <article class="card padded tilt-card reveal reveal-delay-1">
+                    <img src="images/city.jpg" alt="Modern city skyline view from a distance" loading="lazy">
+                    <h3>The Core <span class="text-gradient">Mission</span></h3>
+                    <p>Dedicated to promoting peaceful, inclusive societies. Three key outcomes:</p>
+                    <ul class="mission-list">
+                        <li>Reduction in global violence and crime rates.</li>
+                        <li>Equal access to legal representation for all.</li>
+                        <li>Eradication of systemic corruption.</li>
+                    </ul>
+                </article>
+                <article class="card padded tilt-card reveal reveal-delay-2">
+                    <img src="images/hand.jpg" alt="Professionals handshaking a agreement" loading="lazy">
+                    <h3>Why It <span class="text-gradient">Matters</span></h3>
+                    <p>Strong institutions are the backbone of stable societies. This goal protects:</p>
+                    <ul class="mission-list">
+                        <li>Vulnerable communities facing discrimination.</li>
+                        <li>Journalists and human rights defenders.</li>
+                        <li>Citizens relying on public-service transparency.</li>
+                    </ul>
+                </article>
+                <article class="card padded tilt-card reveal reveal-delay-3">
+                    <img src="images/code.webp" alt="An individual in a dark room coding" loading="lazy">
+                    <h3>Take <span class="text-gradient">Action</span></h3>
+                    <p>Every individual can advocate for transparency. Start today:</p>
+                    <ul class="mission-list">
+                        <li>Vote responsibly in local elections.</li>
+                        <li>Report unethical behaviour in the workplace.</li>
+                        <li>Support local human-rights NGOs.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+        <section class="bento-section" aria-labelledby="research-heading">
+            <header class="bento-header">
+                <h2 id="research-heading" class="reveal">Discover Our <span class="text-gradient">Articles</span></h2>
+                <p class="reveal reveal-delay-1">Dive deeper into the critical areas of Peace, Justice, and Strong
+                    Institutions.</p>
+            </header>
+            <nav class="content-link-grid" aria-label="Research Topics Navigation">
+
+                <a href="content_ST1.html" class="content-link-tile reveal reveal-delay-1" data-speed="-0.022"
+                    aria-label="Institutional Corruption Research Paper">
+                    <h3>Institutional <span class="text-gradient">Corruption</span></h3>
+                    <p>A research-led analysis on how systemic bribery and judicial erosion destabilize society, and the
+                        role of tech in reform.</p>
+                    <span class="tile-arrow" aria-hidden="true">Read Research Paper →</span>
+                </a>
+
+                <a href="content_ST2.html" class="content-link-tile reveal reveal-delay-2" data-speed="0.028"
+                    aria-label="Conflict to Peace — Read More">
+                    <h3>Conflict to <span class="text-gradient">Peace</span></h3>
+                    <p>Exploring the mechanisms required to transition societies from war to sustainable peace.</p>
+                    <span class="tile-arrow" aria-hidden="true">Read More →</span>
+                </a>
+                <a href="content_ST3.html" class="content-link-tile reveal reveal-delay-3" data-speed="-0.014"
+                    aria-label="Access to Justice — Research">
+                    <h3>Access to <span class="text-gradient">Justice</span></h3>
+                    <span class="tile-arrow" aria-hidden="true">Research →</span>
+                </a>
+                <a href="content_ST4.html" class="content-link-tile reveal reveal-delay-4" data-speed="0.02"
+                    aria-label="Transparency Technology — View Data">
+                    <h3>Transparency <span class="text-gradient">Tech</span></h3>
+                    <span class="tile-arrow" aria-hidden="true">View Data →</span>
+                </a>
+            </nav>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Thasreef Mohomad</p>
+                <p><strong>Student ID:</strong> 20240991</p>
+                <p><strong>Role:</strong> Core Implementation & Architecture</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST1.html">Page Editor (ST1)</a></li>
+                    <li><a href="validation_ST1.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST1.html#accessibility">Accessibility & Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+
+</html>

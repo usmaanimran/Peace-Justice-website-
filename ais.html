@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | AIS</title>
+    <meta name="description"
+        content="Simulate the real-world impact of everyday actions on Peace, Justice, and Strong Institutions.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ais-hero {
+            text-align: center;
+            padding: clamp(3rem, 6vw, 5rem) 1rem clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .ais-hero .label {
+            font-size: var(--fs-label);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--c-gold);
+            margin-bottom: var(--sp-sm);
+        }
+
+        .ais-hero h1 {
+            font-family: var(--font-heading);
+            font-size: var(--fs-display);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--sp-md);
+        }
+
+        .ais-hero p {
+            color: var(--c-muted);
+            font-size: var(--fs-hero-sub);
+            max-width: 54ch;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: clamp(1rem, 2.5vw, 2rem);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 3vw, 2rem) clamp(3rem, 6vw, 5rem);
+            align-items: start;
+        }
+
+        @media (max-width: 860px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: clamp(0.75rem, 1.5vw, 1.1rem);
+        }
+
+        .ais-action-card {
+            min-height: 200px;
+        }
+
+        .card-check {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 22px;
+            height: 22px;
+            border: 1.5px solid var(--c-border-hi);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, border-color 0.3s;
+            z-index: 2;
+        }
+
+        .ais-action-card.selected .card-check {
+            background: var(--c-gold);
+            border-color: var(--c-gold);
+        }
+
+        .card-check svg {
+            width: 12px;
+            height: 12px;
+            stroke: #000;
+            stroke-width: 2.5;
+            fill: none;
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .ais-action-card.selected .card-check svg {
+            opacity: 1;
+        }
+
+        .action-icon {
+            margin-bottom: var(--sp-sm);
+            display: flex;
+            transition: transform 0.35s var(--ease-expo);
+        }
+
+        .action-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: var(--c-gold);
+            filter: drop-shadow(0 0 8px var(--c-gold-glow));
+            transition: stroke 0.3s ease, filter 0.3s ease;
+        }
+
+        .ais-action-card:hover .action-icon,
+        .ais-action-card.selected .action-icon {
+            transform: scale(1.15);
+        }
+
+        .ais-action-card.selected .action-icon svg {
+            stroke: var(--c-cyan);
+            filter: drop-shadow(0 0 12px var(--c-cyan-glow));
+        }
+
+        .action-title {
+            font-family: var(--font-heading);
+            font-size: var(--fs-h3);
+            margin-bottom: var(--sp-xs);
+            color: var(--c-text);
+        }
+
+        .action-desc {
+            font-size: var(--fs-body);
+            color: var(--c-muted);
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .impact-badge {
+            display: inline-block;
+            margin-top: var(--sp-sm);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            border: 1px solid currentColor;
+        }
+
+        .badge-low {
+            color: var(--c-muted);
+        }
+
+        .badge-med {
+            color: #fbbf24;
+        }
+
+        .badge-high {
+            color: #f87171;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            background: var(--c-surface-2);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border: 1px solid var(--c-border);
+            border-top: 2px solid var(--c-gold);
+            border-radius: var(--radius-md);
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            text-align: center;
+            box-shadow: var(--shadow-card);
+        }
+
+        .sidebar-label {
+            font-size: var(--fs-label);
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            margin-bottom: var(--sp-md);
+        }
+
+        .gauge-wrap {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto var(--sp-md);
+        }
+
+        .gauge-wrap svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .gauge-track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.06);
+            stroke-width: 12;
+        }
+
+        .gauge-fill {
+            fill: none;
+            stroke: var(--c-muted);
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 1.4s var(--ease-expo), stroke 0.9s ease;
+        }
+
+        .gauge-centre {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-score {
+            font-family: var(--font-heading);
+            font-size: clamp(2.8rem, 5vw, 3.8rem);
+            line-height: 1;
+            color: var(--c-text);
+            transition: color 0.8s ease;
+        }
+
+        .gauge-unit {
+            font-size: var(--fs-label);
+            color: var(--c-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .impact-level {
+            font-family: var(--font-heading);
+            font-size: clamp(1.3rem, 2vw, 1.7rem);
+            margin-bottom: var(--sp-xs);
+            transition: color 0.8s ease;
+            color: var(--c-text);
+        }
+
+        .impact-desc {
+            font-size: var(--fs-body);
+            color: var(--c-muted);
+            line-height: 1.6;
+            margin-bottom: var(--sp-lg);
+        }
+
+        /*Background Layers */
+        .ais-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+
+            pointer-events: none;
+
+            opacity: 0;
+            transition: opacity 1.6s ease-in-out;
+        }
+
+        .ais-bg.active {
+            opacity: 1;
+            z-index: 2;
+
+        }
+
+
+
+        .ais-bg-low {
+            background-image: url('bg-low.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .ais-bg-med {
+            background-image: url('bg-med.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: pulse-med 6s infinite alternate var(--ease-expo);
+        }
+
+        .ais-bg-high {
+            background-image: url('bg-high.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: pulse-high 8s infinite alternate var(--ease-expo);
+        }
+
+        @keyframes pulse-med {
+            0% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+
+            100% {
+                transform: scale(1.08);
+                filter: brightness(1.3);
+            }
+        }
+
+        @keyframes pulse-high {
+            0% {
+                transform: scale(1) translateY(0);
+                filter: hue-rotate(0deg) saturate(1);
+            }
+
+            100% {
+                transform: scale(1.1) translateY(4%);
+                filter: hue-rotate(20deg) saturate(1.5);
+            }
+        }
+
+        body.ais-high .gauge-fill {
+            stroke: var(--c-green);
+        }
+
+        body.ais-high .gauge-score {
+            color: var(--c-green);
+        }
+
+        body.ais-high .impact-level {
+            color: var(--c-green);
+        }
+
+        body.ais-high .ais-action-card,
+        body.ais-high .sidebar {
+            background: rgba(16, 185, 129, 0.04);
+            border-color: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(16, 185, 129, 0.05);
+        }
+
+        body.ais-med .gauge-fill {
+            stroke: var(--c-gold);
+        }
+
+        body.ais-med .gauge-score {
+            color: var(--c-gold);
+        }
+
+        body.ais-med .impact-level {
+            color: var(--c-gold);
+        }
+
+        body.ais-med .ais-action-card,
+        body.ais-med .sidebar {
+            background: rgba(212, 175, 55, 0.03);
+            border-color: rgba(212, 175, 55, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(212, 175, 55, 0.05);
+        }
+
+
+
+        #main-content,
+        .site-footer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /*CARD HOVER */
+        .ais-action-card {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, background 0.4s ease;
+        }
+
+        .ais-action-card:hover {
+            z-index: 10;
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        /* CARD SELECTED STATE  */
+        .ais-action-card.selected {
+
+            background: linear-gradient(145deg, rgba(34, 211, 238, 0.12), rgba(8, 10, 18, 0.95));
+            border-color: rgba(34, 211, 238, 0.5);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(34, 211, 238, 0.1);
+            transform: scale(1.05) translateY(-5px);
+        }
+
+
+        .ais-action-card .card-check {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 5;
+        }
+
+
+        .action-icon img {
+            transition: transform 0.4s var(--ease-expo), filter 0.4s ease;
+            filter: drop-shadow(0 0 0 transparent);
+        }
+
+        .ais-action-card.selected .action-icon img {
+            transform: scale(1.15);
+            /* subtle glow to match the background */
+            filter: drop-shadow(0 0 12px var(--c-cyan-glow));
+        }
+
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 5;
+            background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.85) 60%);
+            opacity: 0.8;
+            transition: background 1.5s ease, opacity 1.5s ease, filter 1.5s ease;
+
+            /* This tells the browser to use the GPU for smooth motion */
+            will-change: transform, opacity;
+        }
+
+        /* Medium Score */
+        body.ais-med::after {
+            background: radial-gradient(circle at center, transparent 25%, rgba(212, 175, 55, 0.15) 50%, rgba(0, 0, 0, 0.9) 75%);
+            filter: blur(20px);
+            animation: fluidBreathe 5s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        }
+
+        /* High Score */
+        body.ais-high::after {
+            background: radial-gradient(circle at center, transparent 20%, rgba(16, 185, 129, 0.25) 45%, rgba(0, 0, 0, 0.9) 70%);
+            filter: blur(30px);
+            animation: fluidWave 4s ease-in-out infinite alternate;
+        }
+
+
+        @keyframes fluidBreathe {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.03) translate(-1%, 1.5%);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(0.97) translate(1%, -1%);
+                opacity: 0.7;
+            }
+        }
+
+        /*Green Movement */
+        @keyframes fluidWave {
+            0% {
+                transform: scale(1) translate(0%, 0%);
+                opacity: 0.7;
+            }
+
+            33% {
+                transform: scale(1.08) translate(-2%, 2%);
+                opacity: 1;
+            }
+
+            66% {
+                transform: scale(0.92) translate(2%, -2%);
+                opacity: 0.85;
+            }
+
+            100% {
+                transform: scale(1.05) translate(-1%, -1%);
+                opacity: 1;
+            }
+        }
+
+
+        body.ais-high #ais-title {
+            animation: smoothTitleGlow 2s ease-in-out infinite alternate;
+            will-change: text-shadow;
+        }
+
+        @keyframes smoothTitleGlow {
+            0% {
+                text-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+            }
+
+            100% {
+                text-shadow: 0 0 25px rgba(16, 185, 129, 0.8), 0 0 45px rgba(16, 185, 129, 0.4);
+            }
+        }
+    </style>
+</head>
+
+<body class="page-fade-in">
+
+    <div id="bgLow" class="ais-bg ais-bg-low active" aria-hidden="true"></div>
+    <div id="bgMed" class="ais-bg ais-bg-med" aria-hidden="true"></div>
+    <div id="bgHigh" class="ais-bg ais-bg-high" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link" aria-label="Home — SDG 16 Peace and Justice">
+                <img src="images/crow.png" alt="" class="nav-logo" aria-hidden="true"
+                    onerror="this.style.display='none'">
+                <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="ais-nav-list"
+                type="button">☰</button>
+            <nav class="main-nav" aria-label="Primary Navigation">
+                <ul id="ais-nav-list">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html" class="active" aria-current="page">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="ais-hero" aria-labelledby="ais-title">
+            <p class="label reveal">Interactive Dashboard — Student 2</p>
+            <h1 id="ais-title" class="reveal reveal-delay-1">
+                Action <span class="text-gradient">Impact</span> Simulator
+            </h1>
+            <p class="reveal reveal-delay-2">
+                Select everyday actions to simulate their cumulative systemic impact
+                on Peace, Justice, and Strong Institutions.
+            </p>
+        </section>
+
+        <div class="dashboard reveal reveal-delay-3">
+            <section aria-labelledby="actions-heading">
+                <h2 id="actions-heading" class="sr-only">Choose Your Actions</h2>
+                <div class="action-grid" id="actionGrid" role="group" aria-label="Action Cards">
+
+                    <div class="ais-action-card reveal reveal-delay-1" tabindex="0" role="button" aria-pressed="false"
+                        aria-label="Vote Locally: Participate in elections to hold leaders accountable. (+15 impact points)"
+                        data-pts="15">
+                        <div class="card-check" aria-hidden="true">
+                            <svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" />
+                            </svg>
+                        </div>
+                        <span class="action-icon"><img src="images/up_l.png" alt="Voting ballot icon"
+                                style="width: 36px; height: 36px; object-fit: contain;"></span>
+                        <h3 class="action-title">Vote Locally</h3>
+                        <p class="action-desc">Participate in elections to hold leaders accountable.</p>
+                        <span class="impact-badge badge-low">LOW +15</span>
+                    </div>
+
+                    <div class="ais-action-card reveal reveal-delay-2" tabindex="0" role="button" aria-pressed="false"
+                        aria-label="Report Corruption: Expose institutional abuses of power through proper channels. (+40 impact points)"
+                        data-pts="40">
+                        <div class="card-check" aria-hidden="true">
+                            <svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" />
+                            </svg>
+                        </div>
+                        <span class="action-icon"><img src="images/report.png" alt="Megaphone icon"
+                                style="width: 36px; height: 36px; object-fit: contain;"></span>
+                        <h3 class="action-title">Report Corruption</h3>
+                        <p class="action-desc">Expose institutional abuses of power through proper channels.</p>
+                        <span class="impact-badge badge-high">HIGH +40</span>
+                    </div>
+
+                    <div class="ais-action-card reveal reveal-delay-3" tabindex="0" role="button" aria-pressed="false"
+                        aria-label="Support Open Data: Advocate for full transparency of government datasets. (+25 impact points)"
+                        data-pts="25">
+                        <div class="card-check" aria-hidden="true">
+                            <svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" />
+                            </svg>
+                        </div>
+                        <span class="action-icon"><img src="images/data.png" alt="Open data network icon"
+                                style="width: 36px; height: 36px; object-fit: contain;"></span>
+                        <h3 class="action-title">Support Open Data</h3>
+                        <p class="action-desc">Advocate for full transparency of government datasets.</p>
+                        <span class="impact-badge badge-med">MED +25</span>
+                    </div>
+
+                    <div class="ais-action-card reveal reveal-delay-1" tabindex="0" role="button" aria-pressed="false"
+                        aria-label="Legal Aid Fund: Donate to NGOs providing free legal representation. (+20 impact points)"
+                        data-pts="20">
+                        <div class="card-check" aria-hidden="true">
+                            <svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" />
+                            </svg>
+                        </div>
+                        <span class="action-icon"><img src="images/scale.png" alt="Scales of justice icon"
+                                style="width: 36px; height: 36px; object-fit: contain;"></span>
+                        <h3 class="action-title">Legal Aid Fund</h3>
+                        <p class="action-desc">Donate to NGOs providing free legal representation.</p>
+                        <span class="impact-badge badge-med">MED +20</span>
+                    </div>
+
+                    <div class="ais-action-card reveal reveal-delay-2" tabindex="0" role="button" aria-pressed="false"
+                        aria-label="Defend Whistleblowers: Protect those who risk everything to expose the truth. (+40 impact points)"
+                        data-pts="40">
+                        <div class="card-check" aria-hidden="true">
+                            <svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" />
+                            </svg>
+                        </div>
+                        <span class="action-icon"><img src="images/shield.png" alt="Shield icon"
+                                style="width: 36px; height: 36px; object-fit: contain;"></span>
+                        <h3 class="action-title">Defend Whistleblowers</h3>
+                        <p class="action-desc">Protect those who risk everything to expose the truth.</p>
+                        <span class="impact-badge badge-high">HIGH +40</span>
+                    </div>
+
+                    <div class="ais-action-card reveal reveal-delay-3" tabindex="0" role="button" aria-pressed="false"
+                        aria-label="Educate Peers: Share verified, factual information in your community. (+10 impact points)"
+                        data-pts="10">
+                        <div class="card-check" aria-hidden="true">
+                            <svg viewBox="0 0 12 12">
+                                <polyline points="2,6 5,9 10,3" />
+                            </svg>
+                        </div>
+                        <span class="action-icon"><img src="images/cap.png" alt="Education book icon"
+                                style="width: 36px; height: 36px; object-fit: contain;"></span>
+                        <h3 class="action-title">Educate Peers</h3>
+                        <p class="action-desc">Share verified, factual information in your community.</p>
+                        <span class="impact-badge badge-low">LOW +10</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <aside class="sidebar" aria-label="Impact Score Dashboard">
+                <p class="sidebar-label">Impact Score</p>
+
+                <div class="gauge-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 200 200">
+                        <circle class="gauge-track" cx="100" cy="100" r="90" />
+                        <circle class="gauge-fill" id="gaugeFill" cx="100" cy="100" r="90" />
+                    </svg>
+                    <div class="gauge-centre">
+                        <div class="gauge-score" id="scoreDisplay" aria-live="polite" aria-atomic="true">0</div>
+                        <div class="gauge-unit">pts</div>
+                    </div>
+                </div>
+
+                <h3 class="impact-level" id="levelDisplay" aria-live="polite">Awaiting Input</h3>
+                <p class="impact-desc" id="descDisplay">Select actions above to measure their combined systemic power.
+                </p>
+
+                <button class="magnetic-btn" id="resetBtn" type="button" aria-label="Reset all selections">
+                    <span class="btn-text">Reset Simulator</span>
+                </button>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Usmaan Imran</p>
+                <p><strong>Student ID:</strong> 20240530</p>
+                <p><strong>Role:</strong> Student 2 (Splash Screen & Action Impact Simulator)</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST2.html">Page Editor (ST2)</a></li>
+                    <li><a href="validation_ST2.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST2.html#accessibility">Accessibility & Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="ais.js"></script>
+</body>
+
+</html>
