@@ -16,9 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const levelDisplay = document.getElementById('levelDisplay');
   const descDisplay = document.getElementById('descDisplay');
   const resetBtn = document.getElementById('resetBtn');
-  const bgLow = document.getElementById('bgLow');
-  const bgMed = document.getElementById('bgMed');
-  const bgHigh = document.getElementById('bgHigh');
+
 
   let score = 0;
 
@@ -56,23 +54,18 @@ document.addEventListener('DOMContentLoaded', () => {
     gaugeFill.style.strokeDashoffset = offset;
 
 
-    bgLow.classList.remove('active');
-    bgMed.classList.remove('active');
-    bgHigh.classList.remove('active');
+
     document.body.classList.remove('ais-low', 'ais-med', 'ais-high');
 
     if (score >= 90) {
-      bgHigh.classList.add('active');
       document.body.classList.add('ais-high');
       levelDisplay.textContent = 'High Systemic Impact';
       descDisplay.textContent = 'Exceptional. Structural reform and full accountability achieved.';
     } else if (score >= 40) {
-      bgMed.classList.add('active');
       document.body.classList.add('ais-med');
       levelDisplay.textContent = 'Substantial Progress';
       descDisplay.textContent = 'Solid foundation increasing pressure brings visibility.';
     } else {
-      bgLow.classList.add('active');
       document.body.classList.add('ais-low');
       levelDisplay.textContent = score > 0 ? 'Building Momentum' : 'Awaiting Input';
       descDisplay.textContent = score > 0
@@ -113,5 +106,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   updateDashboard();
+
+  /* Liquid Effect  */
+  const blobs = document.querySelectorAll('.liquid-blob');
+
+  document.addEventListener('click', (e) => {
+    // Only react if the user is clicking an action card
+    if (e.target.closest('.ais-action-card')) {
+      const clickX = e.clientX;
+      const clickY = e.clientY;
+
+      blobs.forEach(blob => {
+        const rect = blob.getBoundingClientRect();
+        const blobCenterX = rect.left + rect.width / 2;
+        const blobCenterY = rect.top + rect.height / 2;
+
+        const distX = blobCenterX - clickX;
+        const distY = blobCenterY - clickY;
+        const distance = Math.max(Math.sqrt(distX * distX + distY * distY), 1);
+
+        // Increased range slightly so it reacts from further away
+        if (distance < 800) {
+          // Push it a bit further
+          const pushIntensity = (800 - distance) * 0.6;
+          const pushX = (distX / distance) * pushIntensity;
+          const pushY = (distY / distance) * pushIntensity;
+
+          //  smooth push out 
+          blob.style.transition = 'translate 1.5s cubic-bezier(0.1, 0.9, 0.2, 1)';
+          blob.style.translate = `${pushX}px ${pushY}px`;
+
+
+          setTimeout(() => {
+
+            blob.style.transition = 'translate 8s ease-in-out';
+            blob.style.translate = '0px 0px';
+
+
+            setTimeout(() => {
+              blob.style.transition = '';
+            }, 8000);
+
+          }, 1500);
+        }
+      });
+    }
+  });
 
 });
