@@ -1,7 +1,7 @@
 <div align="center">
   <img src="images/crow.png" alt="Peace & Justice Splash" width="300" />
 
-  <h1>🕊️ Peace & Justice Web Experience</h1>
+  <h1>(✿◡‿◡) Peace & Justice Web Experience</h1>
   
   <p>
     An interactive, highly animated web project exploring the societal impacts of Peace and Justice, built for the Web Design and Development module at the Informatics Institute of Technology (IIT).
@@ -34,7 +34,8 @@ This website was developed to raise awareness about global peace and justice ini
 
 ## 🚀 See It In Action
 
-![HappyCatGIF](https://github.com/user-attachments/assets/a265270a-70a3-4323-92b6-bee0275f0541)![YapapaYapapaCatGIF](https://github.com/user-attachments/assets/9e1723ac-5f66-47a3-86df-c468a88f55c1)
+![ZavariusZavariusTeddyGIF](https://github.com/user-attachments/assets/47963a37-35e9-484f-86aa-b647fb8d1639)
+(https://github.com/user-attachments/assets/a265270a-70a3-4323-92b6-bee0275f0541)
 
 
 
