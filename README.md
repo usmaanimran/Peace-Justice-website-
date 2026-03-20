@@ -7,14 +7,14 @@
     An interactive, highly animated web project exploring the societal impacts of Peace and Justice, built for the Web Design and Development module at the Informatics Institute of Technology (IIT).
   </p>
 
-  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
-    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  <a href="[https://developer.mozilla.org/en-US/docs/Web/HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)">
+    <img src="[https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)" alt="HTML5" />
   </a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">
-    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  <a href="[https://developer.mozilla.org/en-US/docs/Web/CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)">
+    <img src="[https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)" alt="CSS3" />
   </a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
-    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <a href="[https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)">
+    <img src="[https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)" alt="JavaScript" />
   </a>
 </div>
 
@@ -34,13 +34,9 @@ This website was developed to raise awareness about global peace and justice ini
 
 ## 🚀 See It In Action
 
-![ZavariusZavariusTeddyGIF](https://github.com/user-attachments/assets/47963a37-35e9-484f-86aa-b647fb8d1639)
-(https://github.com/user-attachments/assets/a265270a-70a3-4323-92b6-bee0275f0541)
-
-
-
 <div align="center">
-  <img src="https://via.placeholder.com/800x400.png?text=Drop+a+.GIF+of+your+website+here!" alt="Website Demo Animation" />
+  <img src="[https://github.com/user-attachments/assets/47963a37-35e9-484f-86aa-b647fb8d1639](https://github.com/user-attachments/assets/47963a37-35e9-484f-86aa-b647fb8d1639)" alt="Demo Animation 1" width="400" />
+  <img src="[https://github.com/user-attachments/assets/a265270a-70a3-4323-92b6-bee0275f0541](https://github.com/user-attachments/assets/a265270a-70a3-4323-92b6-bee0275f0541)" alt="Demo Animation 2" width="400" />
 </div>
 
 ---
@@ -51,4 +47,4 @@ To run this project locally, no build tools or servers are strictly required.
 
 1. **Clone the repository** (or download the ZIP file):
    ```bash
-   git clone [https://github.com/your-username/4cosc011c.2-peace-justice-.git](https://github.com/your-username/4cosc011c.2-peace-justice-.git)
+   git clone https://github.com/usmaanimran/4cosc011c.2-peace-justice-.git
