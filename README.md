@@ -42,9 +42,9 @@ This website was developed to raise awareness about global peace and justice ini
 
 ![HappyCatGIF (2)](https://github.com/user-attachments/assets/c85f3636-1a77-42e4-ad50-0f7f67f04648)
 
-Vecel app link : https://peace-omega-two.vercel.app  (recomended)
+Vecel app link : https://peace-omega-two.vercel.app  (recommended)
 
-GitHub Pages link : https://usmaanimran.github.io/4COSC011C.2-Peace-Justice-/ (Slow and wont recommened)
+GitHub Pages link : https://usmaanimran.github.io/4COSC011C.2-Peace-Justice-/ (Slow and wont recommended)
 
 
 ![ZavariusZavariusTeddyGIF](https://github.com/user-attachments/assets/cc465005-cd59-4d9f-812f-4024b341fba3)
