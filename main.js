@@ -1,3 +1,9 @@
+/* Copyright (C) 2026 Muhammed Usmaan Imran
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License.
+*/
+
 /**
  * Main Application Logic
  * Author: Thasreef Mohomad (Student 1 — 20240991)
