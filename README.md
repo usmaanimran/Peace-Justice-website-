@@ -7,10 +7,10 @@
     An interactive, highly animated web project exploring the societal impacts of Peace and Justice, built for the 4COSC011C.2 Web Design and Development module at the Informatics Institute of Technology (IIT). 
   </p>
   <p>
-    Team overview : Usmaan Imran  
-                    Zehna Anus 
-                    Manisha Fernando
-                    Thasreef Mohomad
+    Team overview : Usmaan Imran,  
+                    Zehna Anus, 
+                    Manisha Fernando,
+                    Thasreef Mohomad,
   </p>
 
   <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
