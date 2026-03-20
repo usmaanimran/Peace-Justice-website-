@@ -59,3 +59,9 @@ To run this project locally, no build tools or servers are strictly required.
 1. **Clone the repository** (or download the ZIP file):
    ```bash
    git clone https://github.com/usmaanimran/4cosc011c.2-peace-justice-.git
+
+
+
+<h1>Yes it's a white crow not a dove/Pigeon </h1>
+
+![ThumbsUpThumbsUpGifGIF](https://github.com/user-attachments/assets/2ea5c895-2927-4a1e-a52f-b01425b9d26d)
