@@ -8,7 +8,7 @@
   </p>
   <p>
     Team overview : Usmaan Imran,  
-                    Zehna Anus, 
+                    Zehna Anas, 
                     Manisha Fernando,
                     Thasreef Mohomad
   </p>
