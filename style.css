@@ -1,89 +1,56 @@
-/* Copyright (C) 2026 Muhammed Usmaan Imran
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License.
-*/
-
-/* ======================================================
-   SDG 16 — PEACE & JUSTICE  |  Global Stylesheet
-   Author:  Thasreef Mohomad (Student 1 — 20240991)
-   Version: 4.0 "Midnight Dashboard"  
-   ====================================================== */
-
-/* GOOGLE FONTS  */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap');
 
-/* DESIGN TOKENS  */
 :root {
-  /* Midnight & Gold  */
   --c-bg: #030508;
   --c-surface-1: rgba(8, 10, 18, 0.97);
   --c-surface-2: rgba(14, 18, 30, 0.6);
   --c-surface-3: rgba(20, 26, 42, 0.45);
-
   --c-border: rgba(255, 255, 255, 0.08);
   --c-border-hi: rgba(255, 255, 255, 0.16);
   --c-border-gold: rgba(212, 175, 55, 0.35);
-
   --c-gold: #d4af37;
   --c-gold-dim: #a8892b;
   --c-gold-glow: rgba(212, 175, 55, 0.22);
   --c-gold-soft: rgba(212, 175, 55, 0.08);
-
   --c-cyan: #22d3ee;
   --c-cyan-glow: rgba(34, 211, 238, 0.15);
-
   --c-green: #10b981;
   --c-green-glow: rgba(16, 185, 129, 0.18);
-
   --c-text: #eef2f7;
   --c-muted: #7a8fa6;
   --c-faint: rgba(238, 242, 247, 0.4);
-
-  /* TypographyFluid scale  */
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-
   --fs-display: clamp(3rem, 6vw + 1rem, 7.5rem);
   --fs-hero-sub: clamp(1rem, 1.4vw + 0.4rem, 1.3rem);
   --fs-h2: clamp(1.7rem, 2.5vw + 0.5rem, 2.8rem);
   --fs-h3: clamp(1.1rem, 1.4vw + 0.2rem, 1.65rem);
   --fs-body: clamp(0.9rem, 0.9vw + 0.2rem, 1rem);
   --fs-label: clamp(0.7rem, 0.6vw + 0.15rem, 0.8rem);
-
-  /* Spacing */
   --sp-xs: clamp(0.4rem, 0.8vw, 0.65rem);
   --sp-sm: clamp(0.75rem, 1.4vw, 1rem);
   --sp-md: clamp(1rem, 2vw, 1.5rem);
   --sp-lg: clamp(1.5rem, 3vw, 2.5rem);
   --sp-xl: clamp(2.5rem, 5vw, 5rem);
   --sp-2xl: clamp(4rem, 8vw, 9rem);
-
-  /* Glassmorphism 3.0 */
   --blur-sm: blur(16px) saturate(160%);
   --blur-md: blur(32px) saturate(190%);
   --blur-lg: blur(48px) saturate(220%);
-
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.85), 0 0 24px var(--c-gold-glow);
   --shadow-glow: 0 0 32px var(--c-gold-glow);
-
   --radius-sm: 6px;
   --radius-md: 14px;
   --radius-lg: 22px;
   --radius-xl: 36px;
-
-  /* Easing */
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
-
   --mouse-x: 40%;
   --mouse-y: 40%;
 }
 
-/* RESETS & BASE */
 *,
 *::before,
 *::after {
@@ -105,7 +72,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
   background-image:
     radial-gradient(ellipse 70vw 55vh at var(--mouse-x) var(--mouse-y),
       rgba(212, 175, 55, 0.055) 0%, transparent 65%),
@@ -115,7 +81,6 @@ body {
       rgba(212, 175, 55, 0.04) 0%, transparent 50%);
   background-attachment: fixed;
 }
-
 
 body::before {
   content: '';
@@ -144,7 +109,6 @@ body::before {
   background: var(--c-gold);
 }
 
-/* UTILITIES  */
 .text-gradient {
   background: linear-gradient(120deg, #fff 5%, var(--c-gold) 95%);
   -webkit-background-clip: text;
@@ -173,11 +137,9 @@ body::before {
   border: 0;
 }
 
-/* SCROLL REVEAL */
 .reveal,
 .reveal-element {
   opacity: 0;
-
   transform: translateY(30px);
   filter: blur(15px);
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
@@ -233,7 +195,6 @@ body::before {
   transition-delay: 0.62s;
 }
 
-/* PAGE TRANSITIONS  */
 .page-fade-in {
   animation: pageIn 1.1s var(--ease-expo) forwards;
 }
@@ -264,7 +225,6 @@ body::before {
   }
 }
 
-/* SCROLL PROGRESS BAR */
 #scroll-progress {
   position: fixed;
   top: 0;
@@ -277,7 +237,6 @@ body::before {
   transition: width 0.1s linear;
 }
 
-/* AVIGATION  */
 .site-header {
   position: sticky;
   top: 0;
@@ -287,7 +246,6 @@ body::before {
   padding: clamp(1rem, 2vw, 1.6rem) 0;
   margin: 0 auto;
   border: 1px solid transparent;
-
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -413,7 +371,6 @@ body::before {
   color: var(--c-text);
 }
 
-/* Mobile Nav 50/50 */
 .nav-toggle {
   display: none;
   background: transparent;
@@ -454,13 +411,11 @@ body::before {
   }
 }
 
-/*  BACK-TO-TOP BUTTON */
 #back-to-top {
   position: fixed;
   bottom: clamp(1.5rem, 3vw, 2.5rem);
   right: clamp(1.5rem, 3vw, 2.5rem);
   z-index: 998;
-
   width: 48px;
   height: 48px;
   background: rgba(14, 18, 30, 0.7);
@@ -469,18 +424,14 @@ body::before {
   border: 1px solid var(--c-border-gold);
   border-radius: 50%;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 14px var(--c-gold-glow);
-
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
-
   opacity: 0;
   transform: translateY(16px) scale(0.85);
   pointer-events: none;
   transition: opacity 0.45s var(--ease-expo), transform 0.45s var(--ease-expo), box-shadow 0.3s ease;
-
   color: var(--c-gold);
   font-size: 1.1rem;
 }
@@ -505,10 +456,8 @@ body::before {
   fill: none;
 }
 
-/* HERO SECTION  */
 .hero-section {
   min-height: 100vh;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -571,7 +520,6 @@ body::before {
   line-height: 1.75;
 }
 
-/*  HOME BENTO GRID   */
 .bento-section {
   padding: 0 clamp(1rem, 3vw, 2rem) var(--sp-xl);
   max-width: 1140px;
@@ -597,7 +545,6 @@ body::before {
 .content-link-grid {
   display: grid;
   gap: clamp(0.65rem, 1.2vw, 1.1rem);
-
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, clamp(190px, 24vw, 275px));
   grid-template-areas:
@@ -641,6 +588,8 @@ body::before {
 }
 
 .content-link-tile {
+  --tx: 50%;
+  --ty: 50%;
   background: var(--c-surface-2);
   backdrop-filter: var(--blur-sm);
   -webkit-backdrop-filter: var(--blur-sm);
@@ -671,11 +620,30 @@ body::before {
   transition: opacity 0.35s, left 0.35s, right 0.35s;
 }
 
+.content-link-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--tx) var(--ty),
+      rgba(212, 175, 55, 0.13) 0%,
+      rgba(212, 175, 55, 0.04) 40%,
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
 .content-link-tile:hover,
 .content-link-tile:focus-visible {
   transform: translateY(-5px) scale(1.012);
   border-color: var(--c-border-gold);
   box-shadow: var(--shadow-hover);
+}
+
+.content-link-tile:hover::after,
+.content-link-tile:focus-visible::after {
+  opacity: 1;
 }
 
 .content-link-tile:hover::before,
@@ -689,7 +657,6 @@ body::before {
   outline: 2px solid var(--c-gold);
   outline-offset: 3px;
 }
-
 
 .content-link-tile:nth-child(1) {
   background:
@@ -729,7 +696,6 @@ body::before {
   gap: 0.65rem;
   letter-spacing: 2.5px;
 }
-
 
 .card-container {
   display: flex;
@@ -811,7 +777,6 @@ body::before {
   pointer-events: none;
 }
 
-/* Mission list */
 .mission-list {
   list-style: none;
   margin-top: var(--sp-sm);
@@ -835,7 +800,6 @@ body::before {
   font-weight: 700;
 }
 
-/* BUTTON  */
 .magnetic-btn {
   position: relative;
   display: inline-flex;
@@ -894,7 +858,6 @@ body::before {
   outline-offset: 4px;
 }
 
-/* GALLERY  */
 .gallery-item {
   border: 1px solid var(--c-border);
   border-radius: var(--radius-md);
@@ -965,11 +928,6 @@ body::before {
   transform: scale(1) translateY(0);
 }
 
-/*  AIS  DASHBOARD STYLES */
-/* These are injected here for global sharing but the heavy AIS specific
-   layout styles live inside ais.html <style> for assignment separation */
-
-/* Action cards base  */
 .ais-action-card {
   background: var(--c-surface-3);
   border: 1px solid var(--c-border);
@@ -1014,7 +972,6 @@ body::before {
   outline-offset: 4px;
 }
 
-/*FOOTER */
 .site-footer {
   background: rgba(2, 3, 6, 0.99);
   backdrop-filter: var(--blur-sm);
@@ -1077,7 +1034,6 @@ body::before {
   opacity: 0.35;
 }
 
-/*  MISC */
 .parallax-img-container {
   width: 100%;
   height: clamp(240px, 32vw, 390px);
