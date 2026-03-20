@@ -34,10 +34,11 @@ This website was developed to raise awareness about global peace and justice ini
 
 ## 🚀 See It In Action
 
-<div align="center">
-  <img src="[https://github.com/user-attachments/assets/47963a37-35e9-484f-86aa-b647fb8d1639](https://github.com/user-attachments/assets/47963a37-35e9-484f-86aa-b647fb8d1639)" alt="Demo Animation 1" width="400" />
-  <img src="[https://github.com/user-attachments/assets/a265270a-70a3-4323-92b6-bee0275f0541](https://github.com/user-attachments/assets/a265270a-70a3-4323-92b6-bee0275f0541)" alt="Demo Animation 2" width="400" />
-</div>
+### Splash Screen Animation
+https://github.com/user-attachments/assets/47963a37-35e9-484f-86aa-b647fb8d1639
+
+### Website Walkthrough
+https://github.com/user-attachments/assets/a265270a-70a3-4323-92b6-bee0275f0541
 
 ---
 
