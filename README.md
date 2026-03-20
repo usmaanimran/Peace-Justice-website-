@@ -4,7 +4,13 @@
   <h1>O_O Peace & Justice Web Experience</h1>
   
   <p>
-    An interactive, highly animated web project exploring the societal impacts of Peace and Justice, built for the Web Design and Development module at the Informatics Institute of Technology (IIT).
+    An interactive, highly animated web project exploring the societal impacts of Peace and Justice, built for the 4COSC011C.2 Web Design and Development module at the Informatics Institute of Technology (IIT). 
+  </p>
+  <p>
+    Team overview : Usmaan Imran  
+                    Zehna Anus 
+                    Manisha Fernando
+                    Thasreef Mohomad
   </p>
 
   <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
@@ -22,12 +28,12 @@
 
 ## 🌟 About The Project
 
-This website was developed to raise awareness about global peace and justice initiatives. It features a modern, responsive user interface with advanced CSS and JavaScript animations designed to provide a high-end, professional feel. 
+This website was developed to raise awareness about global peace and justice initiatives. It features a modern, responsive user interface with advanced CSS and JavaScript animations designed to provide a high end, professional feel. 
 
 ### ✨ Key Features
-* **Dynamic Splash Screen:** A custom-built entry sequence featuring smooth CSS transitions.
+* **Dynamic Splash Screen:** A custom built entry sequence featuring smooth CSS transitions.
 * **Interactive Gallery:** A visually engaging gallery showcasing key themes.
-* **Responsive Design:** Optimized for both desktop and mobile viewing.
+* **Responsive Design:** Optimized for desktop  viewing.
 * **User Profile & Feedback:** Interactive forms with live validation.
 
 ---
@@ -38,10 +44,11 @@ This website was developed to raise awareness about global peace and justice ini
 
 Vecel app link : https://peace-omega-two.vercel.app  (recomended)
 
-<div align="center">
-  ![ZavariusZavariusTeddyGIF](https://github.com/user-attachments/assets/fb99bdb9-e329-4042-b834-7cf342ddd38f)
+GitHub Pages link : https://usmaanimran.github.io/4COSC011C.2-Peace-Justice-/ (Slow and wont recommened)
 
-</div>
+
+![ZavariusZavariusTeddyGIF](https://github.com/user-attachments/assets/cc465005-cd59-4d9f-812f-4024b341fba3)
+
 
 ---
 
