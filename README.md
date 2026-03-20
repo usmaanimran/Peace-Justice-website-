@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="images/splash.png" alt="Peace & Justice Splash" width="300" />
+  <img src="images/crow.png" alt="Peace & Justice Splash" width="300" />
 
   <h1>🕊️ Peace & Justice Web Experience</h1>
   
