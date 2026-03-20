@@ -10,7 +10,7 @@
     Team overview : Usmaan Imran,  
                     Zehna Anus, 
                     Manisha Fernando,
-                    Thasreef Mohomad,
+                    Thasreef Mohomad
   </p>
 
   <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
