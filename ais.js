@@ -1,3 +1,10 @@
+/* Copyright (C) 2026 Muhammed Usmaan Imran
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License.
+*/
+
+
 /**
  * Action Impact Simulator v4.0
  * Student 2 Usmaan Imran 20240530
