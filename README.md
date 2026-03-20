@@ -62,6 +62,6 @@ To run this project locally, no build tools or servers are strictly required.
 
 
 
-<h2>And yes it's a white crow not a dove/Pigeon </h2>
+<h2>And yes it's a white crow not a Dove/Pigeon </h2>
 
 ![ThumbsUpThumbsUpGifGIF](https://github.com/user-attachments/assets/2ea5c895-2927-4a1e-a52f-b01425b9d26d)
