@@ -5,14 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peace & Justice | Page Editor (Thasreef)</title>
+    
     <link rel="stylesheet" href="style.css">
+    
     <style>
+        /* PAGE-SPECIFIC EMBEDDED CSS: TARGETS ONLY ST1 CONTENT */
+        
+        /* Centers the main content block and gives it a max width so it doesn't stretch too wide on big monitors */
         .dashboard-container {
             max-width: 1400px;
             margin: 40px auto 80px;
             padding: 0 5%;
         }
 
+        /* Styles the top intro area */
         .editor-header {
             text-align: left;
             margin-bottom: 50px;
@@ -33,7 +39,7 @@
             letter-spacing: 1px;
         }
 
-        /* Grid Layout for Dashboard */
+        /* Uses CSS Grid to create a two-column layout: a 300px sidebar on the left, and the rest of the space (1fr) for the text on the right */
         .dashboard-layout {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -41,7 +47,7 @@
             align-items: start;
         }
 
-        /* Sticky Sidebar TOC */
+        /* Makes the Table of Contents sidebar stick to the screen as you scroll down the page */
         .toc-sidebar {
             position: sticky;
             top: 120px;
@@ -69,6 +75,7 @@
             margin-bottom: 15px;
         }
 
+        /* Base styles for the sidebar links */
         .toc-sidebar a {
             color: var(--text-muted);
             text-decoration: none;
@@ -79,13 +86,14 @@
             padding-left: 10px;
         }
 
+        /* Hover animation for sidebar links: turns gold and nudges right */
         .toc-sidebar a:hover {
             color: var(--accent-gold);
             border-left-color: var(--accent-gold);
             transform: translateX(5px);
         }
 
-        /* Main Content Styling */
+        /* Main Content Styling - Creates the glass-like box for the actual report text */
         .editor-content {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -95,6 +103,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
+        /* Spacing for each major section of the report */
         .editor-section {
             margin-bottom: 60px;
         }
@@ -108,6 +117,7 @@
             padding-bottom: 15px;
         }
 
+        /* Subheadings with a custom gold glowing dot generated via CSS ::before pseudo-element */
         .editor-section h3 {
             font-size: 1.3rem;
             color: var(--text-main);
@@ -143,7 +153,7 @@
             margin-bottom: 10px;
         }
 
-        /* Glowing Code Terminal Styling */
+        /* Custom styling for inline code mentions to make them look like a termina */
         .code-ref {
             font-family: 'Courier New', monospace;
             background: rgba(5, 7, 10, 0.8);
@@ -155,13 +165,14 @@
             font-size: 0.95rem;
         }
 
-        /* Buttons & Links */
+        /* Flex container to hold the "Live Page" and "Validation" buttons side-by-side */
         .live-link-group {
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
         }
 
+        /* Pill-shaped button styling for the links */
         .live-link {
             display: inline-flex;
             align-items: center;
@@ -181,6 +192,7 @@
             backdrop-filter: blur(5px);
         }
 
+        /* Hover effect for buttons: fills with gold and lifts up */
         .live-link:hover {
             background: var(--accent-gold);
             color: #000;
@@ -189,7 +201,7 @@
             border-color: #fff;
         }
 
-        /* Modern Data Table */
+        /* Data Table styling used specifically for the required Meeting Log */
         table {
             width: 100%;
             border-collapse: separate;
@@ -226,10 +238,12 @@
             border-bottom: none;
         }
 
+        /* Subtle highlight on row hover */
         tr:hover td {
             background: rgba(255, 255, 255, 0.03);
         }
 
+        /* Responsive override: Drops the sidebar to the top and stacks the grid to 1 column on smaller screens */
         @media (max-width: 900px) {
             .dashboard-layout {
                 grid-template-columns: 1fr;

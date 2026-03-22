@@ -7,6 +7,10 @@
     <title>Peace & Justice | Institutional Corruption</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* PAGE-SPECIFIC EMBEDDED CSS: TARGETS ONLY ST1 CONTENT */
+      
+
+        /* Glassmorphism container: uses backdrop-filter to blur background and border for definition */
         .article-container {
             max-width: 900px;
             margin: 40px auto 80px;
@@ -18,6 +22,7 @@
             padding: 40px;
         }
 
+        /* Internal Navigation: uses border-left to create a visual vertical accent bar */
         .table-of-contents {
             background: rgba(0, 240, 255, 0.05);
             border-left: 4px solid var(--accent-cyan);
@@ -49,6 +54,7 @@
             font-weight: 600;
         }
 
+        /* TOC Hover: applies padding-left and text-shadow for a neon glow interactive effect */
         .table-of-contents a:hover {
             color: var(--accent-purple);
             text-shadow: 0 0 8px rgba(112, 0, 255, 0.6);
@@ -76,6 +82,7 @@
             font-size: 1.05rem;
         }
 
+        /*  Image Styling: uses cubic-bezier transition for a smooth hover lift animation */
         .styled-image {
             width: 100%;
             height: auto;
@@ -94,7 +101,7 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.2);
         }
 
-
+        /* Go to Top Button: uses position: fixed to stay locked in screen view  */
         .back-to-top-css {
             position: fixed;
             bottom: 30px;
@@ -148,7 +155,6 @@
             </nav>
         </div>
     </header>
-
     <main class="main-content">
         <article class="article-container">
             <h1 class="reveal-element"

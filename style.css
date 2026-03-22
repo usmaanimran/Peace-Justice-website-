@@ -4,10 +4,17 @@
    the Free Software Foundation, either version 3 of the License.
 */
 
+/* ========================================================================= */
+/* DO NOT EDIT - SHARED TEMPLATE: GLOBAL CSS FILE                            */
+/* As per Coursework Section 4.1, Student 1 is responsible for this file.    */
+/* ALL TEAM MEMBERS MUST USE THIS FILE. Do not put page-specific CSS here.   */
+/* Any custom page styles must go in an embedded <style> tag on your HTML.   */
+/* ========================================================================= */
 
-
+/* Pull custom fonts 'Inter' and 'Playfair Display' directly from Google's servers */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap');
 
+/* Store exact color codes, font sizes, and animation math in variables so we don't have to retype them. The clamp() math automatically resizes text and spacing based on the screen width */
 :root {
   --c-bg: #030508;
   --c-surface-1: rgba(8, 10, 18, 0.97);
@@ -59,6 +66,7 @@
   --mouse-y: 40%;
 }
 
+/* Force every single element on the page to include its borders and padding inside its total width, and strip all default browser margins */
 *,
 *::before,
 *::after {
@@ -67,12 +75,14 @@
   box-sizing: border-box;
 }
 
+/* Make jumping to anchor links smooth instead of instant, and turn on anti-aliasing to make text look sharper on Mac screens */
 html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 
+/* Set up the main page background. Use Flexbox to stack items vertically. Draw 3 massive circular gradients (gold, cyan, gold) that stay glued to the screen when you scroll. The first gradient moves based on where the mouse variables point */
 body {
   font-family: var(--font-body);
   background-color: var(--c-bg);
@@ -90,6 +100,7 @@ body {
   background-attachment: fixed;
 }
 
+/* Create an invisible layer that sits over the whole screen and paints a 3% opacity static TV noise texture SVG to give the background a grainy look */
 body::before {
   content: '';
   position: fixed;
@@ -99,14 +110,17 @@ body::before {
   z-index: 9990;
 }
 
+/* Hack the browser's default scrollbar to make it only 4 pixels wide */
 ::-webkit-scrollbar {
   width: 4px;
 }
 
+/* Paint the track behind the scrollbar black */
 ::-webkit-scrollbar-track {
   background: #000;
 }
 
+/* Paint the actual draggable scrollbar piece dark blue, round the edges, and make it fade to gold when hovered */
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
   border-radius: 4px;
@@ -117,6 +131,7 @@ body::before {
   background: var(--c-gold);
 }
 
+/* Paint text with a diagonal white-to-gold gradient by masking the background onto the text shape */
 .text-gradient {
   background: linear-gradient(120deg, #fff 5%, var(--c-gold) 95%);
   -webkit-background-clip: text;
@@ -125,6 +140,7 @@ body::before {
   display: inline-block;
 }
 
+/* Paint text with a diagonal cyan-to-light-blue gradient by masking the background onto the text shape */
 .text-cyan {
   background: linear-gradient(120deg, var(--c-cyan), #a5f3fc);
   -webkit-background-clip: text;
@@ -133,6 +149,7 @@ body::before {
   display: inline-block;
 }
 
+/* Shrink an element to exactly 1 pixel and hide it off-screen so blind users using screen readers can hear it, but sighted users won't see it */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -145,6 +162,7 @@ body::before {
   border: 0;
 }
 
+/* Prep elements to be animated. Make them invisible, move them 30 pixels down, and blur them. Setup the math for the animation to take 1 second using a cubic bezier curve */
 .reveal,
 .reveal-element {
   opacity: 0;
@@ -156,6 +174,7 @@ body::before {
   will-change: opacity, transform, filter;
 }
 
+/* When Javascript adds the 'visible' class, make the element 100% visible, snap it back to its original position, and remove the blur */
 .reveal.visible,
 .reveal-element.visible {
   opacity: 1;
@@ -163,22 +182,26 @@ body::before {
   filter: blur(0);
 }
 
+/* Alternate animation starting point: prep element to fly in from the left side while slightly shrunken */
 .reveal.from-left {
   transform: translateX(-40px) scale(0.9);
   filter: blur(15px);
 }
 
+/* Alternate animation starting point: prep element to fly in from the right side while slightly shrunken */
 .reveal.from-right {
   transform: translateX(40px) scale(0.9);
   filter: blur(15px);
 }
 
+/* Apply the final visible state for left/right flying elements */
 .reveal.from-left.visible,
 .reveal.from-right.visible {
   transform: translateX(0) scale(1);
   filter: none;
 }
 
+/* Stagger animation start times so elements don't all pop in at once */
 .reveal-delay-1,
 .delay-1 {
   transition-delay: 0.08s;
@@ -203,14 +226,17 @@ body::before {
   transition-delay: 0.62s;
 }
 
+/* Trigger a 1.1-second animation called 'pageIn' when the page loads, and leave the page in the final state when done */
 .page-fade-in {
   animation: pageIn 1.1s var(--ease-expo) forwards;
 }
 
+/* Trigger a 0.5-second animation called 'pageOut' when navigating away */
 .page-fade-out {
   animation: pageOut 0.5s var(--ease-in) forwards !important;
 }
 
+/* Define the exact math for the 'pageIn' animation: start dark, blurry, and small, then scale up and clear up */
 @keyframes pageIn {
   from {
     opacity: 0;
@@ -225,6 +251,7 @@ body::before {
   }
 }
 
+/* Define the exact math for the 'pageOut' animation: fade out, blur, and scale up slightly */
 @keyframes pageOut {
   to {
     opacity: 0;
@@ -233,6 +260,7 @@ body::before {
   }
 }
 
+/* Create a 2-pixel tall line glued to the very top left of the screen. Paint it a cyan-to-gold gradient. JavaScript will change the 'width' percentage to match how far down the user has scrolled */
 #scroll-progress {
   position: fixed;
   top: 0;
@@ -245,6 +273,7 @@ body::before {
   transition: width 0.1s linear;
 }
 
+/* Glue the header to the top of the screen (sticky) so it stops when it hits the roof. Make it full width and put it on a high z-index so it sits above everything else */
 .site-header {
   position: sticky;
   top: 0;
@@ -257,6 +286,7 @@ body::before {
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* When the user scrolls down, Javascript adds this class to shrink the header to 88% width, round the edges like a pill, blur the background behind it (glass effect), and add a glowing drop shadow */
 .site-header.header-scrolled {
   background: rgba(3, 5, 8, 0.85);
   backdrop-filter: var(--blur-md);
@@ -270,6 +300,7 @@ body::before {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 16px var(--c-gold-glow);
 }
 
+/* Center the navigation stuff inside the header, limit its width to 1200px, and push the logo left and links right using space-between */
 .nav-container {
   width: min(90%, 1200px);
   margin: 0 auto;
@@ -279,6 +310,7 @@ body::before {
   transition: width 0.4s ease;
 }
 
+/* Group the logo image and title text together side-by-side using flexbox */
 .logo-link {
   display: flex;
   align-items: center;
@@ -288,12 +320,14 @@ body::before {
   outline: none;
 }
 
+/* Accessibility: draw a gold box around the logo if someone tabs to it with a keyboard */
 .logo-link:focus-visible {
   outline: 2px solid var(--c-gold);
   outline-offset: 6px;
   border-radius: 6px;
 }
 
+/* Set the logo image height, keep its proportions, and add a fake glowing shadow behind the PNG shape */
 .nav-logo {
   height: 46px;
   width: auto;
@@ -302,15 +336,18 @@ body::before {
   transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease, transform 0.4s ease;
 }
 
+/* When hovering the logo, blow it up 5% and make the gold glow massive */
 .nav-logo:hover {
   filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.75)) brightness(1.1);
   transform: scale(1.05);
 }
 
+/* When the header shrinks from scrolling down, shrink the logo image to match */
 .site-header.header-scrolled .nav-logo {
   height: 32px;
 }
 
+/* Style the text next to the logo with the custom font and bold it */
 .site-title {
   font-family: var(--font-heading);
   font-size: clamp(1rem, 1.4vw, 1.45rem);
@@ -319,10 +356,12 @@ body::before {
   transition: font-size 0.4s ease;
 }
 
+/* When the header shrinks, shrink the title text slightly */
 .site-header.header-scrolled .site-title {
   font-size: clamp(0.9rem, 1.2vw, 1.2rem);
 }
 
+/* Remove bullets from the navigation list and lay the links out horizontally in a row */
 .main-nav ul {
   list-style: none;
   display: flex;
@@ -330,10 +369,12 @@ body::before {
   transition: gap 0.4s ease;
 }
 
+/* When the header shrinks, push the links closer together */
 .site-header.header-scrolled .main-nav ul {
   gap: clamp(0.8rem, 2vw, 1.5rem);
 }
 
+/* Style the navigation links with uppercase letters, tracking spacing, and a tiny bit of padding at the bottom to make room for the hover underline */
 .main-nav a {
   color: var(--c-muted);
   text-decoration: none;
@@ -347,12 +388,14 @@ body::before {
   outline: none;
 }
 
+/* Accessibility: draw a gold box around the links if someone tabs to them with a keyboard */
 .main-nav a:focus-visible {
   outline: 2px solid var(--c-gold);
   outline-offset: 5px;
   border-radius: 3px;
 }
 
+/* Inject an invisible line right below the link text. Set its width to 0 pixels. This sets up the hover animation */
 .main-nav a::after {
   content: '';
   position: absolute;
@@ -366,19 +409,23 @@ body::before {
   transition: width 0.36s var(--ease-expo);
 }
 
+/* Change link text to white when hovered */
 .main-nav a:hover {
   color: var(--c-text);
 }
 
+/* When hovered, or when marked as the active page, change the invisible line's width from 0% to 100% so it animates drawing a line outwards from the center */
 .main-nav a:hover::after,
 .main-nav a.active::after {
   width: 100%;
 }
 
+/* Make the text white if it's the current active page */
 .main-nav a.active {
   color: var(--c-text);
 }
 
+/* Completely hide the mobile hamburger menu button on desktop screens */
 .nav-toggle {
   display: none;
   background: transparent;
@@ -390,13 +437,16 @@ body::before {
   cursor: pointer;
 }
 
+/* Mobile Breakpoint: When the screen drops below 720px width, kill the horizontal layout and activate mobile styles */
 @media (max-width: 720px) {
+  /* Turn the hamburger menu button back on */
   .nav-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+  /* Hide the main navigation links, rip them out of the normal layout, and prep them to drop down from the header later */
   .main-nav {
     display: none;
     position: absolute;
@@ -409,16 +459,19 @@ body::before {
     border-bottom: 1px solid var(--c-border);
   }
 
+  /* When Javascript adds the 'open' class to the nav, unhide it */
   .main-nav.open {
     display: block;
   }
 
+  /* Change the flex layout from a horizontal row to a vertical column stacked list */
   .main-nav ul {
     flex-direction: column;
     gap: var(--sp-sm);
   }
 }
 
+/* Glue the back-to-top button to the bottom right corner of the screen. Make it a circle, add a glass blur effect behind it, and push it down 16 pixels while dropping its opacity to 0 so it's invisible by default */
 #back-to-top {
   position: fixed;
   bottom: clamp(1.5rem, 3vw, 2.5rem);
@@ -444,18 +497,21 @@ body::before {
   font-size: 1.1rem;
 }
 
+/* When Javascript detects scrolling and adds the 'visible' class, fade the button to 100% opacity, pop it back to its normal position, and enable clicking */
 #back-to-top.visible {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
+/* On hover, blow up the shadow and change the background color slightly */
 #back-to-top:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 26px var(--c-gold-glow);
   border-color: var(--c-gold);
   background: rgba(20, 26, 42, 0.85);
 }
 
+/* Size and color the SVG arrow icon inside the button */
 #back-to-top svg {
   width: 18px;
   height: 18px;
@@ -464,6 +520,7 @@ body::before {
   fill: none;
 }
 
+/* Setup the massive home page intro section. Force it to be exactly 100% of the screen height and use flexbox to trap everything perfectly in the center */
 .hero-section {
   min-height: 100vh;
   display: flex;
@@ -476,6 +533,7 @@ body::before {
   overflow: hidden;
 }
 
+/* Dump massive background text behind the hero content. Center it exactly using absolute positioning and translate math, and set pointer-events to none so the mouse clicks right through it */
 .hero-watermark {
   position: absolute;
   font-size: clamp(14vw, 22vw, 30vw);
@@ -490,6 +548,7 @@ body::before {
   white-space: nowrap;
 }
 
+/* Style the tiny gold kicker text that sits above the main heading. Use flexbox to align it horizontally */
 .hero-kicker {
   font-size: var(--fs-label);
   font-weight: 700;
@@ -502,6 +561,7 @@ body::before {
   gap: 0.6rem;
 }
 
+/* Inject physical 28-pixel lines on the left and right sides of the kicker text using pseudo-elements */
 .hero-kicker::before,
 .hero-kicker::after {
   content: '';
@@ -512,6 +572,7 @@ body::before {
   opacity: 0.6;
 }
 
+/* Style the massive main title. Lock its max width to 14 characters so it automatically wraps lines at the perfect spot */
 .hero-section h1 {
   font-family: var(--font-heading);
   font-size: var(--fs-display);
@@ -521,6 +582,7 @@ body::before {
   margin-bottom: var(--sp-md);
 }
 
+/* Style the paragraph below the title. Lock its width to 52 characters to keep the line length comfortable for reading */
 .hero-section>p {
   color: var(--c-muted);
   font-size: var(--fs-hero-sub);
@@ -528,28 +590,33 @@ body::before {
   line-height: 1.75;
 }
 
+/* Define the wrapper for grid areas, limiting the width to 1140px and centering it horizontally */
 .bento-section {
   padding: 0 clamp(1rem, 3vw, 2rem) var(--sp-xl);
   max-width: 1140px;
   margin: 0 auto;
 }
 
+/* Center the section title text */
 .bento-header {
   text-align: center;
   margin-bottom: var(--sp-lg);
 }
 
+/* Apply specific fonts to the bento heading */
 .bento-header h2 {
   font-family: var(--font-heading);
   font-size: var(--fs-h2);
   margin-bottom: var(--sp-xs);
 }
 
+/* Apply muted color to the bento sub-paragraph */
 .bento-header p {
   color: var(--c-muted);
   font-size: var(--fs-body);
 }
 
+/* Build a complex CSS Grid layout with 4 columns and 2 rows. Name the areas like puzzle pieces so we can drop specific cards into specific slots */
 .content-link-grid {
   display: grid;
   gap: clamp(0.65rem, 1.2vw, 1.1rem);
@@ -560,22 +627,27 @@ body::before {
     "feat feat sm1  sm2";
 }
 
+/* Force the 1st card into the 'feat' area (takes up 2 rows and 2 columns) */
 .content-link-tile:nth-child(1) {
   grid-area: feat;
 }
 
+/* Force the 2nd card into the 'mid' area (takes up 1 row, 2 columns) */
 .content-link-tile:nth-child(2) {
   grid-area: mid;
 }
 
+/* Force the 3rd card into the 'sm1' area (takes up 1 row, 1 column) */
 .content-link-tile:nth-child(3) {
   grid-area: sm1;
 }
 
+/* Force the 4th card into the 'sm2' area (takes up 1 row, 1 column) */
 .content-link-tile:nth-child(4) {
   grid-area: sm2;
 }
 
+/* Tablet Breakpoint: Redraw the puzzle pieces for screens under 900px so cards stack differently */
 @media (max-width: 900px) {
   .content-link-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -587,6 +659,7 @@ body::before {
   }
 }
 
+/* Mobile Breakpoint: Destroy the grid structure entirely and stack all cards vertically in a single column */
 @media (max-width: 560px) {
   .content-link-grid {
     grid-template-columns: 1fr;
@@ -595,6 +668,7 @@ body::before {
   }
 }
 
+/* Base style for the grid cards. Setup variables for mouse tracking, add a glass blur background, push content to the bottom using flexbox, and hide anything that spills out */
 .content-link-tile {
   --tx: 50%;
   --ty: 50%;
@@ -616,6 +690,7 @@ body::before {
   outline: none;
 }
 
+/* Inject an invisible gold gradient line inside the very top of the card. This will animate on hover */
 .content-link-tile::before {
   content: '';
   position: absolute;
@@ -628,6 +703,7 @@ body::before {
   transition: opacity 0.35s, left 0.35s, right 0.35s;
 }
 
+/* Inject an invisible radial gradient layer over the entire card. The center of this circle is mapped to the tx and ty variables so Javascript can make it follow the mouse */
 .content-link-tile::after {
   content: '';
   position: absolute;
@@ -642,6 +718,7 @@ body::before {
   border-radius: inherit;
 }
 
+/* When the card is hovered, pop it up 5 pixels, make the border gold, and add a heavy shadow */
 .content-link-tile:hover,
 .content-link-tile:focus-visible {
   transform: translateY(-5px) scale(1.012);
@@ -649,11 +726,13 @@ body::before {
   box-shadow: var(--shadow-hover);
 }
 
+/* Make the mouse-tracking radial gradient visible on hover */
 .content-link-tile:hover::after,
 .content-link-tile:focus-visible::after {
   opacity: 1;
 }
 
+/* Animate the invisible top line to stretch out wider and become opaque on hover */
 .content-link-tile:hover::before,
 .content-link-tile:focus-visible::before {
   opacity: 0.9;
@@ -661,11 +740,13 @@ body::before {
   right: 5%;
 }
 
+/* Accessibility: draw a gold box around the card if navigating by keyboard */
 .content-link-tile:focus-visible {
   outline: 2px solid var(--c-gold);
   outline-offset: 3px;
 }
 
+/* Draw a custom grid-paper background pattern specifically for the first 'feat' card using repeating linear gradients */
 .content-link-tile:nth-child(1) {
   background:
     linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
@@ -674,6 +755,7 @@ body::before {
     var(--c-surface-2);
 }
 
+/* Style the heading inside the grid cards */
 .content-link-tile h3 {
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
@@ -681,6 +763,7 @@ body::before {
   line-height: 1.2;
 }
 
+/* Style the paragraph inside the grid cards */
 .content-link-tile p {
   font-size: var(--fs-body);
   color: var(--c-muted);
@@ -688,6 +771,7 @@ body::before {
   margin-bottom: var(--sp-sm);
 }
 
+/* Style the tiny gold arrow link at the bottom of the card and setup transitions for the gap distance between the text and arrow */
 .tile-arrow {
   font-size: var(--fs-label);
   font-weight: 700;
@@ -700,11 +784,13 @@ body::before {
   transition: gap 0.3s var(--ease-expo), letter-spacing 0.3s ease;
 }
 
+/* When the card is hovered, push the arrow further away from the text by increasing the gap */
 .content-link-tile:hover .tile-arrow {
   gap: 0.65rem;
   letter-spacing: 2.5px;
 }
 
+/* Setup a standard flexbox grid to hold normal cards. Use flex-wrap so they drop to the next line if the screen gets too small */
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -713,6 +799,7 @@ body::before {
   padding: var(--sp-xl) clamp(1rem, 4vw, 2rem);
 }
 
+/* Basic styling for normal cards: glass background, rounded corners, hidden overflow, and transition settings */
 .card {
   background: var(--c-surface-2);
   backdrop-filter: var(--blur-sm);
@@ -725,6 +812,7 @@ body::before {
   overflow: hidden;
 }
 
+/* Inject an invisible gold gradient line inside the very top of the standard card */
 .card::before {
   content: '';
   position: absolute;
@@ -737,20 +825,24 @@ body::before {
   transition: opacity 0.35s;
 }
 
+/* On hover, tint the border gold and add a heavy shadow */
 .card:hover {
   border-color: rgba(212, 175, 55, 0.4);
   box-shadow: var(--shadow-hover);
 }
 
+/* On hover, make the invisible top gold line visible */
 .card:hover::before {
   opacity: 1;
 }
 
+/* Add specific padding to cards marked as padded, and clamp their width so they don't grow too fat on huge screens or too skinny on phones */
 .card.padded {
   padding: clamp(1.5rem, 3vw, 2.25rem);
   width: clamp(280px, 30vw, 370px);
 }
 
+/* Force images inside padded cards to be exactly 200px tall and crop the edges automatically using object-fit cover to prevent stretching */
 .card.padded img {
   width: 100%;
   height: 200px;
@@ -761,23 +853,27 @@ body::before {
   transition: filter 0.4s ease, transform 0.5s var(--ease-expo);
 }
 
+/* On hover, physically scale the image up by 3% and increase its brightness and contrast */
 .card:hover img {
   transform: scale(1.03);
   filter: brightness(1.08) contrast(1.04);
 }
 
+/* Typography settings for card headers */
 .card.padded h3 {
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
   margin-bottom: var(--sp-sm);
 }
 
+/* Typography settings for card paragraphs */
 .card.padded p {
   font-size: var(--fs-body);
   line-height: 1.75;
   color: var(--c-muted);
 }
 
+/* If a card is using 3D tilt javascript, turn off mouse interactions for its child text/images so the Javascript math calculating the mouse position on the raw card doesn't glitch */
 .tilt-card img,
 .tilt-card h3,
 .tilt-card p,
@@ -785,12 +881,14 @@ body::before {
   pointer-events: none;
 }
 
+/* Remove default browser bullets for specific mission lists */
 .mission-list {
   list-style: none;
   margin-top: var(--sp-sm);
   padding: 0;
 }
 
+/* Indent the list items to make room for custom bullet icons */
 .mission-list li {
   position: relative;
   padding-left: 1.1rem;
@@ -800,6 +898,7 @@ body::before {
   line-height: 1.6;
 }
 
+/* Inject a gold chevron arrow icon exactly at the left edge of each list item to replace standard bullets */
 .mission-list li::before {
   content: '›';
   position: absolute;
@@ -808,6 +907,7 @@ body::before {
   font-weight: 700;
 }
 
+/* Build a custom button. Setup for the magnetic hover effect by hiding overflow so the expanding circle doesn't bleed out of the button shape */
 .magnetic-btn {
   position: relative;
   display: inline-flex;
@@ -829,6 +929,7 @@ body::before {
   outline: none;
 }
 
+/* Elevate the text physically over the hidden background animation using z-index */
 .magnetic-btn .btn-text {
   position: relative;
   z-index: 2;
@@ -836,6 +937,7 @@ body::before {
   transition: transform 0.28s var(--ease-expo);
 }
 
+/* Inject a hidden gold circle perfectly centered inside the button and shrink its size down to 0 using scale(0). This is the circle that will explode outwards on hover */
 .magnetic-btn::before {
   content: '';
   position: absolute;
@@ -851,21 +953,25 @@ body::before {
   opacity: 0.88;
 }
 
+/* On hover, change the button border to solid gold, the text to black, and add a heavy gold glow to the whole box */
 .magnetic-btn:hover {
   color: #000;
   border-color: var(--c-gold);
   box-shadow: 0 0 26px var(--c-gold-glow);
 }
 
+/* On hover, blow up the hidden gold circle inside the button so it fills the entire button shape */
 .magnetic-btn:hover::before {
   transform: translate(-50%, -50%) scale(1.15);
 }
 
+/* Accessibility: draw a white box around the button if someone tabs to it with a keyboard */
 .magnetic-btn:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 4px;
 }
 
+/* Base styles for the image gallery squares. Hide overflow to trap the image zoom effect inside the border */
 .gallery-item {
   border: 1px solid var(--c-border);
   border-radius: var(--radius-md);
@@ -875,12 +981,14 @@ body::before {
   transition: all 0.45s var(--ease-expo);
 }
 
+/* On hover, pop the whole square up 7 pixels and scale it up slightly */
 .gallery-item:hover {
   border-color: var(--c-border-gold);
   transform: translateY(-7px) scale(1.015);
   box-shadow: var(--shadow-hover);
 }
 
+/* Pin the title text to the bottom of the image using absolute positioning and draw a black gradient behind it so white text is readable against bright images. Start slightly faded */
 .item-label {
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
   position: absolute;
@@ -895,10 +1003,12 @@ body::before {
   transition: opacity 0.3s;
 }
 
+/* Turn text to 100% opacity on hover */
 .gallery-item:hover .item-label {
   opacity: 1;
 }
 
+/* Create an invisible dark screen that covers the entire browser window to lock out interactions behind the popup modal. Set opacity 0 and kill pointer events so it's disabled by default */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -914,11 +1024,13 @@ body::before {
   transition: opacity 0.4s;
 }
 
+/* When Javascript fires the 'active' class, fade in the dark screen and enable mouse clicks on it to trap the user */
 .modal-overlay.active {
   opacity: 1;
   pointer-events: auto;
 }
 
+/* Build the actual popup window. Push it down 24 pixels and shrink it slightly so it can animate springing upwards when opened */
 .modal-content {
   background: var(--c-surface-1);
   border: 1px solid var(--c-border-gold);
@@ -932,10 +1044,12 @@ body::before {
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 28px var(--c-gold-glow);
 }
 
+/* When Javascript fires the active class on the parent, animate the popup to full scale and snap it exactly to center */
 .modal-overlay.active .modal-content {
   transform: scale(1) translateY(0);
 }
 
+/* Build the specific action cards for Student 2's simulator. Setup relative positioning to trap the click effects */
 .ais-action-card {
   background: var(--c-surface-3);
   border: 1px solid var(--c-border);
@@ -950,6 +1064,7 @@ body::before {
   outline: none;
 }
 
+/* Inject an invisible gold glow at the exact bottom center of the card. This will fire when the user clicks to select the action */
 .ais-action-card::after {
   content: '';
   position: absolute;
@@ -959,27 +1074,32 @@ body::before {
   transition: opacity 0.35s;
 }
 
+/* When Javascript detects a click and applies the 'selected' class, highlight the border, add heavy glow, and physically lock the card 4 pixels higher */
 .ais-action-card.selected {
   border-color: var(--c-border-gold);
   box-shadow: 0 0 22px var(--c-gold-glow), 0 8px 24px rgba(0, 0, 0, 0.5);
   transform: translateY(-4px);
 }
 
+/* Turn on the hidden bottom glow effect when the card is selected */
 .ais-action-card.selected::after {
   opacity: 1;
 }
 
+/* If the card is hovered BUT NOT clicked yet, give it a tiny 3-pixel bump to show it's clickable */
 .ais-action-card:hover:not(.selected) {
   border-color: var(--c-border);
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
+/* Accessibility: draw a gold box around the card if navigating by keyboard */
 .ais-action-card:focus-visible {
   outline: 2px solid var(--c-gold);
   outline-offset: 4px;
 }
 
+/* Setup the global bottom footer block. Force it to stick to the bottom of the page even if there's no content using margin-top: auto */
 .site-footer {
   background: rgba(2, 3, 6, 0.99);
   backdrop-filter: var(--blur-sm);
@@ -989,6 +1109,7 @@ body::before {
   color: var(--c-muted);
 }
 
+/* Center the footer content, limit its width to 1200px, and use flexbox to space the columns out. Wrap them onto new lines for mobile screens */
 .footer-container {
   width: min(90%, 1200px);
   margin: 0 auto;
@@ -1000,6 +1121,7 @@ body::before {
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
+/* Typography styles for the footer column titles */
 .footer-container h3 {
   font-family: var(--font-heading);
   color: var(--c-text);
@@ -1007,20 +1129,24 @@ body::before {
   font-size: 1.15rem;
 }
 
+/* Typography styles for the student data block */
 .student-info p {
   margin-bottom: 0.45rem;
   font-size: var(--fs-body);
   line-height: 1.6;
 }
 
+/* Remove default bullets from footer lists */
 .footer-links ul {
   list-style: none;
 }
 
+/* Add space between footer list items */
 .footer-links li {
   margin-bottom: 0.65rem;
 }
 
+/* Set link colors and prep them for hover animations */
 .footer-links a {
   color: var(--c-muted);
   text-decoration: none;
@@ -1029,12 +1155,14 @@ body::before {
   outline: none;
 }
 
+/* On hover, paint the links gold and stretch the text slightly by increasing letter tracking */
 .footer-links a:hover,
 .footer-links a:focus-visible {
   color: var(--c-gold);
   letter-spacing: 0.5px;
 }
 
+/* Center the tiny copyright text at the absolute bottom and fade its opacity */
 .footer-bottom {
   text-align: center;
   padding-top: var(--sp-md);
@@ -1042,6 +1170,7 @@ body::before {
   opacity: 0.35;
 }
 
+/* Set the window frame for parallax images. The image inside will scroll at a different speed than the frame itself. Hide anything that spills out */
 .parallax-img-container {
   width: 100%;
   height: clamp(240px, 32vw, 390px);
@@ -1052,6 +1181,7 @@ body::before {
   box-shadow: var(--shadow-card);
 }
 
+/* Force the actual parallax image to be 130% taller than its container frame and shift it up. Javascript will move this Y-axis math as the user scrolls to create the 3D effect */
 .parallax-img-target {
   width: 100%;
   height: 130%;
@@ -1060,6 +1190,7 @@ body::before {
   will-change: transform;
 }
 
+/* Override rules for the popup modal image to force it to show the entire picture without cropping, maxing out at 42% of the screen height */
 #modalImageTarget {
   height: auto !important;
   max-height: 42vh;

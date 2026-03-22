@@ -7,6 +7,7 @@
     <title>Peace & Justice | Gallery</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* CSS for the top part of the page where the title is  */
         .gallery-header {
             text-align: center;
             padding: 60px 20px 20px;
@@ -19,6 +20,7 @@
             color: var(--text-main);
         }
 
+        /* Make a grid with 3 columns for the images */
         .gallery-grid {
             columns: 3 320px;
             column-gap: 30px;
@@ -27,6 +29,7 @@
             margin: 0 auto 80px;
         }
 
+        /* Set up the container for each image and add a shadow effect  */
         .gallery-item {
             break-inside: avoid;
             margin-bottom: 30px;
@@ -40,6 +43,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
+        /* Tilt the image container and make the shadow bigger when mouse is over it  */
         .gallery-item:hover {
             transform: perspective(1000px) translateZ(30px) scale(1.02);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 175, 55, 0.25);
@@ -52,6 +56,7 @@
             z-index: 2;
         }
 
+        /* Make image fit the box and zoom in slowly when mouse is over it  */
         .gallery-item img {
             width: 100%;
             height: auto;
@@ -68,6 +73,7 @@
         }
 
 
+        /* Show the text label by sliding it up from the bottom on hover  */
         .item-label {
             position: absolute;
             bottom: 0;
@@ -91,6 +97,7 @@
         }
 
 
+        /* Overlay that covers everything and blurs the background when an image is expanded  */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -114,6 +121,7 @@
             pointer-events: auto;
         }
 
+        /* Style the box that holds the expanded image and text  */
         .modal-content {
             border-top: 1px solid var(--accent-gold);
             border-radius: 16px;
@@ -134,6 +142,7 @@
             transform: scale(1) translateY(0);
         }
 
+        /* Button to close the expanded view  */
         .close-btn {
             position: absolute;
             top: 15px;
@@ -188,6 +197,7 @@
             transition: font-size 0.3s ease, color 0.4s ease;
         }
 
+        /* Bar at the bottom of the modal for changing colors and fonts  */
         .customization-bar {
             display: flex;
             flex-wrap: wrap;
@@ -243,6 +253,7 @@
         }
 
 
+        /* High contrast theme settings for the modal  */
         .modal-content[data-theme="high-contrast"] {
             background: #000;
             border-top-color: var(--accent-gold);
@@ -258,6 +269,7 @@
             font-weight: 400;
         }
 
+        /* Dark blue theme settings for the modal  */
         .modal-content[data-theme="stealth"] {
             background: #050a10;
             border-top-color: var(--accent-cyan);
@@ -357,7 +369,6 @@
         </div>
     </main>
 
-    <!-- semantic regions -->
     <div id="galleryModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitleTarget"
         aria-describedby="modalDescTarget">
         <div class="modal-content glass-panel" id="modalBox" data-theme="high-contrast">
@@ -402,6 +413,7 @@
     </div>
 
     <script>
+        /* Change header style when scrolling down  */
         const header = document.querySelector('.site-header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 80 && !header.classList.contains('header-scrolled')) { header.classList.add('header-scrolled'); }
@@ -414,6 +426,7 @@
         const modalDesc = document.getElementById('modalDescTarget');
         const modalBox = document.getElementById('modalBox');
 
+        /* Pull data from the clicked image and show the expanded view  */
         function openModal(imgId, titleId, descId) {
             modalImg.src = document.getElementById(imgId).src;
             modalImg.alt = document.getElementById(imgId).alt;
@@ -424,26 +437,30 @@
             modalBox.focus();
         }
 
+        /* Hide the expanded view  */
         function closeModal() {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
+        /* Close expanded view if user clicks on the background  */
         modal.addEventListener('click', function (e) {
             if (e.target === modal) closeModal();
         });
 
-        // Escape to close
+        /* Close expanded view if user presses the Escape key  */
         document.addEventListener('keydown', (e) => {
             if (e.key === "Escape" && modal.classList.contains('active')) closeModal();
         });
 
         let currentFontSize = 1;
+        /* Swap the theme colors in the expanded view  */
         function setModalTheme(theme) {
 
             modalBox.setAttribute('data-theme', theme);
         }
 
+        /* Change the text size in the expanded view  */
         function changeFontSize(action) {
             if (action === 'increase' && currentFontSize < 1.4) currentFontSize += 0.1;
             else if (action === 'decrease' && currentFontSize > 0.8) currentFontSize -= 0.1;

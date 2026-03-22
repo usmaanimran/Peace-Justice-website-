@@ -4,20 +4,32 @@
    the Free Software Foundation, either version 3 of the License.
 */
 
+/* ========================================================================= */
+/* DO NOT EDIT - SHARED TEMPLATE: GLOBAL JS FILE                            */
+/* Student 1, 2 and 4 is responsible for this file.    */
+/* ALL TEAM MEMBERS MUST USE THIS FILE. Do not put page specific JS here.   */
+/* ========================================================================= */
 
+
+
+
+// Wait for the HTML document to finish loading before running any of this code.
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Grab the main UI elements from the DOM to manipulate later.
   const hdr = document.querySelector('.site-header');
   const hSec = document.querySelector('.hero-section');
   const hH1 = hSec?.querySelector('h1');
   const hSub = hSec?.querySelector('p');
   const bTls = document.querySelectorAll('.content-link-tile[data-speed]');
 
+  // Dynamically create a scroll progress bar and stick it at the top of the body.
   const pBar = document.createElement('div');
   pBar.id = 'scroll-progress';
   document.body.appendChild(pBar);
 
   /* PARTICLES (HOME PAGE)*/
+  // Grabs the canvas ID 'prtc' from home.html to draw the interactive background.
   const cv1 = document.getElementById('prtc');
   if (cv1) {
     const ctx1 = cv1.getContext('2d');
@@ -30,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cv1.width = w1;
     cv1.height = h1;
 
+    // Define 5 origin points on the screen where particles will spawn from.
     const orgs = [
       { x: w1 * 0.5, y: h1 * 0.45 },
       { x: w1 * 0.25, y: h1 * 0.6 },
@@ -38,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { x: w1 * 0.85, y: h1 * 0.7 },
     ];
 
+    // Generate 90 particles, assign them random speeds, directions, and a base origin point.
     for (let i = 0; i < 90; i++) {
       const o = orgs[i % orgs.length];
       const a = Math.random() * Math.PI * 2;
@@ -54,31 +68,39 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Track mouse X and Y coordinates to make particles react to the cursor.
     document.addEventListener('mousemove', e => { mx1 = e.clientX; my1 = e.clientY; });
+    // Keep canvas size synced with browser window size.
     window.addEventListener('resize', () => {
       w1 = cv1.width = window.innerWidth;
       h1 = cv1.height = window.innerHeight;
     });
 
+    // The main animation loop for the home page particles.
     function tk1() {
       ctx1.clearRect(0, 0, w1, h1);
       ctx1.fillStyle = 'rgba(212, 175, 55, 0.6)';
       ctx1.beginPath();
 
       pts.forEach(p => {
+        // Calculate the distance between the mouse and the particle using the Pythagorean theorem (a^2 + b^2 = c^2).
         const dx = mx1 - p.x;
         const dy = my1 - p.y;
         const d = Math.sqrt(dx * dx + dy * dy);
+        
+        // If the mouse gets closer than 150px, push the particle away by modifying its velocity.
         if (d < 150) {
           p.vx -= (dx / d) * 0.05;
           p.vy -= (dy / d) * 0.05;
         }
 
+        // Apply friction to slow the particles down over time and add base drift.
         p.vx = p.vx * 0.95 + p.bx * 0.05;
         p.vy = p.vy * 0.95 + p.by * 0.05;
         p.x += p.vx;
         p.y += p.vy;
 
+        // Wrap particles around the screen if they float off the edge.
         if (p.x < 0) p.x = w1;
         if (p.x > w1) p.x = 0;
         if (p.y < 0) p.y = h1;
@@ -95,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* (CONTENT PAGES)*/
+  // Canvas background for content pages. Draws floating blocks instead of circular particles.
   const cv2 = document.getElementById('ps4-bg');
   if (cv2) {
     const ctx2 = cv2.getContext('2d');
@@ -103,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cv2.width = w2;
     cv2.height = h2;
 
+    // Generate 18 square blocks with random sizes, angles, and drift speeds.
     let blks = [];
     for (let i = 0; i < 18; i++) {
       blks.push({
@@ -124,9 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let ang = 0;
 
+    // Main animation loop for the content page blocks.
     function tk2() {
       ctx2.clearRect(0, 0, w2, h2);
 
+      // Create a slow moving radial gradient background using sine and cosine waves for smooth circular motion.
       ang += 0.002;
       const cx = w2 * 0.5 + Math.cos(ang) * (w2 * 0.15);
       const cy = h2 * 0.5 + Math.sin(ang * 0.7) * (h2 * 0.15);
@@ -137,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx2.fillStyle = grd;
       ctx2.fillRect(0, 0, w2, h2);
 
+      // Move and rotate each block. Reset their position to the opposite side if they drift completely off screen.
       blks.forEach(b => {
         b.df += 0.0015;
         b.x += b.vx + Math.cos(b.df) * 0.03;
@@ -167,9 +194,11 @@ document.addEventListener('DOMContentLoaded', () => {
   /* SCROLL & PARALLAx*/
   let rafP = false;
 
+  // Function that runs every time the user scrolls.
   function scrF() {
     const y = window.scrollY;
 
+    // Add a CSS class to the header if scrolled past 80px to shrink it, remove it if back at the top.
     if (hdr) {
       if (y > 80 && !hdr.classList.contains('header-scrolled')) {
         hdr.classList.add('header-scrolled');
@@ -178,9 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Calculate total scroll percentage and apply it to the width of the progress bar div.
     const dH = document.documentElement.scrollHeight - window.innerHeight;
     pBar.style.width = dH > 0 ? (y / dH * 100) + '%' : '0%';
 
+    // Parallax effect for the hero section: scale up and fade out the title/subtitle as you scroll down.
     if (y < 800) {
       let sc = 1 + (y / 400);
       let op = 1 - (y / 350);
@@ -199,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Parallax effect for the bento gallery tiles based on their specific data-speed attribute.
     bTls.forEach(t => {
       const r = t.getBoundingClientRect();
       if (r.top < window.innerHeight && r.bottom > 0) {
@@ -212,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Show the Go to Top button if scrolled past 500px.
     if (bBtn) {
       if (y > 500) bBtn.classList.add('visible');
       else bBtn.classList.remove('visible');
@@ -220,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     rafP = false;
   }
 
+  // Throttle the scroll event using requestAnimationFrame so it doesn't lag the browser.
   window.addEventListener('scroll', () => {
     if (!rafP) {
       rafP = true;
@@ -228,6 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   /* REVEALS & TILT */
+  // Use IntersectionObserver to watch for elements with .reveal classes entering the screen.
+  // When they enter the viewport, add the 'visible' class to trigger their CSS fade-in animations.
   const rEls = document.querySelectorAll('.reveal, .reveal-element');
   const rObs = new IntersectionObserver((es, ob) => {
     es.forEach(e => {
@@ -240,6 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   rEls.forEach(el => rObs.observe(el));
 
+  // Fallback: If elements are already in the viewport on initial load, reveal them immediately.
   window.addEventListener('load', () => {
     rEls.forEach(el => {
       const r = el.getBoundingClientRect();
@@ -249,6 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Calculate the mouse position relative to the center of any .tilt-card element.
+  // Rotate the card on the X and Y axes depending on how far the mouse is from the center.
   document.querySelectorAll('.tilt-card').forEach(c => {
     c.addEventListener('mousemove', e => {
       const r = c.getBoundingClientRect();
@@ -256,11 +295,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 9;
       c.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.025,1.025,1.025)`;
     });
+    // Flatten the card back out when the mouse leaves.
     c.addEventListener('mouseleave', () => {
       c.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)`;
     });
   });
 
+  // Update custom CSS variables for tile hover effects based on cursor position inside the tile.
   document.querySelectorAll('.content-link-tile').forEach(t => {
     t.addEventListener('mousemove', e => {
       const r = t.getBoundingClientRect();
@@ -272,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* UTILS*/
+  // Creates the required "Go to Top" button dynamically if it doesn't already exist in the HTML.
   let bBtn = null;
   if (!document.querySelector('.back-to-top-css') && !document.querySelector('#back-to-top')) {
     bBtn = document.createElement('button');
@@ -283,7 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
     bBtn = document.querySelector('.back-to-top-css') || document.querySelector('#back-to-top');
   }
 
+  // Remove the initial page load fade-in class after 800ms.
   setTimeout(() => document.body.classList.remove('page-fade-in'), 800);
+  
+  // Intercept standard link clicks. Play a fade-out animation first, wait 450ms, then actually navigate to the new page.
   document.querySelectorAll('a:not([target="_blank"]):not([href^="#"])').forEach(l => {
     l.addEventListener('click', e => {
       const hf = l.getAttribute('href');
@@ -295,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Track global mouse position and save to CSS variables for custom cursors or global hover effects.
   document.addEventListener('mousemove', e => {
     document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
     document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);

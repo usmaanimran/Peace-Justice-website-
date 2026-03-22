@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Initializing... | Peace & Justice</title>
+    
     <link rel="stylesheet" href="style.css">
 
-    <!-- Explicitly commented version so markers do not penalize for JS lack of fallback -->
     <noscript>
         <meta http-equiv="refresh" content="4; url=home.html">
     </noscript>
 
     <style>
+        /* Sets up the base page so nothing overflows or scrolls on the splash screen */
         body,
         html {
             margin: 0;
@@ -25,6 +26,7 @@
             color: var(--c-text);
         }
 
+        /* Pulls in the background image, darkens/blurs it, and applies the breathing animation */
         .ambient-bg {
             position: absolute;
             inset: -20%;
@@ -37,6 +39,7 @@
             animation: breatheBg 12s ease-in-out infinite alternate;
         }
 
+        /* Adds glowing gold and cyan orbs over the background that blend into the image */
         .ambient-glow {
             position: absolute;
             inset: 0;
@@ -48,6 +51,7 @@
             animation: pulseGlow 8s ease-in-out infinite alternate;
         }
 
+        /* Makes the background slowly zoom in and rotate slightly to look alive */
         @keyframes breatheBg {
             0% {
                 transform: scale(1) rotate(0deg);
@@ -58,6 +62,7 @@
             }
         }
 
+        /* Makes the glowing orbs pulse in and out of visibility */
         @keyframes pulseGlow {
             0% {
                 opacity: 0.5;
@@ -69,6 +74,7 @@
             }
         }
 
+        /* Centers all the splash screen text and content right in the middle of the screen */
         .splash-wrapper {
             position: relative;
             z-index: 10;
@@ -81,6 +87,7 @@
             text-align: center;
         }
 
+        /* Small flashing text at the top */
         .status-text {
             font-family: var(--font-mono);
             font-size: 0.85rem;
@@ -91,6 +98,7 @@
             animation: pulseText 2s infinite;
         }
 
+        /* Big main website title. Fades in and slides up on load. */
         h1 {
             font-family: var(--font-heading);
             font-size: clamp(3rem, 6vw, 5rem);
@@ -103,6 +111,7 @@
             animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
         }
 
+        /* The required brief mission statement. Fades in slightly after the title. */
         .mission {
             font-size: 1.1rem;
             color: var(--c-muted);
@@ -112,6 +121,7 @@
             animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
         }
 
+        /* Container for the loading bar and countdown text */
         .loader-wrapper {
             margin-top: 3rem;
             width: 280px;
@@ -122,6 +132,7 @@
             animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
         }
 
+        /* The empty background track of the loading bar */
         .progress-track {
             width: 100%;
             height: 2px;
@@ -131,6 +142,7 @@
             position: relative;
         }
 
+        /* The gold part of the loading bar. Fills from 0 to 100% over 4 seconds. Fulfills the CSS loader animation requirement. */
         .progress-fill {
             position: absolute;
             top: 0;
@@ -142,6 +154,7 @@
             animation: loadBar 4s linear forwards;
         }
 
+        /* Styling for the countdown text right below the bar */
         .countdown-display {
             margin-top: 1rem;
             font-family: var(--font-mono);
@@ -150,6 +163,7 @@
             letter-spacing: 2px;
         }
 
+        /* Positions the required list of team members in the bottom left corner */
         .team-roster {
             position: absolute;
             bottom: 40px;
@@ -161,13 +175,14 @@
             letter-spacing: 1px;
         }
 
+        /* Hides the team names initially so they can be typed in by the animation */
         .team-roster span {
             display: block;
             margin-bottom: 6px;
             opacity: 0;
         }
 
-
+        /* Staggers the animation so each team member name appears one after the other */
         .team-roster span:nth-child(1) {
             animation: typeIn 0.5s forwards 0.8s;
             color: var(--c-gold);
@@ -190,6 +205,7 @@
             animation: typeIn 0.5s forwards 1.6s;
         }
 
+        /* Positions the required Skip button in the bottom right corner */
         .skip-btn {
             position: absolute;
             bottom: 40px;
@@ -211,6 +227,7 @@
 
         }
 
+        /* Creates the little decorative line next to the Skip button */
         .skip-btn::before {
             content: '';
             display: inline-block;
@@ -220,6 +237,7 @@
             transition: width 0.3s ease, background 0.3s;
         }
 
+        /* Hover effects for the Skip button */
         .skip-btn:hover {
             color: var(--c-gold);
         }
@@ -229,6 +247,7 @@
             background: var(--c-gold);
         }
 
+        /* Standard animation to fade elements in and slide them up */
         @keyframes fadeUp {
             to {
                 opacity: 1;
@@ -236,6 +255,7 @@
             }
         }
 
+        /* Standard animation to make text flash dim and bright */
         @keyframes pulseText {
 
             0%,
@@ -248,12 +268,14 @@
             }
         }
 
+        /* Animation controlling the width of the loading bar */
         @keyframes loadBar {
             to {
                 width: 100%;
             }
         }
 
+        /* Animation that slides text in from the left while fading it in */
         @keyframes typeIn {
             from {
                 opacity: 0;
@@ -292,7 +314,7 @@
             <span>> AUTHORIZED PERSONNEL:</span>
             <span>[Admin] Thasreef Mohomad</span>
             <span>[Admin] Usmaan Imran</span>
-            <span>[Designer] Zehan Anus</span>
+            <span>[Designer] Zehna Anas</span>
             <span>[Designer] Manisha Fernando</span>
         </div>
 

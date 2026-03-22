@@ -9,6 +9,8 @@
         content="Simulate the real-world impact of everyday actions on Peace, Justice, and Strong Institutions.">
     <link rel="stylesheet" href="style.css">
     <style>
+     
+        /* Rule 1: Centers the hero text and uses clamp for fluid vertical padding */
         .ais-hero {
             text-align: center;
             padding: clamp(3rem, 6vw, 5rem) 1rem clamp(1.5rem, 3vw, 2rem);
@@ -39,6 +41,7 @@
             line-height: 1.7;
         }
 
+        /* Rule 2: Uses CSS Grid to create a 2-column layout for the dashboard */
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 320px;
@@ -49,12 +52,14 @@
             align-items: start;
         }
 
+        /* Makes the dashboard a single column on mobile screens */
         @media (max-width: 860px) {
             .dashboard {
                 grid-template-columns: 1fr;
             }
         }
 
+        /* Rule 3: Responsive grid that auto-fits action cards to the screen width */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -161,6 +166,7 @@
             color: #f87171;
         }
 
+        /* Rule 4: Sticky positioning to keep the sidebar visible while scrolling */
         .sidebar {
             position: sticky;
             top: 100px;
@@ -253,7 +259,7 @@
             margin-bottom: var(--sp-lg);
         }
 
-        /*Background Layers */
+        /* Rule 5: Background layer for impact levels */
         .ais-bg {
             position: fixed;
             inset: 0;

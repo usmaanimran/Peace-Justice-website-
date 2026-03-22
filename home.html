@@ -6,15 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peace & Justice | Home</title>
     <meta name="description" content="Advocating for global stability, equal rights, and transparency — UN SDG 16.">
+    
     <link rel="stylesheet" href="style.css">
 
     <style>
+        /* PAGE-SPECIFIC EMBEDDED CSS: TARGETS ONLY ST1 CONTENT */
+        
+        /* Establishes a relative positioning context so child elements stay within bounds. z-index 1 keeps it on the base layer. */
         .hero-section {
             position: relative;
             overflow: hidden;
             z-index: 1;
         }
 
+        /* Absolutely centers the background text. Uses clamp() to dynamically scale font size between 14vw and 30vw based on screen size. pointer-events: none stops it from blocking user clicks. */
         .hero-watermark {
             position: absolute;
             font-size: clamp(14vw, 22vw, 30vw);
@@ -27,17 +32,20 @@
             user-select: none;
         }
 
+        /* Sets a higher stacking order (z-index 2) so the bento grid sits visually above the hero section's watermark */
         .bento-section {
             position: relative;
             z-index: 2;
         }
 
+        /* Removes default browser bullet points and adds top spacing pulling from a CSS variable */
         .mission-list {
             list-style: none;
             margin-top: var(--sp-sm);
             padding: 0;
         }
 
+        /* Creates a custom list item layout by adding left padding to make room for custom bullet styling (likely defined in global CSS), and applying the muted text color variable */
         .mission-list li {
             position: relative;
             padding-left: 1.1rem;
@@ -62,6 +70,7 @@
             </filter>
         </defs>
     </svg>
+    
     <header class="site-header">
         <div class="nav-container">
             <a href="home.html" class="logo-link" aria-label="Home — SDG 16 Peace and Justice">
@@ -83,6 +92,7 @@
             </nav>
         </div>
     </header>
+
     <main id="main-content">
         <section class="hero-section" aria-labelledby="hero-title">
             <div class="hero-watermark" aria-hidden="true">SDG 16</div>
@@ -92,6 +102,7 @@
             <p class="reveal reveal-delay-3">Advocating for the global stability, equal rights, and transparency
                 required to build a sustainable and just future for all.</p>
         </section>
+        
         <section aria-labelledby="pillars-heading">
             <h2 id="pillars-heading" class="sr-only">Our Core Pillars</h2>
             <div class="card-container">
@@ -127,12 +138,14 @@
                 </article>
             </div>
         </section>
+        
         <section class="bento-section" aria-labelledby="research-heading">
             <header class="bento-header">
                 <h2 id="research-heading" class="reveal">Discover Our <span class="text-gradient">Articles</span></h2>
                 <p class="reveal reveal-delay-1">Dive deeper into the critical areas of Peace, Justice, and Strong
                     Institutions.</p>
             </header>
+            
             <nav class="content-link-grid" aria-label="Research Topics Navigation">
 
                 <a href="content_ST1.html" class="content-link-tile reveal reveal-delay-1" data-speed="-0.022"
@@ -162,6 +175,7 @@
             </nav>
         </section>
     </main>
+
     <footer class="site-footer">
         <div class="footer-container">
             <div class="student-info">
@@ -183,6 +197,7 @@
             <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
         </div>
     </footer>
+    
     <script src="main.js"></script>
 </body>
 
