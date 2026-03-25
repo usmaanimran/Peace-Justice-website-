@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | Sitemap</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+    /* Styling for each sitemap node (rectangle box) */
+    .node rect{
+        fill: var(--c-surface-2); 
+        stroke:var(--c-border); 
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    }
+    /* Text inside nodes */
+    .node text{
+        fill:var(--c-text);
+        font-style:var(--font-body);
+    
+    }
+    /* Hover effect for nodes */
+    .node rect:hover{
+        stroke:rgba(212,175,55,0.4); 
+        box-shadow: var(--shadow-hover); 
+        z-index: 10;
+
+    }
+    /* Lines connecting nodes */
+    line{
+        stroke:rgba(212,175,55,0.4);
+    }
+    
+    </style>
+</head>
+<body class="page-fade-in">
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link">
+                <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo">
+                <span class="site-title">Peace <span class="text-gradient">&</span> Justice</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="sitemap.html" class="active">Sitemap</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- SVG container for sitemap visualization -->
+            <svg id="sitemap" viewBox="0 0 1100 750" preserveAspectRatio="xMidYMid meet">
+                <!-- ================= CONNECTION LINES ================= -->
+                <!-- These lines visually represent hierarchy and relationships between pages -->
+                <g class="sitemap-line">
+                    <!-- Splash → Home -->
+                    <line x1="550" y1="80" x2="550" y2="130" />
+                     <!-- Home → Main branches -->
+                    <line x1="550" y1="180" x2="550" y2="260" />
+                    <line x1="150" y1="260" x2="950" y2="260" />
+                    <!-- Vertical branches to each page -->
+                    <line x1="150" y1="260" x2="150" y2="330" />
+                    <line x1="350" y1="260" x2="350" y2="330" />
+                    <line x1="550" y1="260" x2="550" y2="330" />
+                    <line x1="750" y1="260" x2="750" y2="330" />
+                    <line x1="950" y1="260" x2="950" y2="330" />
+                    <line x1="150" y1="300" x2="150" y2="330" />
+
+                    <!-- Connection to content section -->
+                    <line x1="525" y1="500" x2="525" y2="550" />
+                    <!-- Side structure for content grouping -->
+                    <line x1="30" y1="155" x2="30" y2="475" />
+                    <line x1="477" y1="475" x2="30" y2="475" />
+                    <line x1="30" y1="155" x2="477" y2="155" />
+                    <!-- Content pages horizontal line -->
+                    <line x1="200" y1="550" x2="850" y2="550" />
+                    <!-- Vertical lines to each student content page --> 
+                    <line x1="200" y1="550" x2="200" y2="600" />
+                    <line x1="405" y1="550" x2="405" y2="600" />
+                    <line x1="630" y1="550" x2="630" y2="600" />
+                    <line x1="850" y1="550" x2="850" y2="600" />
+                </g>
+                <!-- ================= NODES (PAGES) ================= -->
+                <!-- Splash Screen -->
+                <g class="node">
+                    <a href="splash.html">
+                        <rect class="node-rect" x="475" y="30" width="150" height="50" rx="15" ry="15"/>
+                        <text x="497" y="60">Splash Screen</text>
+                    </a>
+                </g>
+                <!-- Home Page -->
+                <g class="node">
+                    <a href="home.html">
+                        <rect class="node-rect" x="475" y="130" width="150" height="50" rx="15" ry="15"/>
+                        <text x="550" y="160" text-anchor="middle">Home</text>
+                    </a>
+                </g>
+                <!-- Main navigation pages -->
+                <g class="node">
+                    <a href="gallery.html">
+                        <rect class="node-rect" x="75" y="330" width="150" height="50" rx="15" ry="15"/>
+                        <text x="125" y="360">Gallery</text>
+                    </a>
+                </g>
+
+                <g class="node">
+                    <a href="feedback.html">
+                        <rect class="node-rect" x="275" y="330" width="150" height="50" rx="15" ry="15"/>
+                        <text x="315" y="360">Feedback</text>
+                    </a>
+                </g>
+
+                <g class="node">
+                    <a href="ais.html">
+                        <rect class="node-rect" x="475" y="330" width="150" height="50" rx="15" ry="15"/>
+                        <text x="537" y="360" >AIS</text>
+                    </a>
+                </g>
+
+                <g class="node">
+                    <a href="team.html">
+                        <rect class="node-rect" x="675" y="330" width="150" height="50" rx="15" ry="15"/>
+                        <text x="730" y="360" >Team</text>
+                    </a>
+                </g>
+                
+                <g class="node">
+                    <a href="profile.html">
+                        <rect class="node-rect" x="875" y="330" width="150" height="50" rx="15" ry="15"/>
+                        <text x="930" y="360">Profile</text>
+                    </a>
+                </g>
+                <!-- Content section (parent node) -->
+                <g class="node">
+                    <a href="#">
+                        <rect class="node-rect" x="475" y="450" width="150" height="50" rx="15" ry="15"/>
+                        <text x="495" y="480" >Content Pages</text>
+                    </a>
+                </g>
+                
+                <g class="node">
+                    <a href="content_ST1.html">
+                        <rect class="node-rect" x="140" y="600" width="150" height="50" rx="15" ry="15"/>
+                        <text x="180" y="630">Student 1</text>
+                    </a>
+                </g>
+                
+                <g class="node">
+                    <a href="content_ST2.html">
+                        <rect class="node-rect" x="360" y="600" width="150" height="50" rx="15" ry="15"/>
+                        <text x="400" y="630" >Student 2</text>
+                    </a>
+                </g>
+                
+                <g class="node">
+                    <a href="content_ST3.html">
+                        <rect class="node-rect" x="580" y="600" width="150" height="50" rx="15" ry="15"/>
+                        <text x="620" y="630">Student 3</text>
+                    </a>
+                </g>
+                
+                <g class="node">
+                    <a href="content_ST4.html">
+                        <rect class="node-rect" x="800" y="600" width="150" height="50" rx="15" ry="15"/>
+                        <text x="840" y="630">Student 4</text>
+                    </a>
+                </g>
+            </svg>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong>Zehna Anas</p>
+                <p><strong>Student ID:</strong> 20241201</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST4.html">Page Editor</a></li>
+                    <li><a href="validation_ST4.html">Validation Page</a></li>
+                    <li><a href="#accessibility">Accessibility & Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty | Peace & Justice Initiative.</p>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+</body>
+</html>
