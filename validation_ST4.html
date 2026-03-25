@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | Validation (Zehna)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .validation-container {
+            max-width: 900px;
+            margin: 40px auto 80px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            backdrop-filter: blur(16px);
+            padding: 50px;
+        }
+
+        .validation-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-cyan);
+            padding-bottom: 20px;
+        }
+
+        .validation-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .val-section {
+            margin-bottom: 50px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .val-section h2 {
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--glass-border);
+            padding-bottom: 10px;
+        }
+
+        .screenshot-box {
+            width: 100%;
+            background: #000;
+            border: 2px solid var(--accent-purple);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .screenshot-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .reflection-box {
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 20px 25px;
+            margin-top: 40px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .reflection-box h3 {
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .reflection-box p {
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body class="page-fade-in">
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link">
+                <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo">
+                <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="validation-container">
+            <div class="validation-header">
+                <h1>W3C Code Validation Evidence</h1>
+                <p style="color: var(--text-muted);">Student 4: Zehna Anas (20241201)</p>
+            </div>
+
+            <p style="text-align: center; margin-bottom: 40px; color: var(--text-muted);">
+                The following screenshots demonstrate that all HTML pages implemented by Student 4 successfully pass the
+                <a href="https://validator.w3.org/" target="_blank" style="color: var(--accent-cyan);">W3C Markup
+                    Validation Service</a> with zero errors.
+            </p>
+
+            <section id="profile-val" class="val-section">
+                <h2>1.User Profile (profile.html)</h2>
+                <div class="screenshot-box">
+                    <img src="images/profile.png" alt="W3C Validation screenshot for User Profile showing no errors">
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Result: Document checking completed. No errors
+                    or warnings to show.</p>
+            </section>
+
+            <section id="sitemap" class="val-section">
+                <h2>2. Sitemap (sitemap.html)</h2>
+                <div class="screenshot-box">
+                    <img src="images/sitemap.png" alt="W3C Validation screenshot for AIS showing no errors">
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Result: Document checking completed. No errors
+                    or warnings to show.</p>
+            </section>
+
+            <section id="content-val" class="val-section">
+                <h2>3. Content Page (content_ST4.html)</h2>
+                <div class="screenshot-box">
+                    <img src="images/content4.png" alt="W3C Validation screenshot for Content Page showing no errors">
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Result: Document checking completed. No errors
+                    or warnings to show.</p>
+            </section>
+
+
+
+            <section class="reflection-box">
+                <h3>Reflection on the Validation Process</h3>
+                <p>While validating my Profile page, I used the W3C validator to catch a few small but important issues. It pointed out things like using inline styles and some poor unit choices, which I then corrected by moving styles into CSS and adjusting values. I also noticed minor structure and accessibility concerns, such as unnecessary line breaks in headings. Fixing these improved the overall quality of my code and helped me better understand the importance of clean, well-structured, and user-friendly web design.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong>Zehna Anas</p>
+                <p><strong>Student ID:</strong> 20241201</p>
+                <p><strong>Role:</strong> Student 4 (User Profile & Sitemap)</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST4.html">Page Editor (ST4)</a></li>
+                    <li><a href="validation_ST4.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST4.html#accessibility">Accessibility &amp; Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
