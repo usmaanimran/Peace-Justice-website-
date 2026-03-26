@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
         r: Math.random() * 2 + 0.5,
         vx: Math.cos(a) * bst,
         vy: Math.sin(a) * bst,
-        bx: (Math.random() - 0.5) * 0.5,
-        by: (Math.random() - 0.5) * 0.5,
+        bx: (Math.random() - 1) * 0.5,
+        by: (Math.random() - 1) * 0.5,
       });
     }
 
