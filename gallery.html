@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS for the top part of the page where the title is  */
+        body{
+            background:
+                radial-gradient(circle at 12% 18%, rgba(255, 215, 120, 0.14), transparent 20%),
+                radial-gradient(circle at 88% 20%, rgba(88, 224, 255, 0.12), transparent 18%),
+                radial-gradient(circle at 50% 78%, rgba(255, 215, 120, 0.08), transparent 24%),
+                linear-gradient(180deg, #050910 0%, #08111d 50%, #050910 100%);
+        }
+        .gallery-header {
+            text-align: center;
+            padding: 60px 20px 20px;
+        }
+
+        .gallery-header h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            letter-spacing: 2px;
+            color: var(--text-main);
+        }
+
+        /* Make a grid with 3 columns for the images */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+
+        /* Set up the container for each image and add a shadow effect  */
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            transform: perspective(1000px) translateZ(0);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Tilt the image container and make the shadow bigger when mouse is over it  */
+        .gallery-item:hover {
+            transform: perspective(1000px) translateZ(30px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 175, 55, 0.25);
+            z-index: 2;
+        }
+
+        .gallery-item:focus-visible {
+            outline: 2px solid var(--accent-gold);
+            outline-offset: 5px;
+            z-index: 2;
+        }
+
+        /* Make image fit the box and zoom in slowly when mouse is over it  */
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            min-height: 250px;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.12);
+            filter: brightness(0.35) contrast(1.1);
+        }
+
+
+        /* Show the text label by sliding it up from the bottom on hover  */
+        .item-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(8, 10, 15, 0.9);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--accent-gold);
+            padding: 30px 20px 20px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 0 0 12px 12px;
+        }
+
+        .gallery-item:hover .item-label {
+            transform: translateY(0);
+        }
+
+
+        /* Overlay that covers everything and blurs the background when an image is expanded  */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 5, 8, 0.88);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Style the box that holds the expanded image and text  */
+        .modal-content {
+            border-top: 1px solid var(--accent-gold);
+            border-radius: 16px;
+            width: 92%;
+            max-width: 850px;
+            max-height: 90vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(8, 10, 18, 0.95);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.15);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Button to close the expanded view  */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            outline: none;
+        }
+
+        .close-btn:focus-visible {
+            outline: 2px solid var(--accent-gold);
+        }
+
+        .close-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-dark);
+            transform: rotate(90deg);
+        }
+
+        #modalImageTarget {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--glass-border);
+            margin-top: 10px;
+        }
+
+        #modalTitleTarget {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            transition: color 0.4s ease;
+        }
+
+        #modalDescTarget {
+            line-height: 1.7;
+            font-size: 1.05rem;
+            transition: font-size 0.3s ease, color 0.4s ease;
+        }
+
+        /* Bar at the bottom of the modal for changing colors and fonts  */
+        .customization-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--glass-border);
+        }
+
+        .custom-btn {
+            flex: 1;
+            min-width: 140px;
+            background: transparent;
+            border: 1px solid var(--c-border-hi);
+            color: var(--c-muted);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .custom-btn:focus-visible {
+            outline: 2px solid var(--c-gold);
+            border-color: transparent;
+        }
+
+
+        .custom-btn:hover {
+            background: var(--c-gold);
+            border-color: var(--c-gold);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .custom-btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+
+        .custom-btn:hover svg {
+            transform: scale(1.15);
+        }
+
+
+        /* High contrast theme settings for the modal  */
+        .modal-content[data-theme="high-contrast"] {
+            background: #000;
+            border-top-color: var(--accent-gold);
+            box-shadow: inset 0 0 50px rgba(212, 175, 55, 0.1), 0 25px 50px rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content[data-theme="high-contrast"] #modalTitleTarget {
+            color: var(--accent-gold);
+        }
+
+        .modal-content[data-theme="high-contrast"] #modalDescTarget {
+            color: #fff;
+            font-weight: 400;
+        }
+
+        /* Dark blue theme settings for the modal  */
+        .modal-content[data-theme="stealth"] {
+            background: #050a10;
+            border-top-color: var(--accent-cyan);
+            box-shadow: inset 0 0 50px rgba(10, 165, 255, 0.1), 0 25px 50px rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content[data-theme="stealth"] #modalTitleTarget {
+            color: var(--accent-cyan);
+        }
+
+        .modal-content[data-theme="stealth"] #modalDescTarget {
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body class="page-fade-in">
+
+    <div class="page-bg"></div>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link" aria-label="Home Page">
+                <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo"
+                    onerror="this.style.display='none'">
+                <span class="site-title">Peace <span class="text-gradient">&</span> Justice</span>
+            </a>
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html" class="active" aria-current="page">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="gallery-header reveal-element">
+            <h2>Visualizing <span class="text-gradient">SDG 16</span></h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Click any image to explore the extended details and
+                customize your viewing experience.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item glass-panel reveal-element delay-1" tabindex="0" role="button"
+                aria-label="View details on Equal Rights For All" onclick="openModal('img1', 'title1', 'desc1')"
+                onkeypress="if(event.key === 'Enter') openModal('img1', 'title1', 'desc1')">
+                <img id="img1"
+                    src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800"
+                    alt="Scales of Justice representing equality">
+                <div class="item-label" id="title1">Equal Rights For All</div>
+                <div id="desc1" style="display: none;">Ensuring equal access to justice for all is a core pillar of SDG
+                    16. This involves dismantling discriminatory laws, providing legal aid to marginalized communities,
+                    and ensuring that court systems are transparent, fair, and unbiased. Without equal rights, true
+                    peace cannot be sustained.</div>
+            </div>
+            <div class="gallery-item glass-panel reveal-element delay-2" tabindex="0" role="button"
+                aria-label="View details on Community Peacebuilding" onclick="openModal('img2', 'title2', 'desc2')"
+                onkeypress="if(event.key === 'Enter') openModal('img2', 'title2', 'desc2')">
+                <img id="img2"
+                    src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&q=80&w=800"
+                    alt="People holding hands in solidarity">
+                <div class="item-label" id="title2">Community Peacebuilding</div>
+                <div id="desc2" style="display: none;">Peace is not just the absence of war; it is the presence of
+                    collaborative, inclusive societies. Community peacebuilding focuses on resolving local conflicts
+                    through mediation, empowering youth to take leadership roles, and fostering social cohesion across
+                    different ethnic and cultural groups.</div>
+            </div>
+            <div class="gallery-item glass-panel reveal-element delay-3" tabindex="0" role="button"
+                aria-label="View details on Anti-Corruption Measures" onclick="openModal('img3', 'title3', 'desc3')"
+                onkeypress="if(event.key === 'Enter') openModal('img3', 'title3', 'desc3')">
+                <img id="img3"
+                    src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800"
+                    alt="Business professionals reviewing transparent financial documents">
+                <div class="item-label" id="title3">Anti-Corruption Measures</div>
+                <div id="desc3" style="display: none;">Corruption, bribery, and tax evasion cost developing nations over
+                    $1.26 trillion per year. SDG 16 aims to substantially reduce corruption in all its forms by
+                    promoting transparent public procurement, protecting whistleblowers, and demanding accountability
+                    from both government officials and private corporations.</div>
+            </div>
+            <div class="gallery-item glass-panel reveal-element delay-4" tabindex="0" role="button"
+                aria-label="View details on Strong Institutions" onclick="openModal('img4', 'title4', 'desc4')"
+                onkeypress="if(event.key === 'Enter') openModal('img4', 'title4', 'desc4')">
+                <img id="img4"
+                    src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
+                    alt="A professional shaking hands in a modern institution">
+                <div class="item-label" id="title4">Strong Institutions</div>
+                <div id="desc4" style="display: none;">Effective, accountable, and transparent institutions are required
+                    at all levels to build trust between citizens and the state. This means ensuring that public
+                    services are delivered efficiently, elections are free and fair, and that civil registries provide
+                    legal identity (including birth registrations) for everyone.</div>
+            </div>
+            <div class="gallery-item glass-panel reveal-element delay-1" tabindex="0" role="button"
+                aria-label="View details on Press Freedom" onclick="openModal('img5', 'title5', 'desc5')"
+                onkeypress="if(event.key === 'Enter') openModal('img5', 'title5', 'desc5')">
+                <img id="img5"
+                    src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800"
+                    alt="A journalist working at a press conference microphone">
+                <div class="item-label" id="title5">Press Freedom</div>
+                <div id="desc5" style="display: none;">A free and independent press is one of the most powerful
+                    safeguards against authoritarianism and corruption. SDG 16 recognises that access to information
+                    and freedom of the press are fundamental rights. Journalists who investigate wrongdoing, challenge
+                    power, and inform the public play a vital role in sustaining democratic societies and holding
+                    institutions accountable. Without press freedom, abuse thrives in silence.</div>
+            </div>
+            <div class="gallery-item glass-panel reveal-element delay-2" tabindex="0" role="button"
+                aria-label="View details on Child Protection" onclick="openModal('img6', 'title6', 'desc6')"
+                onkeypress="if(event.key === 'Enter') openModal('img6', 'title6', 'desc6')">
+                <img id="img6"
+                    src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800"
+                    alt="Children in a classroom learning together">
+                <div class="item-label" id="title6">Child Protection</div>
+                <div id="desc6" style="display: none;">SDG 16 calls for an end to abuse, exploitation, trafficking,
+                    and all forms of violence against children. Millions of children worldwide are denied basic legal
+                    protections, forced into labour, or caught in armed conflict. Effective child protection frameworks
+                    require strong national laws, responsive social services, community awareness, and international
+                    cooperation to ensure every child grows up safe, registered, and protected under the law.</div>
+            </div>
+            <div class="gallery-item glass-panel reveal-element delay-3" tabindex="0" role="button"
+                aria-label="View details on Refugee Rights" onclick="openModal('img7', 'title7', 'desc7')"
+                onkeypress="if(event.key === 'Enter') openModal('img7', 'title7', 'desc7')">
+                <img id="img7"
+                    src="https://images.unsplash.com/photo-1504615755583-2916b52192a3?auto=format&fit=crop&q=80&w=800"
+                    alt="People seeking safety and shelter as refugees">
+                <div class="item-label" id="title7">Refugee Rights</div>
+                <div id="desc7" style="display: none;">Over 100 million people worldwide are forcibly displaced due to
+                    conflict, persecution, and human rights violations. SDG 16 underlines the importance of protecting
+                    the rights of refugees and stateless individuals, ensuring access to asylum, legal documentation,
+                    healthcare, and education. Durable peace requires that displaced communities are treated with
+                    dignity and supported through humane, rights-based policies.</div>
+            </div>
+            <div class="gallery-item glass-panel reveal-element delay-4" tabindex="0" role="button"
+                aria-label="View details on Digital Governance" onclick="openModal('img8', 'title8', 'desc8')"
+                onkeypress="if(event.key === 'Enter') openModal('img8', 'title8', 'desc8')">
+                <img id="img8"
+                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
+                    alt="Digital network representing connected governance systems">
+                <div class="item-label" id="title8">Digital Governance</div>
+                <div id="desc8" style="display: none;">As societies become increasingly digital, governments must adapt
+                    to ensure that technology serves justice rather than undermines it. Digital governance encompasses
+                    transparent e-government services, open data initiatives, cybersecurity frameworks, and protection
+                    of civil liberties online. SDG 16 encourages nations to harness technology to reduce bureaucratic
+                    barriers, improve public service delivery, and fight corruption through digital accountability
+                    tools.</div>
+            </div>
+            <div class="gallery-item glass-panel reveal-element delay-1" tabindex="0" role="button"
+                aria-label="View details on Disarmament Efforts" onclick="openModal('img9', 'title9', 'desc9')"
+                onkeypress="if(event.key === 'Enter') openModal('img9', 'title9', 'desc9')">
+                <img id="img9"
+                    src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=800"
+                    alt="International delegates gathered around a table for peace negotiations">
+                <div class="item-label" id="title9">Disarmament Efforts</div>
+                <div id="desc9" style="display: none;">The proliferation of weapons — from small arms in conflict zones
+                    to nuclear arsenals held by states — represents one of the gravest threats to global peace. SDG 16
+                    supports international disarmament agreements, arms trade regulations, and demining programmes in
+                    post-conflict regions. Reducing the flow of illicit weapons is essential to protecting civilian
+                    lives, stabilising fragile states, and creating the conditions in which justice and development
+                    can flourish.</div>
+            </div>
+        </div>
+    </main>
+
+    <div id="galleryModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitleTarget"
+        aria-describedby="modalDescTarget">
+        <div class="modal-content glass-panel" id="modalBox" data-theme="high-contrast">
+            <button class="close-btn" aria-label="Close modal" onclick="closeModal()">&times;</button>
+            <img id="modalImageTarget" src="images/crow.png" alt="Expanded View Placeholder">
+            <h3 id="modalTitleTarget">Title Placeholder</h3>
+            <p id="modalDescTarget">Description Placeholder</p>
+
+            <div class="customization-bar" role="toolbar" aria-label="Modal customization tools">
+                <button class="custom-btn" onclick="setModalTheme('high-contrast')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3v18" />
+                        <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
+                        <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                        <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                    </svg>
+                    Justice
+                </button>
+                <button class="custom-btn" onclick="setModalTheme('stealth')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                    Peace
+                </button>
+                <button class="custom-btn" aria-label="Increase Font Size" onclick="changeFontSize('increase')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14" />
+                        <path d="M12 8v8" />
+                        <path d="M8 12h8" />
+                    </svg>
+                    A+ Font
+                </button>
+                <button class="custom-btn" aria-label="Decrease Font Size" onclick="changeFontSize('decrease')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14" />
+                        <path d="M8 12h8" />
+                    </svg>
+                    A- Font
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* Change header style when scrolling down  */
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80 && !header.classList.contains('header-scrolled')) { header.classList.add('header-scrolled'); }
+            else if (window.scrollY < 20 && header.classList.contains('header-scrolled')) { header.classList.remove('header-scrolled'); }
+        });
+
+        const modal = document.getElementById('galleryModal');
+        const modalImg = document.getElementById('modalImageTarget');
+        const modalTitle = document.getElementById('modalTitleTarget');
+        const modalDesc = document.getElementById('modalDescTarget');
+        const modalBox = document.getElementById('modalBox');
+
+        /* Pull data from the clicked image and show the expanded view  */
+        function openModal(imgId, titleId, descId) {
+            modalImg.src = document.getElementById(imgId).src;
+            modalImg.alt = document.getElementById(imgId).alt;
+            modalTitle.innerText = document.getElementById(titleId).innerText;
+            modalDesc.innerText = document.getElementById(descId).innerText;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            modalBox.focus();
+        }
+
+        /* Hide the expanded view  */
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        /* Close expanded view if user clicks on the background  */
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) closeModal();
+        });
+
+        /* Close expanded view if user presses the Escape key  */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && modal.classList.contains('active')) closeModal();
+        });
+
+        let currentFontSize = 1;
+        /* Swap the theme colors in the expanded view  */
+        function setModalTheme(theme) {
+
+            modalBox.setAttribute('data-theme', theme);
+        }
+
+        /* Change the text size in the expanded view  */
+        function changeFontSize(action) {
+            if (action === 'increase' && currentFontSize < 1.4) currentFontSize += 0.1;
+            else if (action === 'decrease' && currentFontSize > 0.8) currentFontSize -= 0.1;
+            modalDesc.style.fontSize = currentFontSize + 'rem';
+        }
+    </script>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Thasreef Mohomad</p>
+                <p><strong>Student ID:</strong> 20240991</p>
+                <p><strong>Role:</strong> Core Implementation & Architecture</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST1.html">Page Editor (ST1)</a></li>
+                    <li><a href="validation_ST1.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST1.html#accessibility">Accessibility & Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+
+</html>
