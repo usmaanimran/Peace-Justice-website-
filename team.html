@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic setup -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Peace & Justice | Our Team</title>
+
+    <meta name="description"
+        content="Meet the team behind the Peace and Justice SDG 16 website project and explore each member's role and contribution.">
+
+    <!-- Shared global CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            position: relative;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(255, 215, 120, 0.14), transparent 20%),
+                radial-gradient(circle at 88% 20%, rgba(88, 224, 255, 0.12), transparent 18%),
+                radial-gradient(circle at 50% 78%, rgba(255, 215, 120, 0.08), transparent 24%),
+                linear-gradient(180deg, #050910 0%, #08111d 50%, #050910 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                linear-gradient(135deg, rgba(255, 215, 120, 0.06) 0%, transparent 32%),
+                linear-gradient(315deg, rgba(88, 224, 255, 0.06) 0%, transparent 30%);
+            clip-path: polygon(8% 8%, 28% 18%, 18% 42%, 4% 34%);
+            opacity: 0.9;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                linear-gradient(225deg, rgba(255, 215, 120, 0.05) 0%, transparent 28%),
+                linear-gradient(45deg, rgba(88, 224, 255, 0.05) 0%, transparent 24%);
+            clip-path: polygon(72% 10%, 94% 18%, 86% 40%, 66% 28%);
+            opacity: 0.9;
+        }
+
+        /* Main page container */
+        .team-wrapper {
+            max-width: 1100px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+
+        /* Page intro section */
+        .team-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .team-intro h1 {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        .team-intro p {
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Grid layout for team cards */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 850px;   /* ADD THIS */
+            margin: 0 auto;     /* centers grid */
+        }
+
+        /* Individual team card */
+        .team-card {
+            min-height: 300px;
+            border-radius: 18px;
+            padding: 28px 22px 22px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+            background:
+                linear-gradient(145deg,
+                    rgba(22, 29, 42, 0.96),
+                    rgba(10, 16, 27, 0.94)) padding-box,
+                linear-gradient(135deg,
+                    rgba(255, 215, 120, 0.5),
+                    rgba(88, 224, 255, 0.3)) border-box;
+            box-shadow: 
+                0 10px 22px rgba(0, 0, 0, 0.22),
+                0 0 0 1px rgba(255, 215, 120, 0.06) inset;
+        }
+
+
+        /* Hover and focus effect */
+        .team-card:hover,
+        .team-card:focus {
+            transform: translateY(-6px);
+            box-shadow:
+                0 16px 30px rgba(0, 0, 0, 0.34),
+                0 0 18px rgba(255, 215, 120, 0.08);
+            outline: none;
+        }
+
+        .team-card:focus-visible {
+            outline: 2px solid var(--accent-gold);
+            outline-offset: 4px;
+        }
+
+        /* Real profile image */
+        .avatar-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            border: 2px solid rgba(255, 215, 120, 0.72);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.20);
+        }
+
+        .team-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.42rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            margin-bottom: 8px;
+            color: #fbf5e6;
+        }
+
+        .role {
+            color: #d8dee8;
+            font-size: 0.98rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* Hidden overlay info */
+        .extra-info {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg,
+                    rgba(8, 12, 20, 0.96),
+                    rgba(14, 22, 34, 0.95));
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 22px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+            z-index: 2;
+        }
+
+        /* Show overlay on hover or keyboard focus */
+        .team-card:hover .extra-info,
+        .team-card:focus .extra-info {
+            opacity: 1;
+        }
+
+        .extra-info p {
+            color: #d9dee7;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 0.96rem;
+        }
+
+        .extra-info strong {
+            font-family: var(--font-heading);
+            color: var(--accent-gold);
+            letter-spacing: 0.2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-card {
+                min-height: 270px;
+            }
+
+            .avatar-img {
+                width: 110px;
+                height: 110px;
+            }
+        }
+    </style>
+</head>
+
+<body class="page-fade-in">
+
+    <!-- Shared navigation -->
+    <header class="site-header">
+        <div class="nav-container">
+
+            <a href="home.html" class="logo-link" aria-label="Home - Peace and Justice">
+                <img src="images/crow.png" alt="Peace and Justice logo" class="nav-logo">
+                <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation">☰</button>
+
+            <nav class="main-nav" aria-label="Primary Navigation">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html" class="active" aria-current="page">Team</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="team-wrapper">
+
+            <!-- Intro -->
+            <section class="team-intro reveal-element">
+                <h1>Meet Our <span class="text-gradient">Team</span></h1>
+                <p>
+                    Our project was built through collaboration, creativity and shared responsibility.
+                    Each member contributed to different parts of the website, combining design,
+                    development and content creation.
+                </p>
+            </section>
+
+            <!-- Team cards -->
+            <section class="team-grid reveal-element delay-1" aria-label="Team Members">
+
+                <!-- Thasreef Mohomad -->
+                <div class="team-card" tabindex="0">
+                    <img src="images/Student1_Profile.jpg" alt="Portrait of Thasreef Mohomad, team member 1" class="avatar-img">
+                    <h2>Thasreef Mohomad</h2>
+                    <p class="role">Home Page, Gallery &amp; Content ST1</p>
+
+                    <div class="extra-info">
+                        <p><strong>Name:</strong> Thasreef Mohomad</p>
+                        <p><strong>Role:</strong> Student 1</p>
+                        <p><strong>Pages:</strong> Home Page, Gallery &amp; Content ST1</p>
+                        <p>Focused on layout design and the overall visual structure of the website, helping create a strong and consistent first impression.</p>
+                    </div>
+                </div>
+
+                <!-- Usmaan Imran -->
+                <div class="team-card" tabindex="0">
+                    <img src="images/Student2_Profile.jpg" alt="Portrait of Usmaan Imran, team member 2" class="avatar-img">
+                    <h2>Usmaan Imran</h2>
+                    <p class="role">Splash Screen, SDG Action Impact Simulator &amp; Content ST2</p>
+
+                    <div class="extra-info">
+                        <p><strong>Name:</strong> Usmaan Imran</p>
+                        <p><strong>Role:</strong> Student 2</p>
+                        <p><strong>Pages:</strong> Splash Screen, SDG Action Impact Simulator &amp; Content ST2</p>
+                        <p>Worked on interactive features and dynamic behaviour, helping the website feel more engaging and responsive for users.</p>
+                    </div>
+                </div>
+
+                <!-- Manisha Fernando -->
+                <div class="team-card" tabindex="0">
+                    <img src="images/Student3_Profile.jpg" alt="Portrait of Manisha Fernando, team member 3" class="avatar-img">
+                    <h2>Manisha Fernando</h2>
+                    <p class="role">Feedback and Program Directory, Team &amp; Content ST3</p>
+
+                    <div class="extra-info">
+                        <p><strong>Name:</strong> Manisha Fernando</p>
+                        <p><strong>Role:</strong> Student 3</p>
+                        <p><strong>Pages:</strong> Feedback and Program Directory, Team &amp; Content ST3</p>
+                        <p>Designed user interaction features and structured content presentation to make information easier to explore and understand.</p>
+                    </div>
+                </div>
+
+                <!-- Zehna Anas -->
+                <div class="team-card" tabindex="0">
+                    <img src="images/Student4_Profile.jpg" alt="Portrait of Zehna Anas, team member 4" class="avatar-img">
+                    <h2>Zehna Anas</h2>
+                    <p class="role">User Profile, Sitemap &amp; Content ST4</p>
+
+                    <div class="extra-info">
+                        <p><strong>Name:</strong> Zehna Anas</p>
+                        <p><strong>Role:</strong> Student 4</p>
+                        <p><strong>Pages:</strong> User Profile, Sitemap &amp; Content ST4</p>
+                        <p>Focused on profile-related features and navigation flow, helping users move through the website more clearly and efficiently.</p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Manisha Fernando</p>
+                <p><strong>Student ID:</strong> 20240567</p>
+                <p><strong>Role:</strong> Student 3 - Team Page</p>
+            </div>
+
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST3.html">Page Editor (ST3)</a></li>
+                    <li><a href="validation_ST3.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST3.html#accessibility">Accessibility &amp; Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
