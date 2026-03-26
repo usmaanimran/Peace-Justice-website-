@@ -66,14 +66,13 @@
 
         /* Make image fit the box and zoom in slowly when mouse is over it  */
         .gallery-item img {
-            width: 100%;
-            height: auto;
-            min-height: 250px;
-            object-fit: cover;
-            display: block;
-            border-radius: 12px;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
-        }
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
 
         .gallery-item:hover img {
             transform: scale(1.12);
