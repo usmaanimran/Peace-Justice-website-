@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace &amp; Justice | Page Editor (Manisha)</title>
+
+    <!-- University-provided base template stylesheet -->
+    <link rel="stylesheet" href="css/pageEditor_validator.css">
+
+    <!-- Shared site stylesheet (same as teammates) -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           OVERRIDES & ENHANCEMENTS ON TOP OF UNI TEMPLATE
+        ===================================================== */
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #05070a;
+            color: #cbd5e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header.site-header {
+            background: rgba(5, 7, 10, 0.95);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 0;
+            text-align: left;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 36px auto 80px;
+            padding: 0 5%;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        main {
+            flex: 3;
+        }
+
+        aside {
+            flex: 1;
+            background: rgba(255,255,255,0.03) !important;
+            border: 1px solid rgba(197,160,89,0.2) !important;
+            border-radius: 14px;
+            padding: 24px;
+            margin-right: 0;
+            position: sticky;
+            top: 100px;
+            backdrop-filter: blur(16px);
+        }
+
+        aside h3 {
+            color: #c5a059;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            border-bottom: 1px solid rgba(197,160,89,0.2);
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+        }
+
+        aside ul { padding-left: 10px; }
+        aside li { padding-bottom: 8px; list-style: none; }
+
+        aside a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+            transition: all 0.28s ease;
+        }
+
+        aside a:hover {
+            color: #c5a059;
+            border-left-color: #c5a059;
+            padding-left: 14px;
+        }
+
+        .top-level-ul > li {
+            color: #c5a059;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        section {
+            background: rgba(255,255,255,0.025) !important;
+            border: 1px solid rgba(197,160,89,0.12) !important;
+            border-radius: 14px;
+            padding: 36px 40px !important;
+            margin-bottom: 28px !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+        }
+
+        h2 {
+            font-family: Georgia, 'Times New Roman', serif;
+            color: #e2e8f0 !important;
+            font-size: 1.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* Page title subheadings (Feedback Page, Team Page, Content Page) */
+        h3.page-title {
+            font-size: 1.25rem;
+            color: #c5a059;
+            margin: 36px 0 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(197,160,89,0.15);
+            padding-bottom: 8px;
+        }
+
+        h3.page-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #c5a059;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #c5a059;
+            flex-shrink: 0;
+        }
+
+        /* Sub-headings under each page (HTML Structure / CSS Techniques / Rationale) */
+        h4.sub-heading {
+            font-size: 1rem;
+            color: #e2e8f0;
+            margin: 22px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 700;
+        }
+
+        h4.sub-heading::before {
+            content: '';
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background: #94a3b8;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Standard h3 with gold dot (challenges, accessibility etc.) */
+        h3 {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            margin: 28px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3::before {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: #c5a059;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #c5a059;
+            flex-shrink: 0;
+        }
+
+        /* Suppress dot inside aside and footer headings */
+        aside h3::before,
+        .footer-container h3::before { display: none; }
+
+        p, li { line-height: 1.85; color: #cbd5e1; font-size: 1rem; }
+        ul { padding-left: 22px; }
+        ul li { margin-bottom: 8px; }
+
+        .code-ref {
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.55);
+            border: 1px solid rgba(197,160,89,0.3);
+            padding: 2px 7px;
+            border-radius: 5px;
+            color: #c5a059;
+            font-size: 0.9rem;
+        }
+
+        .live-link-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 14px 0 20px;
+        }
+
+        .live-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(197,160,89,0.07);
+            border: 1px solid #c5a059;
+            color: #c5a059;
+            padding: 9px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            transition: all 0.38s cubic-bezier(0.16,1,0.3,1);
+            box-shadow: 0 0 12px rgba(197,160,89,0.08);
+        }
+
+        .live-link:hover {
+            background: #c5a059;
+            color: #000;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 22px rgba(197,160,89,0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(197,160,89,0.2) !important;
+            margin-top: 22px;
+        }
+
+        th, td {
+            padding: 15px 18px !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+            text-align: left;
+        }
+
+        thead { background: rgba(197,160,89,0.12) !important; }
+
+        thead th {
+            color: #e2e8f0 !important;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        tbody td {
+            background: rgba(5,7,10,0.4);
+            color: #cbd5e1;
+            font-size: 0.93rem;
+        }
+
+        tr:last-child td { border-bottom: none !important; }
+        tr:hover td { background: rgba(255,255,255,0.03); }
+
+        .editor-header {
+            margin-bottom: 36px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .editor-header h1 {
+            font-family: Georgia, serif;
+            font-size: 3rem;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .editor-header h1 span {
+            background: linear-gradient(135deg, #c5a059, #f0d080);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .editor-header p {
+            color: #c5a059;
+            font-size: 1.05rem;
+            letter-spacing: 0.8px;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-top: 20px;
+        }
+
+        .ref-category h3 { margin-top: 0; }
+
+        .ref-category ul {
+            font-size: 0.88rem;
+            list-style-type: square;
+            padding-left: 18px;
+            line-height: 1.65;
+        }
+
+        .ref-category a { color: #38bdf8; }
+
+        footer.site-footer {
+            background: rgba(5,7,10,0.98);
+            border-top: 1px solid rgba(197,160,89,0.15);
+            text-align: left;
+            color: #94a3b8;
+            padding: 40px 5%;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .footer-container h3 {
+            color: #c5a059;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .footer-container p { font-size: 0.92rem; margin: 4px 0; color: #94a3b8; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 7px; }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.25s;
+        }
+
+        .footer-links a:hover { color: #c5a059; }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 24px auto 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 16px;
+            font-size: 0.85rem;
+            color: #475569;
+            text-align: center;
+        }
+
+        .top { position: fixed; bottom: 5%; right: 5%; }
+
+        .top a {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #c5a059, #a07838);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 16px rgba(197,160,89,0.3);
+            transition: all 0.3s;
+        }
+
+        .top a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(197,160,89,0.45);
+        }
+
+        @media (max-width: 860px) {
+            .container { flex-direction: column; }
+            aside { position: static; width: 100%; }
+            .reference-grid { grid-template-columns: 1fr; }
+            .editor-header h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header" id="top">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link" aria-label="Home - Peace and Justice">
+                <img src="images/crow.png" alt="Peace and Justice logo" class="nav-logo">
+                <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation">☰</button>
+            <nav class="main-nav" aria-label="Primary Navigation">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div style="max-width:1300px; margin: 36px auto 0; padding: 0 5%;">
+        <div class="editor-header">
+            <h1>Developer <span>Dashboard</span></h1>
+            <p>Manisha Fernando &nbsp;|&nbsp; Student ID: 20240567 &nbsp;|&nbsp; Role: Student 3 — Feedback &amp; Programme Directory, Team Page &amp; Content Page</p>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <main>
+
+            <!-- SECTION 1 -->
+            <section>
+                <h2 id="tasks">1. Completed Tasks &amp; Responsibilities</h2>
+                <p>As Student 3 for Team Humpty Dumpty, my core responsibility was to build the community-facing and human-centred layers of our UN SDG 16 website. I focused on creating pages that invite active engagement: one where visitors can explore a scrollable programme directory, read community reviews, and submit structured feedback, and another that introduces the people behind the project. I also produced an in-depth content page on the theme of Access to Justice, grounded in SDG 16. My full deliverables are as follows:</p>
+                <ul>
+                    <li>A fully interactive <strong>Feedback &amp; Programme Directory</strong> page featuring a scrollable card-based directory, community review section, and a JavaScript-validated feedback form (<span class="code-ref">feedback.html</span>).</li>
+                    <li>A responsive <strong>Team Page</strong> presenting all four team members with animated hover-reveal profile cards (<span class="code-ref">team.html</span>).</li>
+                    <li>The <strong>"Access to Justice"</strong> content page structured with semantic HTML5, a Table of Contents with internal anchor navigation, and pull-quote styling (<span class="code-ref">content_ST3.html</span>).</li>
+                    <li>This Page Editor documenting my technical process and contribution (<span class="code-ref">pageEditor_ST3.html</span>).</li>
+                    <li>The W3C Validation Evidence page (<span class="code-ref">validation_ST3.html</span>).</li>
+                </ul>
+                <div class="live-link-group">
+                    <a href="feedback.html" target="_blank" class="live-link">&#x279A; Feedback Page</a>
+                    <a href="team.html" target="_blank" class="live-link">&#x279A; Team Page</a>
+                    <a href="content_ST3.html" target="_blank" class="live-link">&#x279A; Content Page</a>
+                    <a href="validation_ST3.html" class="live-link">&#x279A; Validation Evidence</a>
+                </div>
+            </section>
+
+            <!-- SECTION 2 -->
+            <section>
+                <h2 id="tech">2. Technical Description of Implemented Pages</h2>
+
+                <!-- ---- FEEDBACK PAGE ---- -->
+                <h3 class="page-title">Feedback &amp; Programme Directory Page</h3>
+                <div class="live-link-group">
+                    <a href="feedback.html" target="_blank" class="live-link">Live Page</a>
+                    <a href="validation_ST3.html#feedback-val" class="live-link">Validation</a>
+                </div>
+
+                <h4 class="sub-heading">HTML Structure</h4>
+                <p>The page is built around a <span class="code-ref">&lt;main&gt;</span> landmark containing three clearly separated <span class="code-ref">&lt;section&gt;</span> elements: an introductory panel, the scrollable programme directory, and the community reviews and feedback form. Each section uses <span class="code-ref">aria-labelledby</span> to associate its heading, providing meaningful landmarks for screen readers. The six programme entries are each wrapped in an <span class="code-ref">&lt;article&gt;</span> tag since each card is a self-contained unit of content with its own heading, image, tags, and call-to-action. The feedback form uses nested <span class="code-ref">&lt;fieldset&gt;</span> elements with <span class="code-ref">&lt;legend&gt;</span> labels — "Personal Details" and "Feedback Details" — so that inputs are announced in meaningful context by assistive technologies. A live-region <span class="code-ref">&lt;div id="formStatus" aria-live="polite"&gt;</span> at the base of the form announces validation outcomes without requiring focus to move.</p>
+
+                <h4 class="sub-heading">CSS Techniques</h4>
+                <p>The programme card grid uses <span class="code-ref">grid-template-columns: repeat(2, minmax(0, 1fr))</span>, giving two equal columns that collapse to one below 960px via a <span class="code-ref">@media</span> query. The scrollable directory container is constrained with <span class="code-ref">max-height: 700px</span> and <span class="code-ref">overflow-y: auto</span>, with a custom <span class="code-ref">::-webkit-scrollbar</span> gradient thumb in cyan-to-gold to make the scroll affordance feel intentional. The reviews and form area uses a two-column grid with <span class="code-ref">grid-template-columns: 1.1fr 1fr</span>, giving the review strip slightly more visual weight. Each review card uses a <span class="code-ref">border-left: 4px solid var(--accent-cyan)</span> accent to reinforce hierarchy between quoted content and the form. Input focus states use a branded <span class="code-ref">box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.12)</span> instead of the default browser outline, remaining WCAG-compliant while matching the team's aesthetic.</p>
+
+                <h4 class="sub-heading">Design &amp; Implementation Rationale</h4>
+                <p>Using nested <span class="code-ref">&lt;fieldset&gt;</span> and <span class="code-ref">&lt;legend&gt;</span> instead of plain <span class="code-ref">&lt;div&gt;</span> wrappers was deliberate — these elements convey semantic grouping so that screen readers announce the group name when focus enters, making "Full Name" read as "Personal Details — Full Name". The form uses <span class="code-ref">novalidate</span> to suppress browser-native error bubbles and replace them with JavaScript-driven inline errors styled consistently with the team's design. The <span class="code-ref">&lt;datalist&gt;</span> element on the Interest Area field provides native autocomplete without any external library, keeping the page lightweight and standards-compliant.</p>
+
+                <!-- ---- TEAM PAGE ---- -->
+                <h3 class="page-title">Team Page</h3>
+                <div class="live-link-group">
+                    <a href="team.html" target="_blank" class="live-link">Live Page</a>
+                    <a href="validation_ST3.html#team-val" class="live-link">Validation</a>
+                </div>
+
+                <h4 class="sub-heading">HTML Structure</h4>
+                <p>The Team page uses two <span class="code-ref">&lt;section&gt;</span> elements inside <span class="code-ref">&lt;main&gt;</span>: a centred intro and the team grid, which is labelled <span class="code-ref">aria-label="Team Members"</span> so screen readers identify it as a distinct region. Each of the four member cards is a <span class="code-ref">&lt;div&gt;</span> with <span class="code-ref">tabindex="0"</span> making it keyboard-focusable. Inside each card, the photograph uses a descriptive <span class="code-ref">alt</span> attribute identifying the person by name and team role. The hover overlay is an absolutely positioned <span class="code-ref">&lt;div class="extra-info"&gt;</span> containing structured paragraphs for name, role, pages, and a short description, which surfaces only on hover or keyboard focus.</p>
+
+                <h4 class="sub-heading">CSS Techniques</h4>
+                <p>The card grid uses <span class="code-ref">grid-template-columns: repeat(2, 1fr)</span> with a fixed <span class="code-ref">max-width: 850px</span> and <span class="code-ref">margin: 0 auto</span> to keep the two-by-two layout centred — preventing cards from stretching awkwardly on wide viewports. Each card uses CSS's <span class="code-ref">padding-box</span> and <span class="code-ref">border-box</span> background-origin syntax to apply a gradient border via the <span class="code-ref">background</span> shorthand, producing a gold-to-cyan border without a wrapper element. The overlay starts at <span class="code-ref">opacity: 0</span> and transitions to <span class="code-ref">opacity: 1</span> over 0.3s on parent <span class="code-ref">:hover</span> or <span class="code-ref">:focus</span>. A <span class="code-ref">transform: translateY(-6px)</span> on card hover provides the lift effect consistent with the team's interactive card pattern.</p>
+
+                <h4 class="sub-heading">Design &amp; Implementation Rationale</h4>
+                <p>The hover-overlay pattern keeps the default card view clean — a portrait, name, and role at a glance — while rewarding interaction with richer detail. Adding <span class="code-ref">tabindex="0"</span> combined with <span class="code-ref">:focus-visible</span> styling ensures keyboard users can trigger the overlay identically to mouse users, with a gold outline appearing only on keyboard focus rather than mouse click. The <span class="code-ref">grid-template-columns: 1fr</span> breakpoint at 768px stacks cards vertically on mobile so every member's information remains readable without horizontal overflow.</p>
+
+                <!-- ---- CONTENT PAGE ---- -->
+                <h3 class="page-title">Content Page: Access to Justice</h3>
+                <div class="live-link-group">
+                    <a href="content_ST3.html" target="_blank" class="live-link">Live Page</a>
+                    <a href="validation_ST3.html#content-val" class="live-link">Validation</a>
+                </div>
+
+                <h4 class="sub-heading">HTML Structure</h4>
+                <p>All article content is placed inside a single <span class="code-ref">&lt;article&gt;</span> element, reflecting that this is one self-contained piece of long-form writing. Within it, four <span class="code-ref">&lt;section&gt;</span> elements carry unique <span class="code-ref">id</span> attributes — "meaning", "barriers", "digital", "action" — that the Table of Contents links to via <span class="code-ref">href="#id"</span> internal anchors. The Table of Contents itself is wrapped in a <span class="code-ref">&lt;nav aria-label="Internal Navigation"&gt;</span> element, distinguishing it from the site header navigation in the accessibility tree. A highlight box near the top surfaces the three most important takeaways before the reader commits to the full article. Pull-quote blocks use a styled <span class="code-ref">&lt;div class="quote-panel"&gt;</span> with italic text to visually separate key statements from body copy. Each content image carries a descriptive <span class="code-ref">alt</span> attribute tied to its editorial context.</p>
+
+                <h4 class="sub-heading">CSS Techniques</h4>
+                <p>The page sets <span class="code-ref">scroll-behavior: smooth</span> and <span class="code-ref">scroll-padding-top: 110px</span> on <span class="code-ref">html</span> so that clicking any Table of Contents link scrolls the section into view smoothly and positions it below the fixed header. The main container uses <span class="code-ref">max-width: 1000px</span> with <span class="code-ref">backdrop-filter: blur(16px)</span> to maintain the team's glass-card aesthetic. Section headings are styled in <span class="code-ref">var(--accent-cyan)</span> with a <span class="code-ref">border-bottom: 1px dashed</span> separator, providing visual variety from the gold accents used elsewhere. Content images apply a <span class="code-ref">transition</span> on <span class="code-ref">transform</span> and <span class="code-ref">border-color</span> to scale and highlight on hover without disrupting reading flow. The page also includes a custom CSS-only back-to-top button styled as a circular anchor with a gold border, which is positioned fixed in the lower-right corner.</p>
+
+                <h4 class="sub-heading">Design &amp; Implementation Rationale</h4>
+                <p>Wrapping the Table of Contents in a <span class="code-ref">&lt;nav&gt;</span> landmark was motivated by accessibility — having two distinct navigation regions lets screen reader users jump between site-wide links and in-page links using the landmarks menu without re-traversing the full page. The <span class="code-ref">scroll-padding-top</span> fix on the <span class="code-ref">html</span> element addresses a common usability problem: without it, the fixed header visually covers the target section heading after any anchor click. Each section <span class="code-ref">id</span> value was chosen to be descriptive and meaningful (e.g. <span class="code-ref">id="barriers"</span>) rather than generic, improving both readability and navigation when the page is traversed by heading structure in a screen reader.</p>
+
+            </section>
+
+            <!-- SECTION 3 -->
+            <section>
+                <h2 id="challenge">3. Challenges &amp; Lessons Learned</h2>
+
+                <h3>Challenge 1: Custom Form Validation Without a Backend</h3>
+                <p>My initial approach relied on HTML5 <span class="code-ref">required</span> attributes alone. This blocked empty submissions but the browser's native error bubbles were visually inconsistent across browsers and clashed with the team's dark-glass design. I solved this by adding <span class="code-ref">novalidate</span> to suppress native bubbles and writing custom JavaScript validation instead. Each field is checked with <span class="code-ref">element.value.trim()</span> on submit; if invalid, a styled error is injected into a dedicated <span class="code-ref">.error-text</span> element below the field and the border turns red via inline style. The success confirmation only renders when <span class="code-ref">isValid === true</span>, preventing a bug I had earlier where the success message appeared even when errors were present. This taught me that HTML5 validation is a good starting point but JavaScript is needed for a fully controlled, branded user experience.</p>
+
+                <h3>Challenge 2: Hover Overlay Hidden Behind the Card Image</h3>
+                <p>On the Team page, the <span class="code-ref">.extra-info</span> overlay was not fully appearing over the card on hover — the member photograph was painting on top of it and cutting off the text. The issue was a CSS stacking context problem. The absolutely positioned overlay needed a <span class="code-ref">z-index: 2</span>, and I confirmed the card wrapper had <span class="code-ref">position: relative</span> and <span class="code-ref">overflow: hidden</span> set to create the correct stacking context. This was a practical lesson in how <span class="code-ref">z-index</span> only works within an established stacking context — simply assigning a high number to an element is not enough if the parent does not define the context.</p>
+
+                <h3>Challenge 3: Anchor Links Scrolling Behind the Fixed Header</h3>
+                <p>On the content page, clicking a Table of Contents link scrolled correctly but the fixed site header covered the section heading on arrival, making it invisible until the user scrolled up manually. My first attempt was to add <span class="code-ref">padding-top</span> to each section, but this created unwanted visual gaps throughout the page. The clean solution was setting <span class="code-ref">scroll-padding-top: 110px</span> on the <span class="code-ref">html</span> element — a single CSS declaration that offsets all anchor scroll targets by the header height simultaneously, with no JavaScript needed.</p>
+
+                <h3>Challenge 4: CSS Conflict with the Shared Team Template</h3>
+                <p>When I merged my pages into the shared repository, a local <span class="code-ref">button</span> selector in my feedback page CSS was overriding the global button styles in Student 1's <span class="code-ref">style.css</span>, affecting the navigation header buttons site-wide. Rather than using <span class="code-ref">!important</span> — which would have created new override problems for teammates — I scoped my local button rules using more specific selectors such as <span class="code-ref">.feedback-form .action-btn</span>. This resolved the conflict cleanly and reinforced the importance of narrow, targeted selectors in a shared codebase.</p>
+
+                <h3>Challenge 5: Programme Grid Orphaned Card on Mid-Width Screens</h3>
+                <p>The two-column programme grid worked well on desktop and stacked cleanly on mobile, but on a medium-width tablet the layout produced a single orphaned card on the last row that stretched to full width, looking visually broken. I adjusted the grid to use <span class="code-ref">minmax(0, 1fr)</span> on both columns and set a <span class="code-ref">max-width</span> on the containing section, which constrained the grid to a size where two cards always fit comfortably without one stretching alone. This highlighted that grid behaviour at breakpoints requires careful testing at intermediate viewport widths, not just the extremes.</p>
+            </section>
+
+            <!-- SECTION 4 -->
+            <section>
+                <h2 id="accessibility">4. Accessibility Considerations</h2>
+                <p>Accessibility was treated as a design requirement throughout development rather than an afterthought. The following specific measures were applied across my three pages:</p>
+                <ul>
+                    <li><strong>Semantic Form Markup:</strong> All form inputs use explicit <span class="code-ref">&lt;label&gt;</span> elements linked via <span class="code-ref">for</span> and <span class="code-ref">id</span> pairing. Nested <span class="code-ref">&lt;fieldset&gt;</span> and <span class="code-ref">&lt;legend&gt;</span> group related inputs so screen readers announce the group context alongside the field name. The form's <span class="code-ref">aria-live="polite"</span> status box announces validation outcomes without shifting focus away from the form.</li>
+                    <li><strong>Keyboard Navigation:</strong> The full feedback form is navigable by Tab and Enter only, tested manually without a mouse. All interactive elements — form fields, buttons, team cards — are reachable and operable via keyboard. Custom focus rings are clearly visible, meeting WCAG 2.1 SC 2.4.7 (Focus Visible). Team cards use <span class="code-ref">:focus-visible</span> to show a gold outline on keyboard focus while avoiding it on mouse interaction.</li>
+                    <li><strong>Image Alt Text:</strong> Every team member photo has a descriptive <span class="code-ref">alt</span> attribute identifying the person by name and role. Content page images describe their editorial context rather than appearing generic. Decorative background elements use <span class="code-ref">pointer-events: none</span> and are kept out of the focus order.</li>
+                    <li><strong>Internal Navigation Landmark:</strong> The Table of Contents on the content page is wrapped in <span class="code-ref">&lt;nav aria-label="Internal Navigation"&gt;</span>, creating a separate landmark from the site header. This allows screen reader users to jump directly to in-page links via the landmarks menu without re-traversing the full page structure.</li>
+                    <li><strong>Colour Contrast:</strong> All text across my pages uses gold-on-dark and light-grey-on-dark combinations that exceed the WCAG AA minimum contrast ratio of 4.5:1 for normal text.</li>
+                </ul>
+            </section>
+
+            <!-- SECTION 5 -->
+            <section>
+                <h2 id="compliance">5. Compliance with JANET Regulations</h2>
+                <p>All three pages I authored comply fully with the JANET Acceptable Use Policy and the university's responsible web publishing guidelines:</p>
+                <ul>
+                    <li><strong>Appropriate Content:</strong> The Feedback page collects only voluntarily provided opinions about the website. The Programme Directory is fictional and educational, directly aligned with SDG 16 themes of civic access and community support. The Team page presents factual academic project information. The content page is original writing grounded in publicly available UN and academic sources, all cited in Section 7.</li>
+                    <li><strong>No Data Transmission:</strong> The feedback form is handled entirely client-side. On valid submission, a confirmation message is displayed on screen and no data is sent to any external server, satisfying data minimisation principles and avoiding JANET or UK GDPR concerns.</li>
+                    <li><strong>Responsible Use of Assets:</strong> All team member photographs were provided by each member with explicit consent for use in this academic context. Programme directory imagery uses descriptive alt text rather than reproducing third-party copyrighted visuals without permission.</li>
+                    <li><strong>Academic Integrity:</strong> All SDG 16 content on the content page is original writing. No text was reproduced from external sources without citation. References are listed in Section 7 in a consistent format as required by the coursework brief.</li>
+                    <li><strong>No Harmful or Offensive Material:</strong> All pages are entirely educational and directly aligned with the United Nations' published goals for SDG 16. No offensive, discriminatory, misleading, or prohibited content is present on any page I authored.</li>
+                </ul>
+            </section>
+
+            <!-- SECTION 6 -->
+            <section>
+                <h2 id="group">6. Group Meetings &amp; Contribution Log</h2>
+                <p>The table below documents my individual attendance and contributions across all six team meetings recorded during this project.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="6">Group Meetings and Contribution Log</th>
+                        </tr>
+                        <tr>
+                            <th>Meeting</th>
+                            <th>Date &amp; Time</th>
+                            <th>Format</th>
+                            <th>Objective</th>
+                            <th>Attended</th>
+                            <th>My Individual Contribution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>12 Feb 2026</td>
+                            <td>Face-to-face</td>
+                            <td>Agree on SDG topic and assign roles</td>
+                            <td>Yes</td>
+                            <td>I confirmed my role as Student 3 and proposed building a feedback form as my primary interactive element. I also suggested including a scrollable programme directory to make the SDG 16 theme feel practical and community-facing.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>19 Feb 2026</td>
+                            <td>Discord (Online)</td>
+                            <td>Finalise theme and wireframe pages</td>
+                            <td>Yes</td>
+                            <td>I shared a rough wireframe for the Team page hover-card layout and the two-column programme directory grid. I also confirmed the form field structure with the group to ensure it aligned with our SDG 16 theme of civic engagement and justice access.</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>26 Feb 2026</td>
+                            <td>Hybrid</td>
+                            <td>Merge core pages and test routing</td>
+                            <td>Yes</td>
+                            <td>I integrated <span class="code-ref">feedback.html</span> and <span class="code-ref">team.html</span> into the shared repository and verified navigation header links were consistent across all pages. I identified and resolved a CSS specificity conflict where my local button styles were overriding the team's shared <span class="code-ref">style.css</span>.</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>05 Mar 2026</td>
+                            <td>Discord (Online)</td>
+                            <td>Team code review and bug fixing</td>
+                            <td>Yes</td>
+                            <td>I fixed the validation timing bug in the feedback form where the success message appeared before all checks completed. I also resolved the Team page overlay stacking issue by applying <span class="code-ref">z-index: 2</span> to the <span class="code-ref">.extra-info</span> element.</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>12 Mar 2026</td>
+                            <td>Face-to-face</td>
+                            <td>Content review and alignment</td>
+                            <td>Yes</td>
+                            <td>I finalised the copy for the "Access to Justice" content page and confirmed all internal anchor IDs matched the Table of Contents links. I also updated the Team page to reflect the final agreed page titles used in Student 4's sitemap and added a missing <span class="code-ref">aria-current="page"</span> attribute to the active navigation link.</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>18 Mar 2026</td>
+                            <td>Hybrid</td>
+                            <td>Final W3C validation and packaging</td>
+                            <td>Yes</td>
+                            <td>I ran <span class="code-ref">feedback.html</span>, <span class="code-ref">team.html</span>, and <span class="code-ref">content_ST3.html</span> through the W3C Markup Validation Service. I resolved a stray unclosed <span class="code-ref">&lt;div&gt;</span> in the Team page and confirmed zero errors across all three pages before capturing the required validation screenshots.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- SECTION 7 -->
+            <section>
+                <h2 id="ref">7. References</h2>
+                <p>The following technical documentation, official guidelines, and academic sources were consulted and applied during the development of my pages.</p>
+
+                <div class="reference-grid">
+
+                    <div class="ref-category">
+                        <h3 style="margin-top:0;">HTML Forms &amp; Validation</h3>
+                        <ul class="ref">
+                            <li><strong>MDN Web Docs:</strong> <em>&lt;form&gt; element</em> — Core reference for form structure, <span class="code-ref">novalidate</span>, fieldset and legend. <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form" target="_blank">Link</a></li>
+                            <li><strong>MDN Web Docs:</strong> <em>Client-side form validation</em> — Applied to replace native browser bubbles with branded JS validation. <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation" target="_blank">Link</a></li>
+                            <li><strong>MDN Web Docs:</strong> <em>&lt;fieldset&gt; and &lt;legend&gt;</em> — Used to group Personal Details and Feedback Details accessibly. <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fieldset" target="_blank">Link</a></li>
+                            <li><strong>MDN Web Docs:</strong> <em>&lt;datalist&gt;</em> — Used for the native autocomplete on the Interest Area input. <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/datalist" target="_blank">Link</a></li>
+                            <li><strong>W3Schools:</strong> <em>HTML Forms Tutorial</em> — Supplementary reference for input types and attributes. <a href="https://www.w3schools.com/html/html_forms.asp" target="_blank">Link</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-category">
+                        <h3 style="margin-top:0;">CSS Layout &amp; Visual Techniques</h3>
+                        <ul class="ref">
+                            <li><strong>MDN Web Docs:</strong> <em>CSS Grid Layout</em> — Applied for the programme directory grid, reviews grid, and team card grid. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout" target="_blank">Link</a></li>
+                            <li><strong>CSS-Tricks:</strong> <em>A Complete Guide to CSS Grid</em> — Reference for column sizing and minmax behaviour. <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">Link</a></li>
+                            <li><strong>MDN Web Docs:</strong> <em>Using CSS transitions</em> — Applied for card hover lifts, overlay fade-in, and image scale. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions" target="_blank">Link</a></li>
+                            <li><strong>MDN Web Docs:</strong> <em>::-webkit-scrollbar</em> — Used to style the custom gradient scrollbar in the programme directory. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar" target="_blank">Link</a></li>
+                            <li><strong>MDN Web Docs:</strong> <em>scroll-padding</em> — Applied on the content page to offset anchor scroll targets below the fixed header. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-padding" target="_blank">Link</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-category">
+                        <h3 style="margin-top:0;">JavaScript &amp; DOM</h3>
+                        <ul class="ref">
+                            <li><strong>MDN Web Docs:</strong> <em>addEventListener()</em> — Core method for form submit, reset, and character counter events. <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" target="_blank">Link</a></li>
+                            <li><strong>MDN Web Docs:</strong> <em>String.prototype.trim()</em> — Used throughout form validation to detect whitespace-only submissions. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim" target="_blank">Link</a></li>
+                            <li><strong>MDN Web Docs:</strong> <em>HTMLElement.style</em> — Used to apply inline border and shadow changes to invalid fields. <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style" target="_blank">Link</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-category">
+                        <h3 style="margin-top:0;">Accessibility &amp; Academic Sources</h3>
+                        <ul class="ref">
+                            <li><strong>W3C:</strong> <em>WCAG 2.1 — SC 2.4.7 (Focus Visible)</em> — Applied to ensure all interactive elements have a visible keyboard focus indicator. <a href="https://www.w3.org/TR/WCAG21/#focus-visible" target="_blank">Link</a></li>
+                            <li><strong>W3C:</strong> <em>ARIA live regions</em> — Applied via <span class="code-ref">aria-live="polite"</span> on the form status box. <a href="https://www.w3.org/TR/wai-aria/#live_region_roles" target="_blank">Link</a></li>
+                            <li><strong>W3C:</strong> <em>Markup Validation Service</em> — Used to validate all three pages to zero errors. <a href="https://validator.w3.org/" target="_blank">Link</a></li>
+                            <li><strong>University of Westminster:</strong> (2026). <em>4COSC011W Web Design and Development Coursework Brief 2025–26.</em></li>
+                            <li><strong>United Nations:</strong> (n.d.). <em>SDG 16: Peace, Justice and Strong Institutions.</em> <a href="https://sdgs.un.org/goals/goal16" target="_blank">Link</a></li>
+                            <li><strong>Jisc:</strong> (n.d.). <em>Janet Acceptable Use Policy.</em> <a href="https://www.jisc.ac.uk/janet/policies/acceptable-use" target="_blank">Link</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <p class="top"><a href="#top">&#x2191; Top</a></p>
+
+        </main>
+
+        <!-- SIDEBAR -->
+        <aside>
+            <h3>Contents</h3>
+            <ul class="top-level-ul">
+                <li><a href="#tasks">1. Completed Tasks</a></li>
+                <li><a href="#tech">2. Technical Implementation</a></li>
+                <ul style="padding-left:10px; margin-top:4px;">
+                    <li><a href="#tech">↳ Feedback Page</a></li>
+                    <li><a href="#tech">↳ Team Page</a></li>
+                    <li><a href="#tech">↳ Content Page</a></li>
+                </ul>
+                <li><a href="#challenge">3. Challenges &amp; Lessons</a></li>
+                <li><a href="#accessibility">4. Accessibility</a></li>
+                <li><a href="#compliance">5. JANET Compliance</a></li>
+                <li><a href="#group">6. Meeting Log</a></li>
+                <li><a href="#ref">7. References</a></li>
+            </ul>
+
+            <hr style="border-color: rgba(197,160,89,0.15); margin: 18px 0;">
+
+            <h3>All Pages</h3>
+            <ul class="top-level-ul">
+                <li>Student 1</li>
+                <ul style="padding-left:10px;">
+                    <li><a href="home.html">Home Page</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="content_ST1.html">Content (ST1)</a></li>
+                </ul>
+                <li>Student 2</li>
+                <ul style="padding-left:10px;">
+                    <li><a href="index.html">Splash Screen</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="content_ST2.html">Content (ST2)</a></li>
+                </ul>
+                <li>Student 3</li>
+                <ul style="padding-left:10px;">
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="content_ST3.html">Content (ST3)</a></li>
+                </ul>
+                <li>Student 4</li>
+                <ul style="padding-left:10px;">
+                    <li><a href="profile.html">User Profile</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                    <li><a href="content_ST4.html">Content (ST4)</a></li>
+                </ul>
+            </ul>
+        </aside>
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong> Manisha Fernando</p>
+                <p><strong>Student ID:</strong> 20240567</p>
+                <p><strong>Role:</strong> Student 3 — Feedback &amp; Team Page</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST3.html">Page Editor (ST3)</a></li>
+                    <li><a href="validation_ST3.html">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST3.html#accessibility">Accessibility &amp; Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Team Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
