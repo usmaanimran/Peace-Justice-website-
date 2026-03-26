@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Justice | Access to Justice</title>
+    <meta name="description"
+        content="An SDG 16 content page about access to justice, legal support, digital inclusion, and fair institutions.">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Student 3 Content Page specific styling.
+           Kept consistent with the shared dark glass design used by the team. */
+
+        .article-container {
+            max-width: 1000px;
+            margin: 40px auto 80px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            backdrop-filter: blur(16px);
+            padding: 45px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+        }
+
+        .content-bg-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(ellipse 42vw 32vh at 14% 20%,
+                    rgba(212, 175, 55, 0.12) 0%,
+                    rgba(212, 175, 55, 0.05) 38%,
+                    transparent 68%),
+                radial-gradient(ellipse 34vw 26vh at 88% 14%,
+                    rgba(212, 175, 55, 0.09) 0%,
+                    rgba(212, 175, 55, 0.03) 42%,
+                    transparent 72%);
+        }
+
+        .article-intro {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 30px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .table-of-contents {
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 0 10px 10px 0;
+            padding: 22px 25px;
+            margin: 35px 0 45px;
+            box-shadow: 0 0 18px rgba(0, 240, 255, 0.05);
+        }
+
+        .table-of-contents h2 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 14px;
+            color: var(--text-main);
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .table-of-contents li {
+            margin-bottom: 10px;
+        }
+
+        .table-of-contents a {
+            text-decoration: none;
+            color: var(--accent-cyan);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .table-of-contents a:hover,
+        .table-of-contents a:focus {
+            color: var(--accent-purple);
+            text-shadow: 0 0 8px rgba(112, 0, 255, 0.6);
+            padding-left: 5px;
+        }
+
+        .highlight-box {
+            background: rgba(59, 130, 246, 0.07);
+            border-left: 4px solid #60a5fa;
+            border-radius: 0 10px 10px 0;
+            padding: 24px 25px;
+            margin: 30px 0 40px;
+            box-shadow: 0 0 18px rgba(96, 165, 250, 0.06);
+        }
+
+        .highlight-box h2 {
+            margin-bottom: 12px;
+            color: #dbeafe;
+            font-family: var(--font-heading);
+        }
+
+        .highlight-box ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .highlight-box li::marker {
+            color: #93c5fd;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px;
+        }
+
+        .content-section {
+            margin-bottom: 55px;
+        }
+
+        .content-section h2 {
+            font-family: var(--font-heading);
+            color: var(--accent-cyan);
+            font-size: 2rem;
+            margin-bottom: 18px;
+            border-bottom: 1px dashed var(--glass-border);
+            padding-bottom: 10px;
+        }
+
+        .content-section h3 {
+            color: var(--accent-gold);
+            margin: 20px 0 12px;
+            font-size: 1.15rem;
+        }
+
+        .content-section p {
+            color: var(--text-muted);
+            line-height: 1.85;
+            margin-bottom: 18px;
+            font-size: 1.03rem;
+        }
+
+        .content-section ul {
+            color: var(--text-muted);
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 20px;
+        }
+
+        .styled-image {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.55);
+            margin: 22px 0;
+            transition: all 0.35s ease;
+        }
+
+        .styled-image:hover {
+            transform: scale(1.02) translateY(-3px);
+            border-color: rgba(0, 240, 255, 0.45);
+            box-shadow: 0 20px 36px rgba(0, 0, 0, 0.7);
+        }
+
+        .quote-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--accent-gold);
+            padding: 18px 22px;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .back-to-top-css {
+            position: fixed;
+            right: 28px;
+            bottom: 28px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background: rgba(5, 8, 12, 0.9);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            font-size: 1.25rem;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top-css:hover,
+        .back-to-top-css:focus {
+            background: var(--accent-gold);
+            color: #000;
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 768px) {
+            .article-container {
+                padding: 26px 18px;
+                margin: 25px 14px 70px;
+            }
+
+            .content-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .table-of-contents {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body id="top" class="page-fade-in">
+
+    <canvas id="ps4-bg" style="position: fixed; inset: 0; pointer-events: none; z-index: -1;"></canvas>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="home.html" class="logo-link" aria-label="Home - Peace and Justice">
+                <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo"
+                    onerror="this.style.display='none'">
+                <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
+            </a>
+
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
+                aria-controls="main-nav-list" type="button">☰</button>
+
+            <nav class="main-nav" aria-label="Primary Navigation">
+                <ul id="main-nav-list">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="ais.html">Action Simulator</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <article class="article-container">
+            <h1 class="reveal-element"
+                style="font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 18px;">
+                Access to <span class="text-gradient">Justice</span>: Making Fair Systems Reach Everyone
+            </h1>
+
+            <p class="article-intro reveal-element delay-1">
+                Sustainable Development Goal 16 is not only about laws on paper. It is about whether ordinary people can
+                actually use those laws when they need protection, support, or fair treatment. Access to justice means
+                that every person, regardless of income, gender, background, or location, should be able to understand
+                their rights, seek help, and receive fair outcomes through trustworthy institutions.
+            </p>
+
+            <nav class="table-of-contents reveal-element delay-2" aria-label="Internal Navigation">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#meaning">&rarr; I. What Access to Justice Really Means</a></li>
+                    <li><a href="#barriers">&rarr; II. Why Many People Still Face Barriers</a></li>
+                    <li><a href="#digital">&rarr; III. How Digital Tools Can Improve Justice</a></li>
+                    <li><a href="#action">&rarr; IV. What Communities and Citizens Can Do</a></li>
+                </ul>
+            </nav>
+
+            <section class="highlight-box reveal-element delay-3" aria-labelledby="summary-heading">
+                <h2 id="summary-heading">Why this topic matters</h2>
+                <ul>
+                    <li>People cannot protect their rights if legal systems feel too expensive or too confusing.</li>
+                    <li>Fair access to justice helps reduce inequality and strengthens trust in institutions.</li>
+                    <li>When justice systems work for everyone, communities become safer, more stable, and more equal.</li>
+                </ul>
+            </section>
+
+            <section id="meaning" class="content-section reveal-element">
+                <h2>I. What Access to Justice Really Means</h2>
+                <p>
+                    Access to justice means more than having courts or legal documents. It means that people can
+                    understand their rights, find reliable guidance, and use formal or informal systems to solve
+                    problems fairly. A justice system is only meaningful when people are able to reach it without fear,
+                    confusion, or discrimination.
+                </p>
+                <p>
+                    For some people, access to justice may involve legal aid, language support, or guidance on how to
+                    file a complaint. For others, it may involve protection from unfair treatment, safe reporting
+                    systems, or support when dealing with housing, work, family, or identity-related issues. Justice is
+                    most effective when it is practical, not just theoretical.
+                </p>
+
+                <img src="images/justice-hero.jpg"
+                    alt="A formal justice setting with legal books or courtroom elements representing equal access to law"
+                    class="styled-image">
+
+                <div class="quote-panel">
+                    A strong justice system is not measured only by power or tradition, but by how well it serves the
+                    people who are most likely to be ignored.
+                </div>
+
+                <h3>Core elements of access to justice</h3>
+                <ul>
+                    <li>Clear information about rights and legal processes</li>
+                    <li>Affordable or free support for those who need it</li>
+                    <li>Fair treatment regardless of income or background</li>
+                    <li>Institutions that are transparent, respectful, and accountable</li>
+                </ul>
+            </section>
+
+            <section id="barriers" class="content-section reveal-element">
+                <h2>II. Why Many People Still Face Barriers</h2>
+                <p>
+                    Even where justice systems exist, they are not always equally reachable. Many people struggle with
+                    cost, distance, slow procedures, lack of awareness, and fear of being ignored. Others may avoid
+                    formal systems because they expect discrimination or because they do not trust institutions to treat
+                    them fairly.
+                </p>
+                <p>
+                    These barriers are often stronger for people living in poverty, rural communities, migrant groups,
+                    and those with disabilities. In many cases, the problem is not simply the absence of laws. The real
+                    problem is that the path to help is too difficult to understand or too exhausting to follow.
+                </p>
+
+                <img src="images/legal-aid.jpg"
+                    alt="A legal consultation or support discussion showing a person receiving guidance and assistance"
+                    class="styled-image">
+
+                <h3>Common barriers people face</h3>
+                <ul>
+                    <li>High legal costs and lack of affordable representation</li>
+                    <li>Complicated paperwork and difficult legal language</li>
+                    <li>Limited transport or physical distance from services</li>
+                    <li>Low trust in institutions due to corruption or unfair treatment</li>
+                    <li>Fear of retaliation, shame, or social pressure</li>
+                </ul>
+
+                <p>
+                    When these barriers remain unresolved, people may give up on the system entirely. That weakens the
+                    rule of law and creates a wider culture of exclusion, where only some groups can realistically claim
+                    their rights.
+                </p>
+            </section>
+
+            <section id="digital" class="content-section reveal-element">
+                <h2>III. How Digital Tools Can Improve Justice</h2>
+                <p>
+                    Technology cannot solve every justice problem, but it can remove some practical barriers. Online
+                    complaint systems, digital information portals, remote advice services, and accessible public
+                    service platforms can help people understand their choices faster and with less cost.
+                </p>
+                <p>
+                    Digital tools are especially useful when they are designed clearly and ethically. A simple website
+                    with readable language, contact pathways, and guidance can save time and reduce confusion. Digital
+                    services can also help people in remote areas who may not easily travel to legal or public-service
+                    offices.
+                </p>
+
+                <img src="images/digital-justice.jpg"
+                    alt="A laptop or digital platform representing online access to legal information and public services"
+                    class="styled-image">
+
+                <h3>Useful digital justice features</h3>
+                <ul>
+                    <li>Online legal information written in clear language</li>
+                    <li>Remote booking systems for legal appointments</li>
+                    <li>Secure reporting forms for complaints and evidence submission</li>
+                    <li>Accessible websites with readable layouts and strong navigation</li>
+                </ul>
+
+                <p>
+                    However, digital justice should not exclude those without devices, internet access, or digital
+                    confidence. The best systems combine technology with human support so that convenience does not
+                    become another barrier.
+                </p>
+            </section>
+
+            <section id="action" class="content-section reveal-element">
+                <h2>IV. What Communities and Citizens Can Do</h2>
+                <p>
+                    Access to justice is not only the responsibility of courts and governments. Communities, schools,
+                    youth groups, and civil society organizations all have a role in making justice more reachable and
+                    understandable. Public trust grows when people see institutions responding with fairness and respect.
+                </p>
+                <p>
+                    Citizens can also support justice by learning about their rights, helping others find trustworthy
+                    services, and encouraging accountability in public life. Even simple actions such as sharing support
+                    resources, reporting abuse properly, or promoting inclusive decision-making can strengthen the wider
+                    system.
+                </p>
+
+                <img src="images/community-rights.jpg"
+                    alt="A community discussion or support setting representing public participation and equal rights"
+                    class="styled-image">
+
+                <h3>Actions that make a difference</h3>
+                <ul>
+                    <li>Support legal awareness campaigns in schools and communities</li>
+                    <li>Promote fair treatment, transparency, and anti-discrimination practices</li>
+                    <li>Use trustworthy reporting channels when rights are violated</li>
+                    <li>Encourage digital tools that make public services easier to access</li>
+                </ul>
+
+                <p>
+                    A fair society is built when justice is not distant or intimidating. It must be visible, usable,
+                    and dependable in everyday life. That is why access to justice remains one of the most important
+                    parts of SDG 16.
+                </p>
+            </section>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="student-info">
+                <h3>Page Author</h3>
+                <p><strong>Name:</strong>Manisha Fernando</p>
+                <p><strong>Student ID:</strong>20240567</p>
+                <p><strong>Role:</strong> Student 3 - Feedback, Team & Content Page</p>
+            </div>
+            <div class="footer-links">
+                <h3>Developer Links</h3>
+                <ul>
+                    <li><a href="pageEditor_ST3.html">Page Editor (ST3)</a></li>
+                    <li><a href="validation_ST3.html#content-val">Validation Evidence</a></li>
+                    <li><a href="pageEditor_ST3.html#accessibility">Accessibility &amp; Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+        </div>
+    </footer>
+
+    <a href="#top" class="back-to-top-css" aria-label="Go to top">&#8593;</a>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
