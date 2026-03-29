@@ -4,11 +4,9 @@
    the Free Software Foundation, either version 3 of the License.
 */
 
-
 /**
  * Action Impact Simulator v4.0
  * Student 2 Usmaan Imran 20240530
- 
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,16 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const descDisplay = document.getElementById('descDisplay');
   const resetBtn = document.getElementById('resetBtn');
 
-
   let score = 0;
-
 
   /* Loops through each action card to set up selection logic  */
   cards.forEach((card, i) => {
 
     /* Simple staggered fade-in effect on load */
     setTimeout(() => card.classList.add('visible'), 60 * i);
-
 
     /* Grabs the point value from the HTML data-pts attribute  */
     const pts = parseInt(card.dataset.pts, 10);
@@ -60,35 +55,39 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Triggers the number counting animation */
     animateScore(score);
 
-
     /* Calculates the stroke-dashoffset to visually fill the SVG gauge circle  */
     const pct = Math.min(score / MAX_PTS, 1);
     const offset = CIRCUM - CIRCUM * pct;
     gaugeFill.style.strokeDashoffset = offset;
 
-
-
     /* Removes previous level classes before applying the current one  */
     document.body.classList.remove('ais-low', 'ais-med', 'ais-high');
 
     /* Conditional logic to set the impact level based on point thresholds */
+    let currentTier = 'ais-low'; // Keep track of the current tier for the videos
+
     if (score >= 90) {
+      currentTier = 'ais-high';
       document.body.classList.add('ais-high');
       levelDisplay.textContent = 'High Systemic Impact';
       descDisplay.textContent = 'Exceptional. Structural reform and full accountability achieved.';
     } else if (score >= 40) {
+      currentTier = 'ais-med';
       document.body.classList.add('ais-med');
       levelDisplay.textContent = 'Substantial Progress';
       descDisplay.textContent = 'Solid foundation increasing pressure brings visibility.';
     } else {
+      currentTier = 'ais-low';
       document.body.classList.add('ais-low');
       levelDisplay.textContent = score > 0 ? 'Building Momentum' : 'Awaiting Input';
       descDisplay.textContent = score > 0
         ? 'Keep combining actions to escalate systemic pressure.'
         : 'Select actions above to measure their combined systemic power.';
     }
+    
+    /* Trigger the video background crossfade */
+    updateVisualState(currentTier);
   }
-
 
   /* Animates the score number from the old value to the new value over 900ms */
   let animFrame, displayedScore = 0;
@@ -110,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
     animFrame = requestAnimationFrame(step);
   }
 
-
   /* Resets the score and all visual card states to their default  */
   resetBtn.addEventListener('click', () => {
     score = 0;
@@ -122,57 +120,30 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDashboard();
   });
 
+  /* Logic to crossfade videos seamlessly without reloading */
+  function updateVisualState(tier) {
+      const vidLow = document.getElementById('vid-low');
+      const vidMed = document.getElementById('vid-med');
+      const vidHigh = document.getElementById('vid-high');
 
+      if (!vidLow || !vidMed || !vidHigh) return;
+
+      // Remove active class from all videos
+      vidLow.classList.remove('active');
+      vidMed.classList.remove('active');
+      vidHigh.classList.remove('active');
+
+      // Fade in the correct video based on the score
+      if (tier === 'ais-low') {
+          vidLow.classList.add('active');
+      } else if (tier === 'ais-med') {
+          vidMed.classList.add('active');
+      } else if (tier === 'ais-high') {
+          vidHigh.classList.add('active');
+      }
+  }
+
+  // Initialize the dashboard on load after everything is defined
   updateDashboard();
-
-  /* Liquid Blob Interaction Logic ] */
-  const blobs = document.querySelectorAll('.liquid-blob');
-
-  document.addEventListener('click', (e) => {
-    // Only react if the user is clicking an action card
-    if (e.target.closest('.ais-action-card')) {
-      /* Get the exact mouse position coordinates */
-      const clickX = e.clientX;
-      const clickY = e.clientY;
-
-      blobs.forEach(blob => {
-        /* Find the center position of each liquid blob */
-        const rect = blob.getBoundingClientRect();
-        const blobCenterX = rect.left + rect.width / 2;
-        const blobCenterY = rect.top + rect.height / 2;
-
-        /* Uses the Pythagorean theorem (A^2 + B^2 = C^2) to find the straight-line distance to the click */
-        const distX = blobCenterX - clickX;
-        const distY = blobCenterY - clickY;
-        const distance = Math.max(Math.sqrt(distX * distX + distY * distY), 1);
-
-        // Increased range slightly so it reacts from further away
-        if (distance < 800) {
-          // Push it a bit further
-          const pushIntensity = (800 - distance) * 0.6;
-          const pushX = (distX / distance) * pushIntensity;
-          const pushY = (distY / distance) * pushIntensity;
-
-          //  Apply smooth push out movement using CSS translate 
-          blob.style.transition = 'translate 1.5s cubic-bezier(0.1, 0.9, 0.2, 1)';
-          blob.style.translate = `${pushX}px ${pushY}px`;
-
-
-          /* Returns the blob to its original position after the push effect ends */
-          setTimeout(() => {
-
-            blob.style.transition = 'translate 8s ease-in-out';
-            blob.style.translate = '0px 0px';
-
-
-            setTimeout(() => {
-              blob.style.transition = '';
-            }, 8000);
-
-          }, 1500);
-        }
-      });
-    }
-  });
 
 });
