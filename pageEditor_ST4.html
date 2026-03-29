@@ -1,247 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peace & Justice | Page Editor (Zehna)</title>
+    <title>Peace &amp; Justice | Page Editor — Zehna Anas</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* Centers the main content block and gives it a max width so it doesn't stretch too wide on big monitors */
-        .dashboard-container {
-            max-width: 1400px;
-            margin: 40px auto 80px;
-            padding: 0 5%;
-        }
-        /* Styles the top intro area */
-        .editor-header {
-            text-align: left;
-            margin-bottom: 50px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 30px;
+
+        /* ---- Subtle page background matching the site's radial glow pattern ---- */
+        body {
+            background:
+                radial-gradient(circle at 12% 18%, rgba(255, 215, 120, 0.10), transparent 22%),
+                radial-gradient(circle at 88% 20%, rgba(34, 211, 238, 0.08), transparent 20%),
+                linear-gradient(180deg, #050910 0%, #08111d 50%, #050910 100%);
         }
         
+
+    
+        .container {
+            display: grid;
+            grid-template-columns: 260px 1fr; /* main takes available space; aside is fixed width */
+            gap: 50px;
+            width: min(95%, 1300px);
+            margin: 0 auto;
+            align-items: start;
+            padding: 30px 0 80px;
+        }
+
+        /* Stack to single column on narrow screens */
+        @media (max-width: 880px) {
+            .container { grid-template-columns: 1fr; }
+            aside { position: static !important; }
+        }
+
+        /* ---- Sidebar (aside): sticky TOC ---- */
+        aside {
+            position: sticky;
+            top: 110px;                     /* clears the fixed site header */
+            background: rgba(14, 18, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 28px;
+            backdrop-filter: blur(16px);
+    
+        }
+
+        aside h3 {
+            font-family: var(--font-heading);
+            color: var(--c-text);
+            font-size: 30px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        /* Remove default bullets from the TOC list */
+        aside ul {
+            list-style: none;
+            padding: 10px;
+        }
+
+        aside li {
+            margin-bottom: 10px;
+            font-size:15px;
+            color: var(--c-muted);
+        }
+
+        /* Indented sub-list */
+        aside ul ul {
+            padding-left: 14px;
+            margin-top: 4px;
+        }
+
+        /* Sidebar links — animated left-border accent on hover */
+        aside a {
+            color: var(--c-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+            display: block;
+            transition: color 0.25s, border-color 0.25s, padding-left 0.25s;
+        }
+
+        aside a:hover,
+        aside a:focus-visible {
+            color: var(--c-gold);
+            border-left-color: var(--c-gold);
+            padding-left: 13px;
+            outline: none;
+        }
+
+        /* ---- Student identity banner (required by template) ---- */
+        .stud {
+            text-align: center;
+            padding: 20px 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .stud h2 {
+            font-family: var(--font-body);
+            font-size: 0.93rem;
+            color: var(--c-muted);
+            font-weight: 400;
+            letter-spacing: 0.4px;
+        }
+
+        /* ---- Page-editor intro heading ---- */
+        .editor-header {
+            margin-bottom: 36px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
         .editor-header h1 {
             font-family: var(--font-heading);
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            color: var(--text-main);
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            margin-bottom: 8px;
         }
 
         .editor-header p {
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-        }
-        /* Uses CSS Grid to create a two-column layout: a 300px sidebar on the left, and the rest of the space (1fr) for the text on the right */
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-        /* Makes the Table of Contents sidebar stick to the screen as you scroll down the page */
-        .toc-sidebar {
-            position: sticky;
-            top: 120px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 30px;
-            backdrop-filter: blur(16px);
+            color: var(--c-muted);
+            font-size: 1rem;
         }
 
-        .toc-sidebar h2 {
-            color: var(--text-main);
-            margin-bottom: 20px;
-            font-family: var(--font-heading);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-        }
-
-        .toc-sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .toc-sidebar li {
-            margin-bottom: 15px;
-        }
-        /* Base styles for the sidebar links */
-        .toc-sidebar a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            display: block;
-            border-left: 2px solid transparent;
-            padding-left: 10px;
-        }
-        /* Hover animation for sidebar links: turns gold and nudges right */
-        .toc-sidebar a:hover {
-            color: var(--accent-gold);
-            border-left-color: var(--accent-gold);
-            transform: translateX(5px);
-        }
-        /* Main Content Styling - Creates the glass-like box for the actual report text */
+        /* ---- Glass card wrapping all main sections ---- */
         .editor-content {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: rgba(14, 18, 30, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
-            padding: 50px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-        /* Spacing for each major section of the report */
-        .editor-section {
-            margin-bottom: 60px;
+            padding: clamp(28px, 4vw, 50px);
+            backdrop-filter: blur(18px);
         }
 
-        .editor-section h2 {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
-            color: var(--text-main);
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 15px;
+        /* ---- Individual sections inside the card ---- */
+        section {
+            margin-bottom: 56px;
+            scroll-margin-top: 110px;   /* prevents heading hiding behind sticky header */
         }
-        /* Subheadings with a custom gold glowing dot generated via CSS ::before pseudo-element */
-        .editor-section h3 {
-            font-size: 1.3rem;
-            color: var(--text-main);
-            margin: 30px 0 15px;
+
+        section h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            color: var(--c-text);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Subheadings with a glowing gold bullet via ::before pseudo-element */
+        section h3 {
+            font-size: 1.13rem;
+            color: var(--c-text);
+            margin: 28px 0 12px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .editor-section h3::before {
+        section h3::before {
             content: '';
-            display: block;
-            width: 8px;
-            height: 8px;
-            background: var(--accent-gold);
+            display: inline-block;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-gold);
+            background: var(--c-gold);
+            box-shadow: 0 0 8px var(--c-gold-glow);
+            flex-shrink: 0;
         }
 
-        .editor-section p,
-        .editor-section ul {
-            line-height: 1.8;
+        section p,
+        section ul,
+        section ol {
             color: #cbd5e1;
-            margin-bottom: 20px;
-            font-size: 1.05rem;
+            line-height: 1.85;
+            margin-bottom: 18px;
+            font-size: 1rem;
         }
 
-        .editor-section ul {
-            padding-left: 20px;
+        section ul,
+        section ol {
+            padding-left: 22px;
         }
 
-        .editor-section li {
+        section li {
             margin-bottom: 10px;
         }
-        /* Custom styling for inline code mentions to make them look like a termina */
-        .code-ref {
-            font-family: 'Courier New', monospace;
-            background: rgba(5, 7, 10, 0.8);
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            padding: 4px 8px;
-            border-radius: 6px;
-            color: var(--accent-gold);
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
-            font-size: 0.95rem;
+
+        /* Inline code-reference chip */
+        code{
+            font-family: var(--font-mono);
+            background: rgba(5, 7, 10, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            color: var(--c-gold);
+            padding: 3px 7px;
+            border-radius: 5px;
+            font-size: 0.87rem;
+            display: inline-block;
+            white-space: nowrap;
         }
-         /* Flex container to hold the "Live Page" and "Validation" buttons side-by-side */
+
+    
         .live-link-group {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 18px;
         }
-        /* Pill-shaped button styling for the links */
+
         .live-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(212, 175, 55, 0.08);
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 10px 24px;
+            background: rgba(212, 175, 55, 0.07);
+            border: 1px solid var(--c-gold);
+            color: var(--c-gold);
+            padding: 9px 22px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 0.82rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-            backdrop-filter: blur(5px);
+            letter-spacing: 1.4px;
+            transition: all 0.35s var(--ease-expo);
+            backdrop-filter: blur(4px);
         }
-        /* Hover effect for buttons: fills with gold and lifts up */
-        .live-link:hover {
-            background: var(--accent-gold);
+
+        .live-link:hover,
+        .live-link:focus-visible {
+            background: var(--c-gold);
             color: #000;
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.35), inset 0 0 10px rgba(255, 255, 255, 0.4);
-            border-color: #fff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 24px rgba(212, 175, 55, 0.30);
+            outline: none;
         }
-        /* Data Table styling used specifically for the required Meeting Log */
+
+        /* ---- Meetings table ---- */
         table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            margin-top: 30px;
+            margin-top: 24px;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
 
-        th,
-        td {
-            padding: 18px 20px;
+        th, td {
+            padding: 15px 17px;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        th {
-            background: rgba(197, 160, 89, 0.1);
-            color: var(--text-main);
+        thead th {
+            background: rgba(212, 175, 55, 0.09);
+            color: var(--c-text);
             font-weight: 600;
+            font-size: 0.82rem;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.9px;
         }
 
-        td {
-            background: rgba(5, 7, 10, 0.4);
+        tbody td {
+            background: rgba(5, 7, 10, 0.38);
             color: #cbd5e1;
+            font-size: 0.92rem;
+            letter-spacing: 1px;
+        
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
+
+        /* Subtle row hover highlight */
+        tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        /* ---- References list — cyan left-border accent ---- */
+        ul.ref {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.ref li {
+            padding: 10px 14px;
+            border-left: 3px solid rgba(34, 211, 238, 0.40);
+            margin-bottom: 13px;
+            background: rgba(0, 240, 255, 0.03);
+            border-radius: 0 8px 8px 0;
             font-size: 0.95rem;
         }
 
-        tr:last-child td {
-            border-bottom: none;
+        ul.ref a {
+            color: var(--c-cyan);
+            text-decoration: none;
         }
-        
-        /* Subtle highlight on row hover */
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
-        }
-        /* Responsive override: Drops the sidebar to the top and stacks the grid to 1 column on smaller screens */
-        @media (max-width: 900px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
-            }
 
-            .toc-sidebar {
-                position: static;
-                margin-bottom: 30px;
-            }
+        ul.ref a:hover { text-decoration: underline; }
+
+        /* ---- "Go to top" anchor ---- */
+        .top {
+            
+            position: fixed;
+            bottom: 5%;
+            left: 55%;
+        }
+
+        .top a {
+            display: inline-block;
+            min-width: 132px;
+            padding: 14px 22px;
+            text-align: center;
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f0cf64, #d4af37);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35), 0 0 18px rgba(212,175,55,0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .top a:hover, .top a:focus{
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.42), 0 0 22px rgba(212,175,55,0.25);
         }
     </style>
 </head>
 
 <body class="page-fade-in">
 
-    <header class="site-header">
+    <!-- ============================================================
+         HEADER — consistent with all other site pages
+    ============================================================ -->
+    <header class="site-header" class="top">
         <div class="nav-container">
             <a href="home.html" class="logo-link">
                 <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo">
@@ -261,425 +352,633 @@
         </div>
     </header>
 
-    <main class="dashboard-container">
-        <div class="editor-header reveal-element">
-            <h1>Developer <span class="text-gradient">Dashboard</span></h1>
-            <p>Zehna Anas | Student ID: 20241201 | Role: Student 4 (User Profile &amp; Sitemap)</p>
-        </div>
 
-        <div class="dashboard-layout">
-            <aside class="toc-sidebar reveal-element delay-1">
-                <h2>Navigation Directory</h2>
+    <div class="container">
+        
+        <aside>
+            <h3>Core pages developed:</h3>
+
+            <!-- Keep only the list items the student was responsible for;
+                 others remain as team context with placeholder links. -->
+            <ul class="top-level-ul">
+
+                <!-- Student 4 — links jump to the sections in this document -->
+                <li>Student 4</li>
                 <ul>
-                    <li><a href="#tasks">1. Completed Tasks</a></li>
-                    <li><a href="#tech">2. Technical Implementation</a></li>
-                    <li><a href="#challenges">3. Challenges &amp; Lessons</a></li>
-                    <li><a href="#accessibility">4. Accessibility</a></li>
-                    <li><a href="#janet">5. JANET Compliance</a></li>
-                    <li><a href="#meetings">6. Meeting Log</a></li>
-                    <li><a href="#references">7. References</a></li>
+                    <li><a href="#profile">User Profile</a></li>
+                    <li><a href="#sitemap">Sitemap</a></li>
+                    <li><a href="#content">Content</a></li>
                 </ul>
-            </aside>
 
-            <div class="editor-content reveal-element delay-2">
+                <li><a href="#challenge">Challenges and Lessons Learned</a></li>
+                <li><a href="#compliance">Compliance</a></li>
+                <li><a href="#group">Group Meetings Log</a></li>
+                <li><a href="#ref">References</a></li>
+            </ul>
+        </aside>
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main>
 
-                <!-- ============================================================ -->
-                <!-- SECTION 1: COMPLETED TASKS                                   -->
-                <!-- ============================================================ -->
-                <section id="tasks" class="editor-section">
-                    <h2>1. Completed Tasks &amp; Responsibilities</h2>
-                    <p>As Student 4 for Team Humpty Dumpty, my core responsibility was to design and build the
-                        personalisation layer of our UN SDG 16 website, as well as provide a clear navigational overview
-                        for the whole site. I wanted users to feel a genuine connection to the Peace &amp; Justice
-                        mission by creating a profile that reflects their own values and commitments. My deliverables
-                        were as follows:</p>
+            <!-- Page intro heading -->
+            <div class="editor-header">
+                <h1>Developer <span class="text-gradient">Dashboard</span></h1>
+                <p>Zehna Anas &nbsp;·&nbsp; Student ID: 20241201 &nbsp;·&nbsp; Student 4 (User Profile &amp; Sitemap)</p>
+            </div>
+
+            <div class="editor-content">
+
+                <!-- =================================================
+                     SECTION 1 — USER PROFILE PAGE
+                ================================================= -->
+                <section id="profile">
+                    <h2>User Profile Page</h2>
+
+                    <h3>Technical Description</h3>
+                    <p>
+                        The profile page is driven by a three-step data-collection flow that kicks in the
+                        moment the user clicks <em>Start Profile</em>. Each step has its own dedicated
+                        function — <code>runStep1()</code>,
+                        <code>runStep2()</code>, and
+                        <code>runStep3()</code> — called sequentially inside a parent
+                        <code>startProfile()</code> handler. The native
+                        <code>window.prompt()</code> API collects each answer, storing
+                        every response in a shared <code>profile</code> object.
+                    </p>
+                    <p>
+                        Collected data is written straight to the DOM via
+                        <code>document.getElementById()</code> and
+                        <code>element.textContent</code>, revealing the three profile
+                        cards as the user fills them in. The full object is then persisted with
+                        <code>localStorage.setItem()</code> so the profile survives
+                        page reloads. On first load the page attempts to restore any saved data using
+                        <code>JSON.parse(localStorage.getItem("profile"))</code>,
+                        falling back to a clean default object if nothing exists yet.
+                    </p>
+                    <p>
+                        Once all three steps complete, <code>updateProgress()</code>
+                        counts every non-null answer across the maximum nine questions, calculates a
+                        percentage, and injects both the numeric value and the visual fill into the
+                        native HTML <code>&lt;progress&gt;</code> element. The bar is
+                        styled with <code>::-webkit-progress-value</code> and
+                        <code>::-moz-progress-bar</code> pseudo-elements to render a
+                        glowing cyan-to-gold gradient consistent with the site's shared design language.
+                        Each card also exposes an <em>Edit</em> button that re-runs only its own prompt
+                        sequence, letting users update any section without restarting the whole flow.
+                    </p>
+                    <p>
+                        Structurally, the page uses CSS <strong>Flexbox</strong> to centre the main
+                        profile container both horizontally and vertically within the viewport. The
+                        glass-card effect is created with
+                        <code>backdrop-filter: blur()</code> combined with a
+                        semi-transparent
+                        <code>background: var(--c-surface-2)</code> — the same
+                        glassmorphism pattern used across the site so the page feels cohesive without
+                        needing extra colour overrides.
+                    </p>
+
+                    <h3>Accessibility</h3>
                     <ul>
-                        <li>A fully interactive three-step <strong>User Profile</strong> page built with
-                            <span class="code-ref">prompt()</span> dialogues, persistent
-                            <span class="code-ref">localStorage</span> storage, and a live
-                            <span class="code-ref">&lt;progress&gt;</span> indicator
-                            (<span class="code-ref">profile.html</span>).</li>
-                        <li>A visual <strong>Sitemap</strong> page constructed entirely in inline SVG, presenting the
-                            full site architecture as a hierarchical node graph
-                            (<span class="code-ref">sitemap.html</span>).</li>
-                        <li>W3C validation of both pages and production of the corresponding
-                            <span class="code-ref">validation_ST4.html</span> evidence page.</li>
-                        <li>Authoring of this Page Editor document to document technical decisions, challenges, and
-                            academic references.</li>
+                        <li>
+                            <strong>Keyboard Navigation:</strong> All interactive elements —
+                            <em>Start Profile</em> and each <em>Edit</em> button — are native
+                            <code>&lt;button&gt;</code> elements, so they receive
+                            focus and can be activated via keyboard without any extra
+                            <code>tabindex</code> or
+                            <code>role</code> attributes.
+                        </li>
+                        <li>
+                            <strong>Progress Bar Semantics:</strong> The native
+                            <code>&lt;progress value="" max="9"&gt;</code> element
+                            exposes its numeric state to the accessibility tree automatically. An
+                            adjacent <code>&lt;p id="progressText"&gt;</code> provides
+                            a plain-text fallback ("Progress: 67%") for screen readers in browsers that
+                            do not fully support the progress role.
+                        </li>
+                        <li>
+                            <strong>Colour Contrast:</strong> Card text uses
+                            <code>var(--c-muted)</code> on the dark glass background,
+                            keeping the contrast ratio above the WCAG AA threshold of 4.5:1 for
+                            normal-weight text.
+                        </li>
+                        <li>
+                            <strong>Alt Text:</strong> The logo carries a descriptive
+                            <code>alt</code> attribute, and all decorative elements
+                            are either CSS-only or marked
+                            <code>aria-hidden="true"</code>.
+                        </li>
                     </ul>
 
+                    <h3>Link to the validation page</h3>
                     <div class="live-link-group">
-                        <a href="profile.html" class="live-link">&#x279A; View Profile Page</a>
-                        <a href="sitemap.html" class="live-link">&#x279A; View Sitemap Page</a>
-                        <a href="validation_ST4.html" class="live-link">&#x279A; Validation Evidence</a>
+                        <a href="validation_ST4.html#profile-val" class="live-link"> Validation Evidence (Profile)</a>
+                    </div>
+
+                    <h3>Link to the page</h3>
+                    <div class="live-link-group">
+                        <a href="profile.html" class="live-link">View Profile Page</a>
                     </div>
                 </section>
 
-                <!-- ============================================================ -->
-                <!-- SECTION 2: TECHNICAL IMPLEMENTATION                          -->
-                <!-- ============================================================ -->
-                <section id="tech" class="editor-section">
-                    <h2>2. Technical Implementation</h2>
+                <!-- =================================================
+                     SECTION 2 — SITEMAP PAGE
+                ================================================= -->
+                <section id="sitemap">
+                    <h2>Sitemap Page</h2>
 
-                    <h3>User Profile Page — Multi-Step Prompt Flow</h3>
-                    <p>The profile page is driven by a three-step data-collection flow triggered when the user clicks
-                        the <em>Start Profile</em> button. Each step calls a dedicated function —
-                        <span class="code-ref">runStep1()</span>, <span class="code-ref">runStep2()</span>, and
-                        <span class="code-ref">runStep3()</span> — which fire sequentially inside
-                        <span class="code-ref">startProfile()</span>. Each function uses the native
-                        <span class="code-ref">Window.prompt()</span> API [1] to collect three questions from the user,
-                        storing every answer in a shared <span class="code-ref">profile</span> object.</p>
-                    <p>Collected data is immediately written to the DOM using
-                        <span class="code-ref">document.getElementById()</span> [2] and
-                        <span class="code-ref">element.textContent</span> [2], making the three profile cards
-                        visible. The entire <span class="code-ref">profile</span> object is then persisted to
-                        <span class="code-ref">localStorage</span> via a dedicated
-                        <span class="code-ref">saveData()</span> function, so the profile survives page reloads. On
-                        first load, the page attempts to restore any saved data with
-                        <span class="code-ref">JSON.parse(localStorage.getItem("profile"))</span>, falling back to an
-                        empty object if nothing exists yet.</p>
-
-                    <h3>Progress Bar Implementation</h3>
-                    <p>After all three steps complete, <span class="code-ref">updateProgress()</span> tallies every
-                        non-null answer across all steps (maximum 9 questions), calculates a percentage, and injects
-                        both the numeric value and the visual fill into the native HTML
-                        <span class="code-ref">&lt;progress&gt;</span> element [3]. The progress bar is styled with
-                        <span class="code-ref">::-webkit-progress-value</span> and
-                        <span class="code-ref">::-moz-progress-bar</span> pseudo-elements to render a glowing
-                        cyan-to-gold gradient consistent with the site's design language.</p>
-
-                    <h3>Edit Functionality</h3>
-                    <p>Each profile card exposes an <em>Edit</em> button that calls
-                        <span class="code-ref">editStep(n)</span>, which re-runs the corresponding prompt sequence and
-                        calls <span class="code-ref">updateProgress()</span> afterwards. This allows the user to revise
-                        any section without restarting the entire flow, providing a smooth and forgiving user experience.
+                    <h3>Technical Description</h3>
+                    <p>
+                        Instead of a static image, the sitemap is built as inline SVG inside a
+                        responsive <code>viewBox="0 0 1100 750"</code> container.
+                        Every page in the site hierarchy is represented by a
+                        <code>&lt;g class="node"&gt;</code> group that wraps a
+                        rounded <code>&lt;rect rx="15"&gt;</code> and a centred
+                        <code>&lt;text&gt;</code> label. Relationships between pages
+                        are drawn with <code>&lt;line&gt;</code> elements connecting
+                        the midpoints of parent and child nodes.
+                    </p>
+                    <p>
+                        All colour values are resolved from CSS custom properties —
+                        <code>var(--c-surface-2)</code>,
+                        <code>var(--c-border)</code>,
+                        <code>var(--c-text)</code> — so the diagram automatically
+                        adapts if the shared theme changes. Hover states are handled purely in CSS:
+                        the <code>.node rect:hover</code> rule shifts the stroke to
+                        the gold accent colour, giving clear interactive feedback without any JavaScript
+                        dependency. Each node's <code>&lt;a&gt;</code> wrapper makes
+                        them clickable links to the real pages, doubling as a quick navigation aid.
                     </p>
 
-                    <h3>Sitemap Page — Inline SVG Architecture Diagram</h3>
-                    <p>Rather than using an image file or an external library, the sitemap is built entirely as inline
-                        SVG markup [2] within a responsive <span class="code-ref">viewBox="0 0 1200 750"</span>
-                        container. Each page in the site hierarchy is represented as a
-                        <span class="code-ref">&lt;g class="node"&gt;</span> group containing a rounded
-                        <span class="code-ref">&lt;rect&gt;</span> and a centred
-                        <span class="code-ref">&lt;text&gt;</span> element. Relationships between pages are drawn
-                        with <span class="code-ref">&lt;line&gt;</span> elements connecting the midpoints of parent and
-                        child nodes.</p>
-                    <p>The SVG uses CSS custom properties (<span class="code-ref">var(--accent-cyan)</span>,
-                        <span class="code-ref">var(--accent-purple)</span>) from the shared
-                        <span class="code-ref">style.css</span> stylesheet to ensure visual consistency with the rest of
-                        the site. Hover states are handled via CSS class selectors on the
-                        <span class="code-ref">.node</span> group, changing the stroke colour to purple on mouse-over
-                        to provide clear interactive feedback without any JavaScript overhead.</p>
-                </section>
-
-                <!-- ============================================================ -->
-                <!-- SECTION 3: CHALLENGES & LESSONS                              -->
-                <!-- ============================================================ -->
-                <section id="challenges" class="editor-section">
-                    <h2>3. Challenges &amp; Lessons Learned</h2>
-
-                    <h3>Challenge 1: prompt() Returns null, Not an Empty String</h3>
-                    <p>When building the profile flow, I ran into an unexpected bug during testing: if a user pressed
-                        <em>Cancel</em> on any <span class="code-ref">prompt()</span> dialogue [1], the value stored
-                        was the JavaScript literal <span class="code-ref">null</span>, not an empty string. This meant
-                        my initial <span class="code-ref">if (name)</span> guard correctly skipped the DOM update, but
-                        then <span class="code-ref">JSON.stringify</span> would write the string
-                        <span class="code-ref">"null"</span> into localStorage — and on the next reload,
-                        <span class="code-ref">JSON.parse</span> would restore it as the actual
-                        <span class="code-ref">null</span> value, causing the card paragraph to read "Name: null"
-                        on-screen.</p>
-                    <p>I solved this by ensuring the DOM-update guard (<span class="code-ref">if (name)</span>) was
-                        always evaluated before writing to the paragraph, and by only incrementing the
-                        <span class="code-ref">count</span> variable for genuinely truthy answers. This taught me that
-                        JavaScript's loose type coercion can produce silent bugs that only surface in edge cases, and
-                        that defensive coding around user-cancellable dialogues is essential.</p>
-
-                    <h3>Challenge 2: SVG Text Not Centring Consistently Across Browsers</h3>
-                    <p>In my initial sitemap build, I relied solely on <span class="code-ref">text-anchor="middle"</span>
-                        to centre the node labels. On Chrome the alignment was perfect, but on Firefox the text was
-                        rendering slightly off-centre vertically. I investigated the SVG specification [2] and
-                        discovered that vertical alignment in SVG text requires the separate attribute
-                        <span class="code-ref">dominant-baseline="middle"</span> to be explicitly declared alongside
-                        <span class="code-ref">text-anchor="middle"</span>. Adding both attributes resolved the
-                        cross-browser inconsistency immediately. This was a valuable reminder that SVG has its own
-                        independent layout model, separate from CSS flexbox or block formatting.</p>
-
-                    <h3>Challenge 3: The Progress Bar Jumping to 100% on Skipped Questions</h3>
-                    <p>An early version of <span class="code-ref">updateProgress()</span> calculated the percentage
-                        based on how many <em>steps</em> had been triggered rather than how many individual answers
-                        were provided. This meant that a user who pressed <em>Cancel</em> on all nine questions still
-                        saw a 100% filled progress bar after clicking Start Profile — a completely misleading
-                        representation of their engagement.</p>
-                    <p>I refactored the logic to count individual truthy values using separate
-                        <span class="code-ref">completed.step1</span>, <span class="code-ref">completed.step2</span>,
-                        and <span class="code-ref">completed.step3</span> integer counters, each incremented only when
-                        the corresponding answer is non-null. The total is then divided by 9 and multiplied by 100 to
-                        produce an accurate percentage. This experience reinforced how important it is to define exactly
-                        what "completion" means before writing the logic to measure it.</p>
-
-                    <h3>Challenge 4: SVG Lines Connecting to Wrong Coordinates After Repositioning Nodes</h3>
-                    <p>When I rearranged the sitemap hierarchy to better reflect the actual site structure, I found that
-                        all the <span class="code-ref">&lt;line&gt;</span> coordinates were hardcoded to the old node
-                        positions. Moving a single node required manually recalculating every
-                        <span class="code-ref">x1</span>, <span class="code-ref">y1</span>,
-                        <span class="code-ref">x2</span>, <span class="code-ref">y2</span> attribute for every
-                        connected line. After going through this painful recalculation three times, I developed a
-                        systematic approach: I first sketched the entire layout on paper with exact x/y coordinates
-                        for each node centre before writing a single line of SVG. This meant any repositioning was
-                        planned upfront, and the SVG was written once correctly rather than patched repeatedly.</p>
-
-                    <h3>Challenge 5: localStorage Persisting Stale Data During Development</h3>
-                    <p>During development I repeatedly changed the structure of the
-                        <span class="code-ref">profile</span> object — renaming keys and adding new fields. Because
-                        localStorage persists across page reloads, the browser kept loading the old data structure,
-                        causing <span class="code-ref">undefined</span> values to appear in the DOM whenever the code
-                        expected a key that the saved object did not yet contain.</p>
-                    <p>I learned to clear localStorage manually in DevTools between structural changes, and I also
-                        added a safe fallback in the initialisation:
-                        <span class="code-ref">JSON.parse(localStorage.getItem("profile")) || {step1:{}, step2:{}, step3:{}}</span>.
-                        This ensures that even if stored data is malformed or outdated, the app always starts from
-                        a valid empty structure. It taught me to treat persisted data as potentially untrusted and
-                        always validate or default it on load.</p>
-                </section>
-
-                <!-- ============================================================ -->
-                <!-- SECTION 4: ACCESSIBILITY                                     -->
-                <!-- ============================================================ -->
-                <section id="accessibility" class="editor-section">
-                    <h2>4. Accessibility Considerations</h2>
-                    <p>Building accessible pages was a priority throughout development. Below are the specific measures
-                        I implemented for both deliverables:</p>
+                    <h3>Accessibility</h3>
                     <ul>
-                        <li><strong>SVG Accessibility:</strong> Following W3C SVG accessibility guidelines [7], the
-                            sitemap <span class="code-ref">&lt;svg&gt;</span> element carries a descriptive
-                            <span class="code-ref">aria-label</span> so screen readers announce its purpose. Individual
-                            node <span class="code-ref">&lt;g&gt;</span> groups use
-                            <span class="code-ref">role="img"</span> and <span class="code-ref">aria-label</span>
-                            attributes to identify each page by name, ensuring a screen-reader user can navigate the
-                            site structure without visual reference. Purely decorative connector
-                            <span class="code-ref">&lt;line&gt;</span> elements are marked
-                            <span class="code-ref">aria-hidden="true"</span> to prevent clutter in the accessibility
-                            tree.</li>
-                        <li><strong>Keyboard Navigation on Profile Buttons:</strong> The <em>Start Profile</em> and
-                            <em>Edit</em> buttons are native HTML
-                            <span class="code-ref">&lt;button&gt;</span> elements, which are natively focusable and
-                            operable via the keyboard without any additional
-                            <span class="code-ref">tabindex</span> or
-                            <span class="code-ref">role</span> attributes. This ensures full keyboard access to the
-                            entire profile flow out of the box.</li>
-                        <li><strong>Progress Bar Semantics:</strong> The native
-                            <span class="code-ref">&lt;progress&gt;</span> element [3] exposes its
-                            <span class="code-ref">value</span> and <span class="code-ref">max</span> attributes to
-                            the accessibility tree automatically. The adjacent
-                            <span class="code-ref">&lt;p id="progressText"&gt;</span> provides a plain-text fallback
-                            ("Progress: 67%") that is announced to screen readers even in browsers that do not expose
-                            the progress element role correctly.</li>
-                        <li><strong>Colour Contrast:</strong> All text on profile cards uses
-                            <span class="code-ref">var(--c-muted)</span> against the dark glass background,
-                            maintaining a contrast ratio above the WCAG AA threshold of 4.5:1 for normal text.</li>
+                        <li>
+                            <strong>SVG Accessibility:</strong> The root
+                            <code>&lt;svg&gt;</code> element carries a descriptive
+                            <code>aria-label</code> so assistive technologies can
+                            identify its purpose. Individual node groups use
+                            <code>role="img"</code> and their own
+                            <code>aria-label</code> to name each page, allowing
+                            screen-reader users to understand the site structure without any visual
+                            reference.
+                        </li>
+                        <li>
+                            <strong>Decorative Lines:</strong> The purely visual connector
+                            <code>&lt;line&gt;</code> elements are wrapped in a
+                            group marked <span class="code-ref">aria-hidden="true"</span> so they
+                            do not clutter the accessibility tree with meaningless geometry.
+                        </li>
+                        <li>
+                            <strong>Keyboard Navigation:</strong> Because each node wraps a native
+                            <code>&lt;a&gt;</code> element, keyboard users can tab
+                            through every page link in the diagram in natural document order.
+                        </li>
+                    </ul>
+
+                    <h3>Link to the validation page</h3>
+                    <div class="live-link-group">
+                        <a href="validation_ST4.html#sitemap" class="live-link">Validation Evidence (Sitemap)</a>
+                    </div>
+
+                    <h3>Link to the page</h3>
+                    <div class="live-link-group">
+                        <a href="sitemap.html" class="live-link">View Sitemap Page</a>
+                    </div>
+                </section>
+
+                <!-- =================================================
+                     SECTION 3 — CONTENT PAGE (ST4)
+                ================================================= -->
+                <section id="content">
+                    <h2>Content Page (Student 4)</h2>
+
+                    <h3>Technical Description</h3>
+                    <p>
+                        The Student 4 content page presents a research article on
+                        <em>Transparency Technology and SDG 16</em>. The article sits inside a single
+                        <code>.article-container</code> div styled with the site's
+                        glassmorphism approach: a semi-transparent background, a hairline border via
+                        <code>var(--glass-border)</code>, rounded corners, and
+                        <code>backdrop-filter: blur(10px)</code> for the frosted-glass
+                        effect consistent across the site.
+                    </p>
+                    <p>
+                        An in-page Table of Contents uses a styled
+                        <code>&lt;nav&gt;</code> block with a coloured
+                        <code>border-left</code> accent, and each anchor link uses the
+                        CSS arrow entity <code>&amp;rarr;</code> for a clean
+                        typographic feel. Each of the four main
+                        <code>&lt;section id=""&gt;</code> elements carries
+                        <code>scroll-margin-top: 100px</code> to prevent the sticky
+                        header from obscuring headings when jumping via anchor links.
+                    </p>
+                    <p>
+                        Article images use the <code>.styled-image</code> class:
+                        <code>width: 100%</code> keeps them responsive,
+                        <code>object-fit: cover</code> maintains consistent
+                        proportions, and a cubic-bezier transition produces a subtle lift-and-zoom on
+                        hover. A fixed <em>Back to Top</em> button is implemented as a plain
+                        <code>&lt;a href="#top"&gt;</code> with
+                        <code>position: fixed; bottom: 30px; right: 30px</code>,
+                        keeping it accessible at all times without requiring JavaScript.
+                    </p>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>
+                            <strong>Semantic Structure:</strong> The page uses
+                            <code>&lt;article&gt;</code>,
+                            <code>&lt;section&gt;</code>, and a
+                            <code>&lt;nav&gt;</code> for the Table of Contents,
+                            giving assistive technologies clear landmarks to navigate between.
+                        </li>
+                        <li>
+                            <strong>Image Alt Text:</strong> Every
+                            <code>&lt;img&gt;</code> carries a descriptive
+                            <code>alt</code> attribute (e.g.
+                            "Digital data visualisation representing open government data") so
+                            screen-reader users receive meaningful context for each visual.
+                        </li>
+                        <li>
+                            <strong>Back-to-Top Accessibility:</strong> The fixed button uses
+                            <code>aria-label="Back to top"</code> so its purpose
+                            is communicated to users relying on voice or screen readers rather than
+                            the visible arrow character.
+                        </li>
+                        <li>
+                            <strong>Colour Contrast:</strong> Body text uses
+                            <code>var(--text-muted)</code> on the dark article
+                            background and headings use <code>var(--accent-cyan)</code>,
+                            both meeting WCAG AA contrast requirements.
+                        </li>
+                    </ul>
+
+                    <h3>Link to the validation page</h3>
+                    <div class="live-link-group">
+                        <a href="validation_ST4.html#content-val" class="live-link">Validation Evidence (Content)</a>
+                    </div>
+
+                    <h3>Link to the page</h3>
+                    <div class="live-link-group">
+                        <a href="content_ST4.html" class="live-link">View Content Page</a>
+                    </div>
+                </section>
+
+                <!-- =================================================
+                     SECTION 4 — CHALLENGES & LESSONS LEARNED
+                ================================================= -->
+                <section id="challenge">
+                    <h2>Challenges and Lessons Learned</h2>
+
+                    <h3>Challenge 1 — prompt() Returns null, Not an Empty String</h3>
+                    <p>
+                        When building the profile data-collection flow I assumed pressing
+                        <em>Cancel</em> on a <code>window.prompt()</code> dialogue
+                        would return an empty string. It actually returns the JavaScript literal
+                        <code>null</code>. My initial
+                        <code>if (name)</code> guard correctly skipped the DOM update,
+                        but <code>JSON.stringify</code> was quietly writing the string
+                        <code>"null"</code> into localStorage — which then parsed back as the actual
+                        <code>null</code> value on the next load, causing cards to
+                        display "Name: null" on screen. I fixed this by evaluating the guard
+                        <em>before</em> writing to the paragraph, and only incrementing the completion
+                        counter for genuinely truthy answers. It taught me to treat every
+                        user-cancellable dialogue as a potential source of harmful values that needs
+                        explicit validation.
+                    </p>
+
+                    <h3>Challenge 2 — SVG Text Not Centring Consistently Across Browsers</h3>
+                    <p>
+                        My initial sitemap used only <code>text-anchor="middle"</code>
+                        on node labels. Chrome rendered them perfectly, but Firefox placed text slightly
+                        off-centre vertically. After checking the SVG specification I found that
+                        vertical alignment also requires
+                        <code>dominant-baseline="middle"</code> alongside
+                        <code>text-anchor="middle"</code>. Adding both attributes
+                        fixed the inconsistency immediately — a useful reminder that SVG has its own
+                        independent layout model separate from CSS flexbox.
+                    </p>
+
+                    <h3>Challenge 3 — Progress Bar Jumping to 100% on Skipped Questions</h3>
+                    <p>
+                        An early version of <code>updateProgress()</code> measured how
+                        many <em>steps</em> had been triggered rather than how many individual answers
+                        were actually provided. A user who pressed Cancel on every question still saw a
+                        fully filled progress bar — completely misleading. I refactored the logic to
+                        track three separate integer counters
+                        (<code>completed.step1</code>,
+                        <code>completed.step2</code>,
+                        <code>completed.step3</code>), each only incremented for a
+                        truthy answer, then divide the total by 9 for an accurate percentage.
+                    </p>
+
+                    <h3>Challenge 4 — SVG Line Coordinates Breaking After Repositioning Nodes</h3>
+                    <p>
+                        Rearranging the sitemap hierarchy meant every hardcoded
+                        <code>x1 / y1 / x2 / y2</code> coordinate in my connector
+                        lines became wrong. After recalculating manually three times I developed a
+                        systematic approach: sketch the full layout on paper with precise coordinates
+                        before writing any SVG, so repositioning is planned upfront and the markup is
+                        written correctly from the first draft rather than patched repeatedly.
+                    </p>
+
+                    <h3>Challenge 5 — localStorage Persisting Stale Data During Development</h3>
+                    <p>
+                        Whenever I renamed or restructured the
+                        <code>profile</code> object, the browser kept restoring the
+                        old shape from localStorage, causing
+                        <code>undefined</code> values to appear in the DOM. I learned
+                        to clear localStorage manually in DevTools between structural changes and added
+                        a safe fallback on initialisation:
+                        <code>JSON.parse(localStorage.getItem("profile")) || {step1:{}, step2:{}, step3:{}}</code>.
+                        This ensures the app always starts from a valid structure, treating persisted
+                        data as potentially untrusted.
+                    </p>
+                </section>
+
+                <!-- =================================================
+                     SECTION 5 — COMPLIANCE
+                ================================================= -->
+                <section id="compliance">
+                    <h2 id="accessibility">Compliance</h2>
+                    <p>
+                        All three pages I authored are designed to be in full compliance with Janet's
+                        Acceptable Use Policy and with relevant UK legal requirements for web publishing.
+                        <a href="https://intranet.ecs.westminster.ac.uk/modules/4COSC011W/compliance.html"
+                           target="_blank" style="color: var(--c-cyan);">See the Janet compliance notes for full detail.</a>
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Content Appropriateness (Janet AUP):</strong> All content —
+                            profile prompts, sitemap labels, and the SDG 16 research article — is
+                            original, educational, and directly related to Peace &amp; Justice themes.
+                            No offensive, defamatory, or commercially promotional material appears on
+                            any of my pages.
+                        </li>
+                        <li>
+                            <strong>Data Privacy (GDPR / UK Data Protection Act 2018):</strong>
+                            Profile data entered by users is stored exclusively in their own browser
+                            via <code>localStorage</code>. Nothing is transmitted to
+                            any external server, meaning no personal data is processed by the site —
+                            in line with the GDPR data minimisation principle.
+                        </li>
+                        <li>
+                            <strong>No Third-Party Tracking:</strong> My pages load only the shared
+                            <code>style.css</code> produced by the team and no
+                            external CDN libraries, analytics scripts, or advertising code — consistent
+                            with the Janet AUP requirement for ethical and lawful network use.
+                        </li>
+                        <li>
+                            <strong>Accessibility (WCAG 2.1 AA / Equality Act 2010 / Public Sector
+                            Bodies Accessibility Regulations 2018):</strong> Semantic HTML landmarks
+                            (<code>&lt;header&gt;</code>,
+                            <code>&lt;nav&gt;</code>,
+                            <code>&lt;main&gt;</code>,
+                            <code>&lt;footer&gt;</code>,
+                            <code>&lt;article&gt;</code>,
+                            <code>&lt;section&gt;</code>) are used throughout. All
+                            images carry descriptive <code>alt</code> text, all
+                            interactive elements are keyboard-accessible, and text contrast meets the
+                            WCAG AA 4.5:1 threshold. The inline SVG sitemap includes ARIA labels on
+                            all meaningful nodes and marks decorative lines
+                            <code>aria-hidden="true"</code>.
+                        </li>
+                        <li>
+                            <strong>Copyright Compliance:</strong> All images used were sourced from
+                            royalty-free platforms or created specifically for this project. Every
+                            technique and external reference is cited in the References section below
+                            in Harvard referencing style, as required by the coursework brief.
+                        </li>
+                        <li>
+                            <strong>Computer Misuse Act 1990 / NIS Regulations 2018:</strong>
+                            No malicious code, unauthorised data collection, or network-abusive
+                            behaviour is present on any page. The site is a static, read-only
+                            educational resource with no server-side components.
+                        </li>
                     </ul>
                 </section>
 
-                <!-- ============================================================ -->
-                <!-- SECTION 5: JANET COMPLIANCE                                  -->
-                <!-- ============================================================ -->
-                <section id="janet" class="editor-section">
-                    <h2>5. Compliance with JANET Regulations</h2>
-                    <p>Both pages I authored are in full compliance with the JANET Acceptable Use Policy and the
-                        university's web publishing guidelines:</p>
-                    <ul>
-                        <li><strong>Content Integrity:</strong> All profile prompts and sitemap labels are original,
-                            educational content directly related to SDG 16 themes — Peace, Justice, and community
-                            engagement. No offensive, defamatory, or prohibited material is present anywhere in my
-                            pages.</li>
-                        <li><strong>User Data:</strong> The profile data entered by the user is stored exclusively in
-                            the user's own browser via <span class="code-ref">localStorage</span>. No data is
-                            transmitted to any external server, ensuring full compliance with data minimisation
-                            principles and protecting user privacy.</li>
-                        <li><strong>No Third-Party Scripts:</strong> Both pages rely only on the shared
-                            <span class="code-ref">style.css</span> and <span class="code-ref">main.js</span> files
-                            produced by the team — no external CDN libraries, tracking scripts, or advertising code
-                            is loaded, in line with acceptable use requirements.</li>
-                        <li><strong>Accurate Attribution:</strong> All technical techniques and external references are
-                            fully cited in Section 7 of this document using Harvard referencing, in compliance with
-                            the coursework brief [8].</li>
-                    </ul>
-                </section>
+                <!-- =================================================
+                     SECTION 6 — GROUP MEETINGS & CONTRIBUTION LOG
+                ================================================= -->
+                <section id="group">
+                    <h2>Group Meetings and Individual Contribution Log</h2>
+                    <p>
+                        The following log documents my personal engagement with group work over the
+                        course of the project. Each entry reflects my own account of what I contributed
+                        rather than just summarising what the group did.
+                    </p>
 
-                <!-- ============================================================ -->
-                <!-- SECTION 6: MEETING LOG                                       -->
-                <!-- ============================================================ -->
-                <section id="meetings" class="editor-section">
-                    <h2>6. Group Meetings &amp; Contribution Log</h2>
+                    <!-- Meeting log table -->
                     <table>
                         <thead>
                             <tr>
-                                <th>Date / Format</th>
+                                <th colspan="6">Group Meetings and Contribution Log</th>
+                            </tr>
+                            <tr>
+                                <th>Meeting</th>
+                                <th>Date &amp; Time</th>
+                                <th>Format</th>
                                 <th>Objective</th>
-                                <th>Attended?</th>
-                                <th>My Individual Contribution</th>
+                                <th>Attended</th>
+                                <th>Your Individual Contribution</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>12 Feb 2026 (Face-to-Face)</td>
+                                <td>1</td>
+                                <td>12 Feb 2026</td>
+                                <td>Face-to-Face</td>
                                 <td>Agree on SDG topic and assign roles.</td>
                                 <td>Yes</td>
-                                <td>I confirmed my role as Student 4, responsible for the User Profile and Sitemap
-                                    pages, and proposed using the native
-                                    <span class="code-ref">&lt;progress&gt;</span> element for the profile completion
-                                    tracker.</td>
+                                <td>I confirmed my role as Student 4, responsible for the User Profile
+                                    and Sitemap pages, and proposed using the native
+                                    <code>&lt;progress&gt;</code> element for the
+                                    profile completion tracker.</td>
                             </tr>
                             <tr>
-                                <td>19 Feb 2026 (Discord)</td>
+                                <td>2</td>
+                                <td>19 Feb 2026</td>
+                                <td>Online (Discord)</td>
                                 <td>Finalise theme and wireframe pages.</td>
                                 <td>Yes</td>
-                                <td>I shared my initial wireframe for the three-card profile layout and the hierarchical
-                                    sitemap structure, receiving feedback to simplify the SVG connector lines.</td>
+                                <td>I shared my initial wireframe for the three-card profile layout and
+                                    the hierarchical sitemap structure, and received feedback to simplify
+                                    the SVG connector lines.</td>
                             </tr>
                             <tr>
-                                <td>26 Feb 2026 (Hybrid)</td>
+                                <td>3</td>
+                                <td>26 Feb 2026</td>
+                                <td>Hybrid</td>
                                 <td>Merge core pages and test routing.</td>
                                 <td>Yes</td>
-                                <td>I integrated <span class="code-ref">profile.html</span> and
-                                    <span class="code-ref">sitemap.html</span> into the shared repository, confirmed
-                                    all navigation links in the header and footer were consistent, and resolved a CSS
-                                    conflict with the global <span class="code-ref">button</span> selector that was
-                                    overriding the team's shared styles.</td>
+                                <td>I integrated <code>profile.html</code> and
+                                    <code>sitemap.html</code> into the shared
+                                    repository, confirmed all navigation links in the header and footer
+                                    were consistent, and resolved a CSS conflict with the global
+                                    <code>button</code> selector that was overriding
+                                    the team's shared styles.</td>
                             </tr>
                             <tr>
-                                <td>05 Mar 2026 (Discord)</td>
+                                <td>4</td>
+                                <td>05 Mar 2026</td>
+                                <td>Online (Discord)</td>
                                 <td>Team code review and bug fixing.</td>
                                 <td>Yes</td>
-                                <td>I identified and fixed the null-vs-empty-string bug in the profile prompt flow
-                                    (described in Challenge 1), and updated the localStorage initialisation to use
-                                    a safe fallback default object.</td>
+                                <td>I identified and fixed the null-vs-empty-string bug in the profile
+                                    prompt flow and updated the localStorage initialisation to use a safe
+                                    fallback default object.</td>
                             </tr>
                             <tr>
-                                <td>12 Mar 2026 (Face-to-Face)</td>
+                                <td>5</td>
+                                <td>12 Mar 2026</td>
+                                <td>Face-to-Face</td>
                                 <td>Content review and alignment.</td>
                                 <td>Yes</td>
-                                <td>I updated the sitemap SVG to include the Profile page node, which had initially
-                                    been omitted from the navigation branch, and verified all node labels matched the
-                                    final agreed page titles.</td>
+                                <td>I updated the sitemap SVG to include the Profile page node (initially
+                                    omitted from the navigation branch) and verified all node labels
+                                    matched the final agreed page titles.</td>
                             </tr>
                             <tr>
-                                <td>18 Mar 2026 (Hybrid)</td>
+                                <td>6</td>
+                                <td>18 Mar 2026</td>
+                                <td>Hybrid</td>
                                 <td>Final W3C validation and packaging.</td>
                                 <td>Yes</td>
-                                <td>I ran <span class="code-ref">profile.html</span> and
-                                    <span class="code-ref">sitemap.html</span> through the W3C Markup Validation
-                                    Service, resolved two stray closing
-                                    <span class="code-ref">&lt;/svg&gt;</span> tags in the sitemap, confirmed zero
-                                    errors, and took the required validation screenshots.</td>
+                                <td>I ran <code>profile.html</code>,
+                                    <code>sitemap.html</code>, and
+                                    <code>content_ST4.html</code> through the W3C
+                                    Markup Validation Service, resolved two stray closing
+                                    <code>&lt;/svg&gt;</code> tags, confirmed zero
+                                    errors across all three files, and took the required validation
+                                    screenshots.</td>
                             </tr>
                         </tbody>
                     </table>
                 </section>
 
-                <!-- ============================================================ -->
-                <!-- SECTION 7: REFERENCES                                        -->
-                <!-- ============================================================ -->
-                <section id="references" class="editor-section">
-                    <h2>7. References &amp; Technical Bibliography</h2>
-                    <p>The following technical documentation, official guidelines, and academic sources were consulted
-                        and utilised to engineer the specific features of my coursework deliverables:</p>
+                <!-- =================================================
+                     SECTION 7 — REFERENCES
+                ================================================= -->
+                <section id="ref">
+                    <h2>References</h2>
+                    <p>
+                        All technical documentation, guidelines, and sources consulted and applied
+                        during the implementation of my three pages are listed below in Harvard style:
+                    </p>
 
-                    <div class="reference-grid"
-                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">JavaScript Interactivity &amp; DOM Manipulation</h3>
-                            <ul style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>Window: prompt() method</em> [1] — Used to
-                                    collect user data across all three profile steps. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>Document.getElementById()</em> [2] — Used to
-                                    locate profile card paragraphs and inject user responses. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>Node.textContent</em> [2] — Used to update the
-                                    inner text of profile card elements without re-rendering inner HTML. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>W3Schools:</strong> <em>HTML5 Web Storage</em> — Reference for
-                                    localStorage.setItem / getItem patterns used in saveData(). <a
-                                        href="https://www.w3schools.com/html/html5_webstorage.asp"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">HTML Progress Element &amp; CSS Styling</h3>
-                            <ul style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>&lt;progress&gt;: The Progress Indicator
-                                        element</em> [3] — Reference for the value/max attributes and pseudo-element
-                                    styling of the completion tracker. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/progress"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>::-webkit-progress-value</em> — Reference for
-                                    cross-browser custom progress bar gradient styling. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-progress-value"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>Using CSS transitions</em> — Applied to animate
-                                    the progress bar fill and card hover states smoothly. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">SVG Construction &amp; Accessibility</h3>
-                            <ul style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>SVG Tutorial</em> [2] — Core reference for
-                                    &lt;rect&gt;, &lt;text&gt;, &lt;line&gt;, and &lt;g&gt; element usage in the
-                                    sitemap diagram. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>W3C:</strong> <em>SVG Accessibility API Mappings 1.0</em> [7] — Used to
-                                    implement correct ARIA roles and labels on the inline SVG sitemap. <a
-                                        href="https://www.w3.org/TR/svg-aam-1.0/"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>text-anchor</em> &amp;
-                                    <em>dominant-baseline</em> — Used to resolve cross-browser SVG text centring
-                                    inconsistencies between Chrome and Firefox. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/text-anchor"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">Academic Context &amp; SDG Content</h3>
-                            <ul style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>University of Westminster:</strong> (2026). <em>4COSC011W Web Design and
-                                        Development Coursework Brief 2025–26</em> [8].</li>
-                                <li><strong>UNICEF:</strong> (n.d.). <em>Children in Conflict</em> [4] — Context for
-                                    the profile's "Main Issue" prompt options. <a
-                                        href="https://www.unicef.org/children-conflict"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>United Nations:</strong> (2015). <em>Security Council Resolution 2250 —
-                                        Youth, Peace and Security</em> [5] — Informed the profile's community
-                                    engagement prompts. <a
-                                        href="https://www.un.org/securitycouncil/s/res/2250-%282015%29"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>Education Cannot Wait:</strong> (n.d.) [6] — Background source for
-                                    conflict education themes reflected in profile questions. <a
-                                        href="https://www.educationcannotwait.org/"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>W3C:</strong> (n.d.). <em>Markup Validation Service</em> — Used to
-                                    validate both pages to zero errors. <a href="https://validator.w3.org/"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                    </div>
+                    <ul class="ref">
+                        <li>
+                            MDN Web Docs (2025) <em>Window: prompt() method.</em>
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt"
+                               target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt</a>
+                            (Accessed: 20 March 2026).
+                        </li>
+                        <li>
+                            MDN Web Docs (2025) <em>Document.getElementById().</em>
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById"
+                               target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById</a>
+                            (Accessed: 20 March 2026).
+                        </li>
+                        <li>
+                            MDN Web Docs (2025) <em>Node.textContent.</em>
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent"
+                               target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent</a>
+                            (Accessed: 21 March 2026).
+                        </li>
+                        <li>
+                            MDN Web Docs (2025) <em>&lt;progress&gt;: The Progress Indicator element.</em>
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/progress"
+                               target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/progress</a>
+                            (Accessed: 22 March 2026).
+                        </li>
+                        <li>
+                            MDN Web Docs (2025) <em>SVG Tutorial.</em>
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial"
+                               target="_blank">https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial</a>
+                            (Accessed: 25 March 2026).
+                        </li>
+                        <li>
+                            W3C (n.d.) <em>SVG Accessibility API Mappings 1.0.</em>
+                            Available at:
+                            <a href="https://www.w3.org/TR/svg-aam-1.0/"
+                               target="_blank">https://www.w3.org/TR/svg-aam-1.0/</a>
+                            (Accessed: 23 March 2026).
+                        </li>
+                        <li>
+                            W3Schools (n.d.) <em>HTML5 Web Storage.</em>
+                            Available at:
+                            <a href="https://www.w3schools.com/html/html5_webstorage.asp"
+                               target="_blank">https://www.w3schools.com/html/html5_webstorage.asp</a>
+                            (Accessed: 23 March 2026).
+                        </li>
+                        <li>
+                            W3C (n.d.) <em>Markup Validation Service.</em>
+                            Available at:
+                            <a href="https://validator.w3.org/" target="_blank">https://validator.w3.org/</a>
+                            (Accessed: 18 March 2026).
+                        </li>
+                        <li>
+                            UNICEF (n.d.) <em>Children in Conflict.</em>
+                            Available at:
+                            <a href="https://www.unicef.org/children-conflict"
+                               target="_blank">https://www.unicef.org/children-conflict</a>
+                            (Accessed: 14 March 2026).
+                        </li>
+                        <li>
+                            United Nations (2015) <em>Security Council Resolution 2250 — Youth, Peace
+                            and Security.</em>
+                            Available at:
+                            <a href="https://www.un.org/securitycouncil/s/res/2250-%282015%29"
+                               target="_blank">https://www.un.org/securitycouncil/s/res/2250-(2015)</a>
+                            (Accessed: 14 March 2026).
+                        </li>
+                        <li>
+                            University of Westminster (2026) <em>4COSC011W Web Design and Development
+                            Coursework Brief 2025–26.</em> Internal document.
+                        </li>
+                        <li>
+                            OpenData (2026) <em>Open Data: A means to improving citizen trust in government.</em>
+                            Available at:
+                            <a href="https://opendata.info/">https://opendata.info/</a>
+                            (Accessed: 29 March 2026).
+                        </li>
+                        <li>
+                            CFTE (Centre for Finance, Technology and Entrepreneurship) <em>Distributed ledger in blockchain</em>
+                            Available at:
+                            <a href="https://blog.cfte.education/distributed-ledger-in-blockchain/">https://blog.cfte.education/distributed-ledger-in-blockchain/</a>
+                            (Accessed: 29 March 2026).
+                        </li>
+                        <li>
+                            UNICEF (2020) <em>Digital civic engagement by young people</em>
+                            Available at:
+                            <a href="https://www.unicef.org/reports/digital-civic-engagement-young-people-2020">https://www.unicef.org/reports/digital-civic-engagement-young-people-2020</a>
+                            (Accessed: 29 March 2026).
+                        </li>
+                        <li>
+                            Harbor Research <em>Smart cities infrastructure</em>
+                            Available at:
+                            <a href="https://harborresearch.com/smart-cities-infrastructure/">https://harborresearch.com/smart-cities-infrastructure/</a>
+                            (Accessed: 29 March 2026).
+                        </li>
+                    </ul>
                 </section>
 
-            </div>
-        </div>
-    </main>
+            </div><!-- /.editor-content -->
 
+            <p class="top"><a href="#top">Back to Top</a></p>
+
+        </main><!-- /main -->
+
+        
+    </div><!-- /.container -->
+
+    <!-- ============================================================
+         FOOTER — consistent with all other site pages
+    ============================================================ -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="student-info">
@@ -698,11 +997,8 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Team Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+            <p>&copy; 2026 Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
         </div>
     </footer>
-
-    <script src="main.js"></script>
 </body>
-
 </html>
