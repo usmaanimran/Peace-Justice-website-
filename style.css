@@ -1230,3 +1230,29 @@ body::before {
         linear-gradient(45deg, rgba(88, 224, 255, 0.05) 0%, transparent 24%);
     clip-path: polygon(72% 10%, 94% 18%, 86% 40%, 66% 28%);
 }
+
+
+
+/* AIS Dynamic Visual State */
+.ais-visual-state {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-color: #030508; 
+}
+
+.state-vid {
+    position: absolute; /* Stack them on top of each other */
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0; /* Completely hidden by default */
+    transition: opacity 0.8s ease-in-out; /* Smooth crossfade */
+    pointer-events: none;
+}
+
+/* Only the active video shows up */
+.state-vid.active {
+    opacity: 0.4; 
+}

@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     // Generate 90 particles, assign them random speeds, directions, and a base origin point.
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 10; i++) {
       const o = orgs[i % orgs.length];
       const a = Math.random() * Math.PI * 2;
       const bst = 10 + Math.random() * 18;

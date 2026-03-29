@@ -541,22 +541,17 @@
 
 <body class="page-fade-in">
 
-    <div class="liquid-bg-container" aria-hidden="true">
-        <div class="liquid-blob blob-1"></div>
-        <div class="liquid-blob blob-2"></div>
-        <div class="liquid-blob blob-3"></div>
-        <div class="liquid-blob blob-4"></div>
+   <div class="ais-visual-state">
+        <video id="vid-low" class="state-vid active" preload="auto" autoplay loop muted playsinline>
+            <source src="images/sad.webm" type="video/webm">
+        </video>
+        <video id="vid-med" class="state-vid" preload="auto" autoplay loop muted playsinline>
+            <source src="images/mid.webm" type="video/webm">
+        </video>
+        <video id="vid-high" class="state-vid" preload="auto" autoplay loop muted playsinline>
+            <source src="images/happy.webm" type="video/webm">
+        </video>
     </div>
-
-    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
-        <filter id="gooey-effect">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -30"
-                result="gooey" />
-            <feBlend in="SourceGraphic" in2="gooey" />
-        </filter>
-    </svg>
-
     <header class="site-header">
         <div class="nav-container">
             <a href="home.html" class="logo-link" aria-label="Home — SDG 16 Peace and Justice">
