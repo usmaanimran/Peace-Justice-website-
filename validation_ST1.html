@@ -1,104 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peace & Justice | Validation (Thasreef)</title>
+    <title>Validation Page Student 1 - Thasreef Mohomad</title>
 
+    <link rel="stylesheet" href="css/pageEditor_validator.css">
     <link rel="stylesheet" href="style.css">
 
     <style>
-        .validation-container {
-            max-width: 900px;
-            margin: 40px auto 80px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            backdrop-filter: blur(16px);
-            padding: 50px;
+        /* student info block kept wide to match the overall page layout */
+        .stud {
+            width: min(90%, 1400px);
+            margin: 40px auto 0;
+            padding: 0 5% 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
         }
 
-        .validation-header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid var(--accent-cyan);
-            padding-bottom: 20px;
-        }
-
-        .validation-header h1 {
+        /* Main page title uses the shared heading font for consistency */
+        .stud h2 {
             font-family: var(--font-heading);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: clamp(3rem, 4.8vw, 4.8rem);
+            line-height: 1.04;
+            margin-bottom: 12px;
+            color: var(--c-text);
         }
 
-        .val-section {
-            margin-bottom: 50px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 12px;
+        /* Gold highlight picked from the shared colour palette */
+        .gold-text {
+            color: var(--c-gold);
         }
 
-        .val-section h2 {
-            color: var(--accent-cyan);
-            margin-bottom: 15px;
-            border-bottom: 1px dashed var(--glass-border);
+        /* Secondary line under the title kept readable but quieter than the heading */
+        .student-meta {
+            color: #dbe4ee;
+            font-size: clamp(1.12rem, 1.35vw, 1.42rem);
+            line-height: 1.5;
+            max-width: 1250px;
+        }
+
+        /* Two-column layout: sidebar on one side, validation content on the other */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto 80px;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Sidebar */
+        aside {
+            position: sticky;
+            top: 110px;
+            background: rgba(14, 18, 30, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 14px;
+            padding: 30px 26px;
+            min-height: 320px;
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 10px rgba(212, 175, 55, 0.08);
+        }
+
+        /* Sidebar heading */
+        aside h3 {
+            font-family: var(--font-heading);
+            color: var(--c-text);
+            font-size: 1.5rem;
+            margin-bottom: 18px;
             padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
         }
 
+        /* Remove default bullets */
+        .top-level-ul,
+        .top-level-ul ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* "Student 1" label */
+        .top-level-ul>li {
+            color: var(--c-gold);
+            font-size: 1.00rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        /* Inner list spacing */
+        .top-level-ul ul {
+            margin-top: 10px;
+            padding-left: 6px;
+        }
+
+        /* Links spacing + size */
+        .top-level-ul ul li {
+            margin-bottom: 14px;
+            font-size: 1.05rem;
+        }
+
+        /* Sidebar links */
+        aside a {
+            color: var(--c-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+            display: block;
+            transition: color 0.25s, border-color 0.25s, padding-left 0.25s;
+        }
+
+        /* Hover effect */
+        aside a:hover,
+        aside a:focus-visible {
+            color: var(--c-gold);
+            border-left-color: var(--c-gold);
+            padding-left: 16px;
+            outline: none;
+        }
+
+        /* Main area stacks the validation cards with even spacing */
+        main {
+            display: grid;
+            gap: 26px;
+        }
+
+        /* Each validation section styled with subtle gold accent */
+        .val-card {
+            background: var(--c-surface-2);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 12px;
+            padding: 36px;
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 12px rgba(212, 175, 55, 0.08);
+            scroll-margin-top: 130px;
+        }
+
+        /* Section headings are given a divider so each report feels self-contained */
+        .val-card h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--c-text);
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+        }
+
+        /* Paragraph text for easier reading */
+        .val-card p {
+            line-height: 1.8;
+            color: #dbe4ee;
+            margin-bottom: 18px;
+            font-size: 1.03rem;
+        }
+
+        /* Frame around each validation screenshot so the image does not sit bare on the page */
         .screenshot-box {
-            width: 100%;
-            background: #000;
-            border: 2px solid var(--accent-purple);
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 15px;
-            text-align: center;
+            background: rgba(5, 7, 10, 0.45);
+            border: 1px solid rgba(197, 160, 89, 0.22);
+            border-radius: 6px;
+            padding: 14px;
+            margin: 18px 0;
         }
 
+        /* Screenshot fills the box width while keeping its aspect ratio */
         .screenshot-box img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
+            width: 100%;
+            display: block;
+            border-radius: 2px;
         }
 
-        .screenshot-placeholder {
-            color: var(--text-muted);
-            font-style: italic;
-            padding: 40px 0;
+        /* Reflection note uses a coloured left border to separate it from the screenshot description */
+        .reflection-note {
+            border-left: 3px solid var(--c-cyan);
+            padding-left: 16px;
+            margin-top: 4px;
         }
 
-        .reflection-box {
-            background: rgba(0, 240, 255, 0.05);
-            border-left: 4px solid var(--accent-cyan);
-            padding: 20px 25px;
-            margin-top: 40px;
-            border-radius: 0 8px 8px 0;
+        /* Small label above the button explains where the link goes */
+        .back-editor-label {
+            color: var(--c-text);
+            font-weight: 700;
+            margin: 18px 0 10px;
+            font-size: 1rem;
         }
 
-        .reflection-box h3 {
-            margin-bottom: 10px;
-            color: var(--text-main);
+        /* Button colour is adjusted here to fit the validation page while still using the shared button class */
+        .editor-btn-wrap .magnetic-btn {
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #111;
+            background: linear-gradient(135deg, #f0cf64, #d4af37);
+            border: 1px solid #d4af37;
+            box-shadow: 0 10px 24px rgba(212, 175, 55, 0.18);
+            padding: 0.85rem 1.6rem;
         }
 
-        .reflection-box p {
-            line-height: 1.6;
-            color: var(--text-muted);
-            margin-bottom: 10px;
+        /* Removes the extra pseudo effect from the shared button style for a cleaner look here */
+        .editor-btn-wrap .magnetic-btn::before {
+            display: none;
+        }
+
+        /* Hover state keeps the button bright and easy to notice */
+        .editor-btn-wrap .magnetic-btn:hover,
+        .editor-btn-wrap .magnetic-btn:focus {
+            color: #111;
+            background: linear-gradient(135deg, #f5d977, #ddb840);
+            border-color: #ddb840;
+            box-shadow: 0 12px 28px rgba(212, 175, 55, 0.28);
+        }
+
+        /* Fixed back-to-top button stays visible while scrolling */
+        .top {
+            position: fixed;
+            right: 28px;
+            bottom: 28px;
+            margin: 0;
+            z-index: 2000;
+        }
+
+        /* Rounded button styling */
+        .top a {
+            display: inline-block;
+            min-width: 132px;
+            padding: 14px 22px;
+            text-align: center;
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f0cf64, #d4af37);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 18px rgba(212, 175, 55, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        /* Small lift on hover helps show it is clickable */
+        .top a:hover,
+        .top a:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.42), 0 0 22px rgba(212, 175, 55, 0.25);
+        }
+
+        /* Tablet layout: stack sidebar above content and tighten card padding slightly */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: static;
+            }
+
+            .val-card {
+                padding: 28px;
+            }
+        }
+
+        /* Mobile layout: scale down heading and button spacing so the page stays balanced */
+        @media (max-width: 720px) {
+            .stud h2 {
+                font-size: 2.5rem;
+            }
+
+            .student-meta {
+                font-size: 1rem;
+            }
+
+            .val-card {
+                padding: 22px;
+            }
+
+            .top {
+                right: 18px;
+                bottom: 18px;
+            }
+
+            .top a {
+                min-width: 112px;
+                padding: 12px 18px;
+            }
         }
     </style>
 </head>
 
-<body class="page-fade-in">
+<body>
 
-    <header class="site-header">
+    <header class="site-header" id="top">
         <div class="nav-container">
-            <a href="home.html" class="logo-link">
-                <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo">
-                <span class="site-title">Peace <span class="text-gradient">&</span> Justice</span>
+            <a href="home.html" class="logo-link" aria-label="Home - Peace and Justice">
+                <img src="images/crow.png" alt="Peace and Justice logo" class="nav-logo">
+                <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
             </a>
-            <nav class="main-nav">
+
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation">☰</button>
+
+            <nav class="main-nav" aria-label="Primary Navigation">
                 <ul>
                     <li><a href="home.html">Home</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
@@ -112,94 +315,146 @@
         </div>
     </header>
 
-    <main class="main-content">
-        <div class="validation-container">
+    <section class="stud">
+        <h2><span class="gold-text">Validation</span> Evidence</h2>
+        <p class="student-meta">
+            Thasreef Mohomad | Student ID: 20240991 | Role: Student 1 — Global Template, Home &amp; Gallery
+        </p>
+    </section>
 
-            <div class="validation-header">
-                <h1>W3C Code Validation Evidence</h1>
-                <p style="color: var(--text-muted);">Student 1: Thasreef Mohomad</p>
-            </div>
+    <div class="container">
+        <aside>
+            <h3>Core Pages Implemented</h3>
+            <ul class="top-level-ul">
+                <li>Student 1
+                    <ul>
+                        <li><a href="#homeVal">Home Page</a></li>
+                        <li><a href="#galleryVal">Gallery Page</a></li>
+                        <li><a href="#contentVal">Content Page</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
 
-            <p style="text-align: center; margin-bottom: 40px; color: var(--text-muted);">
-                The following screenshots demonstrate that all HTML pages implemented by Student 1 successfully pass the
-                <a href="https://validator.w3.org/" target="_blank" style="color: var(--accent-cyan);">W3C Markup
-                    Validation Service</a> with zero errors.
-            </p>
+        <main>
+            <section id="homeVal" class="val-card">
+                <h2>Home Page Validation Report</h2>
 
-            <section id="home-val" class="val-section">
-                <h2>1. Home Page (home.html)</h2>
+                <p>
+                    The screenshot below shows the W3C validation result for the Home Page (home.html). It confirms
+                    that the page passed validation successfully with no errors.
+                </p>
+
                 <div class="screenshot-box">
                     <img src="images/home.png" alt="W3C Validation screenshot for Home Page showing no errors">
                 </div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Result: Document checking completed. No errors
-                    or warnings to show.</p>
+
+                <p class="reflection-note">
+                    Result: Document checking completed. No errors or warnings to show.
+                </p>
+
+                <p class="back-editor-label">Back to Page Editor</p>
+                <p class="editor-btn-wrap">
+                    <a href="pageEditor_ST1.html#tech" class="magnetic-btn">
+                        <span class="btn-text">Home Page Description</span>
+                    </a>
+                </p>
             </section>
 
-            <section id="gallery-val" class="val-section">
-                <h2>2. Gallery Page (gallery.html)</h2>
+            <section id="galleryVal" class="val-card">
+                <h2>Gallery Page Validation Report</h2>
+
+                <p>
+                    The screenshot below shows the W3C validation result for the Gallery Page (gallery.html). It
+                    confirms
+                    that the page also passed validation with no errors.
+                </p>
+
                 <div class="screenshot-box">
                     <img src="images/gallery.png" alt="W3C Validation screenshot for Gallery Page showing no errors">
                 </div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Result: Document checking completed. No errors
-                    or warnings to show.</p>
+
+                <p class="reflection-note">
+                    Result: Document checking completed. No errors or warnings to show.
+                </p>
+
+                <p class="back-editor-label">Back to Page Editor</p>
+                <p class="editor-btn-wrap">
+                    <a href="pageEditor_ST1.html#tech" class="magnetic-btn">
+                        <span class="btn-text">Gallery Page Description</span>
+                    </a>
+                </p>
             </section>
 
-            <section id="content-val" class="val-section">
-                <h2>3. Content Page (content_ST1.html)</h2>
+            <section id="contentVal" class="val-card">
+                <h2>Content Page Validation Report</h2>
+
+                <p>
+                    The screenshot below shows the W3C validation result for the Content Page (content_ST1.html). It
+                    confirms
+                    that the page passed validation successfully with no errors.
+                </p>
+
                 <div class="screenshot-box">
                     <img src="images/content.png" alt="W3C Validation screenshot for Content Page showing no errors">
                 </div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Result: Document checking completed. No errors
-                    or warnings to show.</p>
+
+                <p class="reflection-note">
+                    Result: Document checking completed. No errors or warnings to show.
+                </p>
+
+                <p class="back-editor-label">Back to Page Editor</p>
+                <p class="editor-btn-wrap">
+                    <a href="pageEditor_ST1.html#tech" class="magnetic-btn">
+                        <span class="btn-text">Content Page Description</span>
+                    </a>
+                </p>
             </section>
 
+            <section id="reflection" class="val-card">
+                <h2>Reflection on Validation Process</h2>
 
-            <section class="reflection-box">
-                <h3>Reflection on the Validation Process</h3>
-                <p>During the initial development phase, running my code through the W3C validator highlighted a few
+                <p>
+                    During the initial development phase, running my code through the W3C validator highlighted a few
                     minor oversight errors. For example, early drafts of the Gallery grid flagged warnings for missing
                     <code>alt</code> attributes on the thumbnail <code>&lt;img&gt;</code> tags. I quickly resolved this
                     by adding descriptive alternative text to all images, which also improved the site's overall
                     accessibility.
                 </p>
-                <p>Additionally, the validator helped me identify a stray unclosed <code>&lt;div&gt;</code> tag in the
+                <p>
+                    Additionally, the validator helped me identify a stray unclosed <code>&lt;div&gt;</code> tag in the
                     Home Page footer section that could have broken the layout on smaller screens. This process
                     reinforced the importance of writing semantic, compliant HTML and validating code frequently rather
-                    than waiting until the end of the project.</p>
+                    than waiting until the end of the project.
+                </p>
             </section>
+        </main>
+    </div>
 
-        </div>
-    </main>
+    <p class="top"><a href="#top">Go top</a></p>
 
     <footer class="site-footer">
         <div class="footer-container">
             <div class="student-info">
-                <h3>Page Author</h3>
+                <h3>Student Details</h3>
                 <p><strong>Name:</strong> Thasreef Mohomad</p>
-                <p><strong>Student ID:</strong> 20240991</p>
+                <p><strong>Role:</strong> Student 1</p>
+                <p><strong>Pages:</strong> Global Template, Home &amp; Gallery</p>
             </div>
+
             <div class="footer-links">
                 <h3>Developer Links</h3>
                 <ul>
-                    <li><a href="pageEditor_ST1.html">Page Editor (ST1)</a></li>
-                    <li><a href="validation_ST1.html">Validation Evidence</a></li>
-                    <li><a href="pageEditor_ST1.html#accessibility">Accessibility & Compliance</a></li>
+                    <li><a href="pageEditor_ST1.html">Page Editor</a></li>
+                    <li><a href="validation_ST1.html">Validation Page</a></li>
                 </ul>
             </div>
         </div>
+
         <div class="footer-bottom">
-            <p>&copy; 2026 Humpty Dumpty | Peace & Justice Initiative.</p>
+            <p>&copy; 2026 Team Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
         </div>
     </footer>
 
-    <script>
-        const header = document.querySelector('.site-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 80 && !header.classList.contains('header-scrolled')) { header.classList.add('header-scrolled'); }
-            else if (window.scrollY < 20 && header.classList.contains('header-scrolled')) { header.classList.remove('header-scrolled'); }
-        });
-    </script>
-    <script src="main.js"></script>
 </body>
-
 </html>
