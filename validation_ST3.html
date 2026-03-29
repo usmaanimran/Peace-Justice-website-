@@ -1,356 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peace &amp; Justice | Validation (Manisha)</title>
+    <title>Validation Page Student 3 - Manisha Fernando</title>
 
-    <!-- University-provided base template stylesheet -->
     <link rel="stylesheet" href="css/pageEditor_validator.css">
-
-    <!-- Shared site stylesheet -->
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* =====================================================
-           ENHANCEMENTS LAYERED OVER UNI TEMPLATE
-           Same approach as pageEditor_ST3.html — dark-glass
-           aesthetic on top of the provided structure.
-        ===================================================== */
-
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background-color: #05070a;
-            color: #cbd5e1;
-            margin: 0;
-            padding: 0;
+        /* student info block kept wide to match the overall page layout */
+        .stud {
+            width: min(90%, 1400px);
+            margin: 40px auto 0;
+            padding: 0 5% 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.10);
         }
 
-        /* ---- HEADER ---- */
-        header.site-header {
-            background: rgba(5, 7, 10, 0.95);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-            padding: 0;
-            text-align: left;
-        }
-
-        /* ---- CONTAINER (uni: flex row-reverse) ---- */
-        .container {
-            max-width: 1300px;
-            margin: 36px auto 80px;
-            padding: 0 5%;
-            display: flex;
-            flex-direction: row-reverse;
-            gap: 40px;
-            align-items: flex-start;
-        }
-
-        main { flex: 3; }
-
-        /* ---- ASIDE ---- */
-        aside {
-            flex: 1;
-            background: rgba(255,255,255,0.03) !important;
-            border: 1px solid rgba(197,160,89,0.2) !important;
-            border-radius: 14px;
-            padding: 24px;
-            margin-right: 0;
-            position: sticky;
-            top: 100px;
-            backdrop-filter: blur(16px);
-        }
-
-        aside h3 {
-            color: #c5a059;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            border-bottom: 1px solid rgba(197,160,89,0.2);
-            padding-bottom: 10px;
-            margin-bottom: 14px;
-        }
-
-        /* Suppress gold dot from page-editor h3::before rule */
-        aside h3::before { display: none; }
-
-        aside ul { padding-left: 10px; }
-        aside li { padding-bottom: 8px; list-style: none; }
-
-        aside a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: block;
-            border-left: 2px solid transparent;
-            padding-left: 8px;
-            transition: all 0.28s ease;
-        }
-
-        aside a:hover {
-            color: #c5a059;
-            border-left-color: #c5a059;
-            padding-left: 14px;
-        }
-
-        .top-level-ul > li {
-            color: #c5a059;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 10px;
-            font-weight: 700;
-        }
-
-        /* ---- SECTION (uni base: border + background) ---- */
-        section {
-            background: rgba(255,255,255,0.025) !important;
-            border: 1px solid rgba(197,160,89,0.12) !important;
-            border-radius: 14px;
-            padding: 32px 36px !important;
-            margin-bottom: 28px !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-        }
-
-        /* ---- HEADINGS ---- */
-        h2 {
-            font-family: Georgia, 'Times New Roman', serif;
-            color: #e2e8f0 !important;
-            font-size: 1.6rem;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding-bottom: 10px;
-            margin-bottom: 16px;
-        }
-
-        h3 {
-            font-size: 1rem;
-            color: #c5a059;
-            margin: 22px 0 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        h3::before {
-            content: '';
-            display: inline-block;
-            width: 7px;
-            height: 7px;
-            background: #c5a059;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #c5a059;
-            flex-shrink: 0;
-        }
-
-        p, li {
-            line-height: 1.8;
-            color: #cbd5e1;
-            font-size: 0.98rem;
-        }
-
-        /* ---- PAGE INTRO BANNER ---- */
-        .val-header {
-            margin-bottom: 36px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .val-header h1 {
-            font-family: Georgia, serif;
-            font-size: 2.8rem;
-            color: #e2e8f0;
-            margin-bottom: 8px;
-        }
-
-        .val-header h1 span {
-            background: linear-gradient(135deg, #c5a059, #f0d080);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .val-header p {
-            color: #c5a059;
-            font-size: 1.05rem;
-            letter-spacing: 0.8px;
-        }
-
-        /* ---- SCREENSHOT BOX ---- */
-        .screenshot-box {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid rgba(197,160,89,0.25);
-            border-radius: 10px;
-            padding: 12px;
-            margin: 18px 0 14px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .screenshot-box img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* Placeholder shown when no screenshot is uploaded yet */
-        .screenshot-placeholder {
-            background: rgba(197,160,89,0.04);
-            border: 2px dashed rgba(197,160,89,0.3);
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #64748b;
-            font-size: 0.9rem;
-            font-style: italic;
-            margin: 18px 0 14px;
-        }
-
-        /* ---- STATUS BADGE ---- */
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.35);
-            color: #86efac;
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 5px 14px;
-            border-radius: 20px;
-            margin-bottom: 14px;
-        }
-
-        /* ---- BACK LINK ---- */
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #c5a059;
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 600;
-            border: 1px solid rgba(197,160,89,0.3);
-            padding: 7px 16px;
-            border-radius: 20px;
-            transition: all 0.28s ease;
-            margin-top: 8px;
-        }
-
-        .back-link:hover {
-            background: rgba(197,160,89,0.1);
-            border-color: #c5a059;
-            transform: translateX(-3px);
-        }
-
-        /* ---- REFLECTION BOX ---- */
-        .reflection-box {
-            background: rgba(0, 240, 255, 0.04);
-            border-left: 4px solid rgba(0, 240, 255, 0.4);
-            border-radius: 0 10px 10px 0;
-            padding: 22px 26px;
-            margin-top: 10px;
-        }
-
-        .reflection-box p {
-            margin: 0;
-            color: #94a3b8;
-            line-height: 1.8;
-        }
-
-        /* ---- FOOTER ---- */
-        footer.site-footer {
-            background: rgba(5,7,10,0.98);
-            border-top: 1px solid rgba(197,160,89,0.15);
-            text-align: left;
-            color: #94a3b8;
-            padding: 40px 5%;
-        }
-
-        .footer-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-
-        .footer-container h3 {
-            color: #c5a059;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        /* Main page title uses the shared heading font for consistency */
+        .stud h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 4.8vw, 4.8rem);
+            line-height: 1.04;
             margin-bottom: 12px;
+            color: var(--c-text);
         }
 
-        .footer-container h3::before { display: none; }
-        .footer-container p { font-size: 0.92rem; margin: 4px 0; color: #94a3b8; }
-        .footer-links ul { list-style: none; padding: 0; }
-        .footer-links li { margin-bottom: 7px; }
+        /* Gold highlight picked from the shared colour palette */
+        .gold-text { 
+            color: var(--c-gold); 
+        }
 
-        .footer-links a {
-            color: #94a3b8;
+        /* Secondary line under the title kept readable but quieter than the heading */
+        .student-meta {
+            color: #dbe4ee;
+            font-size: clamp(1.12rem, 1.35vw, 1.42rem);
+            line-height: 1.5;
+            max-width: 1250px;
+        }
+
+        /* Two-column layout: sidebar on one side, validation content on the other */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto 80px;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /*  Sidebar */
+        aside {
+            position: sticky;
+            top: 110px;
+            background: rgba(14, 18, 30, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 14px;
+            padding: 30px 26px;
+            min-height: 320px;
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.5),
+                0 0 10px rgba(212,175,55,0.08);
+        }
+
+        /* Sidebar heading */
+        aside h3 {
+            font-family: var(--font-heading);
+            color: var(--c-text);
+            font-size: 1.5rem;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+        }
+
+        /* Remove default bullets */
+        .top-level-ul,
+        .top-level-ul ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* "Student 3" label */
+        .top-level-ul > li {
+            color: var(--c-gold);
+            font-size: 1.00rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        /* Inner list spacing */
+        .top-level-ul ul {
+            margin-top: 10px;
+            padding-left: 6px;
+        }
+
+        /* Links spacing + size */
+        .top-level-ul ul li {
+            margin-bottom: 14px;
+            font-size: 1.05rem;
+        }
+
+        /* Sidebar links */
+        aside a {
+            color: var(--c-muted);
             text-decoration: none;
-            font-size: 0.92rem;
-            transition: color 0.25s;
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+            display: block;
+            transition: color 0.25s, border-color 0.25s, padding-left 0.25s;
         }
 
-        .footer-links a:hover { color: #c5a059; }
-
-        .footer-bottom {
-            max-width: 1300px;
-            margin: 24px auto 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 16px;
-            font-size: 0.85rem;
-            color: #475569;
-            text-align: center;
+        /* Hover effect */
+        aside a:hover,
+        aside a:focus-visible {
+            color: var(--c-gold);
+            border-left-color: var(--c-gold);
+            padding-left: 16px;
+            outline: none;
         }
 
-        /* ---- BACK TO TOP (uni .top class) ---- */
-        .top { position: fixed; bottom: 5%; right: 5%; }
+        /* Main area stacks the validation cards with even spacing */
+        main {
+            display: grid;
+            gap: 26px;
+        }
 
+        /* Each validation section styled with subtle gold accent */
+        .val-card {
+            background: var(--c-surface-2);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 12px;
+            padding: 36px;
+            backdrop-filter: blur(16px);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.5),
+                0 0 12px rgba(212,175,55,0.08);
+            scroll-margin-top: 130px;
+        }
+
+        /* Section headings are given a divider so each report feels self-contained */
+        .val-card h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--c-text);
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+        }
+
+        /* Paragraph text for easier reading */
+        .val-card p {
+            line-height: 1.8;
+            color: #dbe4ee;
+            margin-bottom: 18px;
+            font-size: 1.03rem;
+        }
+
+        /* Frame around each validation screenshot so the image does not sit bare on the page */
+        .screenshot-box {
+            background: rgba(5,7,10,0.45);
+            border: 1px solid rgba(197,160,89,0.22);
+            border-radius: 6px;
+            padding: 14px;
+            margin: 18px 0;
+        }
+
+        /* Screenshot fills the box width while keeping its aspect ratio */
+        .screenshot-box img {
+            width: 100%;
+            display: block;
+            border-radius: 2px;
+        }
+
+        /* Reflection note uses a coloured left border to separate it from the screenshot description */
+        .reflection-note {
+            border-left: 3px solid var(--c-cyan);
+            padding-left: 16px;
+            margin-top: 4px;
+        }
+
+        /* Small label above the button explains where the link goes */
+        .back-editor-label {
+            color: var(--c-text);
+            font-weight: 700;
+            margin: 18px 0 10px;
+            font-size: 1rem;
+        }
+
+        /* Button colour is adjusted here to fit the validation page while still using the shared button class */
+        .editor-btn-wrap .magnetic-btn {
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #111;
+            background: linear-gradient(135deg, #f0cf64, #d4af37);
+            border: 1px solid #d4af37;
+            box-shadow: 0 10px 24px rgba(212,175,55,0.18);
+            padding: 0.85rem 1.6rem;
+        }
+
+        /* Removes the extra pseudo effect from the shared button style for a cleaner look here */
+        .editor-btn-wrap .magnetic-btn::before { 
+            display: none; 
+        }
+
+        /* Hover state keeps the button bright and easy to notice */
+        .editor-btn-wrap .magnetic-btn:hover,
+        .editor-btn-wrap .magnetic-btn:focus {
+            color: #111;
+            background: linear-gradient(135deg, #f5d977, #ddb840);
+            border-color: #ddb840;
+            box-shadow: 0 12px 28px rgba(212,175,55,0.28);
+        }
+
+        /* Fixed back-to-top button stays visible while scrolling */
+        .top {
+            position: fixed;
+            right: 28px;
+            bottom: 28px;
+            margin: 0;
+            z-index: 2000;
+        }
+
+        /* Rounded button styling */
         .top a {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #c5a059, #a07838);
-            color: #000;
+            display: inline-block;
+            min-width: 132px;
+            padding: 14px 22px;
+            text-align: center;
             text-decoration: none;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            box-shadow: 0 4px 16px rgba(197,160,89,0.3);
-            transition: all 0.3s;
+            color: #111;
+            font-weight: 700;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f0cf64, #d4af37);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35), 0 0 18px rgba(212,175,55,0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .top a:hover {
+        /* Small lift on hover helps show it is clickable */
+        .top a:hover,
+        .top a:focus {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(197,160,89,0.45);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.42), 0 0 22px rgba(212,175,55,0.25);
         }
 
-        /* ---- RESPONSIVE ---- */
-        @media (max-width: 860px) {
-            .container { flex-direction: column; }
-            aside { position: static; width: 100%; }
-            .val-header h1 { font-size: 2rem; }
+        /* Tablet layout: stack sidebar above content and tighten card padding slightly */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            aside { 
+                position: static; 
+            }
+
+            .val-card { 
+                padding: 28px; 
+            }
+        }
+
+        /* Mobile layout: scale down heading and button spacing so the page stays balanced */
+        @media (max-width: 720px) {
+            .stud h2 { 
+                font-size: 2.5rem; 
+            }
+
+            .student-meta { 
+                font-size: 1rem; 
+            }
+
+            .val-card { 
+                padding: 22px; 
+            }
+
+            .top {
+                right: 18px;
+                bottom: 18px;
+            }
+
+            .top a {
+                min-width: 112px;
+                padding: 12px 18px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- =========================================================
-         HEADER — consistent with team website
-    ========================================================= -->
+    <!-- Team header reused here so the validation page matches the rest of the site -->
     <header class="site-header" id="top">
         <div class="nav-container">
             <a href="home.html" class="logo-link" aria-label="Home - Peace and Justice">
                 <img src="images/crow.png" alt="Peace and Justice logo" class="nav-logo">
                 <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
             </a>
+
             <button class="nav-toggle" type="button" aria-label="Toggle navigation">☰</button>
+
             <nav class="main-nav" aria-label="Primary Navigation">
                 <ul>
                     <li><a href="home.html">Home</a></li>
@@ -365,203 +316,150 @@
         </div>
     </header>
 
-    <!-- =========================================================
-         PAGE INTRO BANNER
-    ========================================================= -->
-    <div style="max-width:1300px; margin: 36px auto 0; padding: 0 5%;">
-        <div class="val-header">
-            <h1>W3C Validation <span>Evidence</span></h1>
-            <p>Manisha Fernando &nbsp;|&nbsp; Student ID: 20240567 &nbsp;|&nbsp; Role: Student 3 — Feedback &amp; Programme Directory, Team Page &amp; Content Page</p>
-        </div>
-    </div>
+    <!-- Student details section required by the template -->
+    <section class="stud">
+        <h2><span class="gold-text">Validation</span> Evidence</h2>
+        <p class="student-meta">
+            Manisha Fernando | Student ID: 20240567 | Role: Student 3 — Feedback &amp; Programme Directory, Team Page &amp; Content Page
+        </p>
+    </section>
 
-    <!-- =========================================================
-         UNI TEMPLATE CONTAINER (flex row-reverse: main + aside)
-    ========================================================= -->
     <div class="container">
-
-        <!-- ===================== MAIN CONTENT ===================== -->
-        <main>
-
-            <p style="color:#94a3b8; margin-bottom: 28px; font-size:0.97rem;">
-                The following screenshots demonstrate that all HTML pages implemented by Student 3 pass the
-                <a href="https://validator.w3.org/" target="_blank" style="color:#c5a059;">W3C Markup Validation Service</a>
-                with zero errors. Pages excluded from validation (as required): the Page Editor and this Validation Page itself.
-            </p>
-
-            <!-- -------------------------------------------------- -->
-            <!-- SECTION 1: FEEDBACK PAGE                           -->
-            <!-- -------------------------------------------------- -->
-            <section>
-                <h2 id="feedback-val">1. Feedback &amp; Programme Directory (feedback.html)</h2>
-
-                <span class="status-badge">&#10003; No Errors</span>
-
-                <p>
-                    The feedback page was submitted to the W3C Markup Validation Service by direct URL input.
-                    The validator returned zero errors. The screenshot below shows the full validation result
-                    including the file name and the "Document checking completed. No errors or warnings to show" status.
-                </p>
-
-                <div class="screenshot-box">
-                    <!-- Replace the src below with your actual screenshot path once captured -->
-                    <img src="validationSnapshots/validation_feedback.png"
-                         alt="W3C Validation screenshot for feedback.html showing zero errors">
-                </div>
-
-                <p style="color:#64748b; font-size:0.88rem;">
-                    Result: Document checking completed. No errors or warnings to show.
-                </p>
-
-                <h3>Back to Page Editor</h3>
-                <!-- Anchor links back to the corresponding section in the Page Editor -->
-                <a href="pageEditor_ST3.html#tech" class="back-link">&#8592; Page Editor — Feedback Page Section</a>
-            </section>
-
-            <!-- -------------------------------------------------- -->
-            <!-- SECTION 2: TEAM PAGE                               -->
-            <!-- -------------------------------------------------- -->
-            <section>
-                <h2 id="team-val">2. Team Page (team.html)</h2>
-
-                <span class="status-badge">&#10003; No Errors</span>
-
-                <p>
-                    The team page was validated by direct URL input. The screenshot below confirms zero errors
-                    and shows the file name clearly. One minor warning was noted regarding a redundant
-                    <code style="background:rgba(0,0,0,0.4); padding:1px 5px; border-radius:4px; color:#c5a059;">aria-label</code>
-                    on the navigation element, which does not constitute an error and does not affect the validation result.
-                </p>
-
-                <div class="screenshot-box">
-                    <img src="validationSnapshots/validation_team.png"
-                         alt="W3C Validation screenshot for team.html showing zero errors">
-                </div>
-
-                <p style="color:#64748b; font-size:0.88rem;">
-                    Result: Document checking completed. No errors or warnings to show.
-                </p>
-
-                <h3>Back to Page Editor</h3>
-                <a href="pageEditor_ST3.html#tech" class="back-link">&#8592; Page Editor — Team Page Section</a>
-            </section>
-
-            <!-- -------------------------------------------------- -->
-            <!-- SECTION 3: CONTENT PAGE                            -->
-            <!-- -------------------------------------------------- -->
-            <section>
-                <h2 id="content-val">3. Content Page — Access to Justice (content_ST3.html)</h2>
-
-                <span class="status-badge">&#10003; No Errors</span>
-
-                <p>
-                    The content page was validated using the W3C validator. The result shows zero errors.
-                    The screenshot below clearly displays the file name <code style="background:rgba(0,0,0,0.4); padding:1px 5px; border-radius:4px; color:#c5a059;">content_ST3.html</code>
-                    and the successful validation status.
-                </p>
-
-                <div class="screenshot-box">
-                    <img src="validationSnapshots/validation_content_ST3.png"
-                         alt="W3C Validation screenshot for content_ST3.html showing zero errors">
-                </div>
-
-                <p style="color:#64748b; font-size:0.88rem;">
-                    Result: Document checking completed. No errors or warnings to show.
-                </p>
-
-                <h3>Back to Page Editor</h3>
-                <a href="pageEditor_ST3.html#tech" class="back-link">&#8592; Page Editor — Content Page Section</a>
-            </section>
-
-            <!-- -------------------------------------------------- -->
-            <!-- SECTION 4: REFLECTION                              -->
-            <!-- -------------------------------------------------- -->
-            <section>
-                <h2 id="reflection">4. Reflection on the Validation Process</h2>
-
-                <div class="reflection-box">
-                    <p>
-                        Running my pages through the W3C Markup Validation Service was a useful final step that caught
-                        a handful of small issues I would not have spotted by simply previewing the pages in a browser.
-                        On the feedback page, the validator flagged a stray unclosed <code style="background:rgba(0,0,0,0.4); padding:1px 5px; border-radius:4px; color:#c5a059;">&lt;div&gt;</code>
-                        inside the reviews grid that had been left over from an earlier layout experiment. Because the
-                        browser had silently auto-closed it in a way that still rendered correctly, I had not noticed it during
-                        development. Correcting it also clarified the nesting structure of the reviews section.
-                    </p>
-                    <p style="margin-top: 14px;">
-                        On the team page, the validator noted a warning about a redundant <code style="background:rgba(0,0,0,0.4); padding:1px 5px; border-radius:4px; color:#c5a059;">aria-label</code>
-                        on the <code style="background:rgba(0,0,0,0.4); padding:1px 5px; border-radius:4px; color:#c5a059;">&lt;nav&gt;</code>
-                        element that duplicated the text already present in the landmark role. While this is a warning rather
-                        than an error, I kept it in place because the explicit label improves discoverability in screen readers
-                        that list navigation landmarks by name. The content page validated cleanly on the first run,
-                        which I attribute to using semantic HTML5 elements throughout and ensuring all <code style="background:rgba(0,0,0,0.4); padding:1px 5px; border-radius:4px; color:#c5a059;">id</code>
-                        attributes on anchor targets were unique and descriptive. The main lesson was that validation
-                        should be run early and often during development, not only at the end — small structural issues
-                        are much easier to trace and fix when the page is still being built than after extensive styling has been added.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Back to top (uni .top class) -->
-            <p class="top"><a href="#top">&#x2191; Top</a></p>
-
-        </main>
-
-        <!-- ===================== SIDEBAR (UNI ASIDE) ===================== -->
+        <!-- Sidebar only lists the pages by Student 3 -->
         <aside>
-            <h3>Validation Sections</h3>
+            <h3>Core Pages Implemented</h3>
             <ul class="top-level-ul">
-                <li>Student 3 Pages</li>
-                <ul style="padding-left:10px; margin-top:4px;">
-                    <li><a href="#feedback-val">1. Feedback Page</a></li>
-                    <li><a href="#team-val">2. Team Page</a></li>
-                    <li><a href="#content-val">3. Content Page</a></li>
-                    <li><a href="#reflection">4. Reflection</a></li>
-                </ul>
-            </ul>
-
-            <hr style="border-color: rgba(197,160,89,0.15); margin: 18px 0;">
-
-            <h3>Quick Links</h3>
-            <ul style="padding-left:0;">
-                <li><a href="pageEditor_ST3.html">&#8592; Page Editor (ST3)</a></li>
-                <li><a href="feedback.html" target="_blank">Feedback Page</a></li>
-                <li><a href="team.html" target="_blank">Team Page</a></li>
-                <li><a href="content_ST3.html" target="_blank">Content Page</a></li>
-                <li><a href="https://validator.w3.org/" target="_blank">W3C Validator</a></li>
+                <li>Student 3
+                    <ul>
+                        <li><a href="#feedbackVal">Feedback</a></li>
+                        <li><a href="#teamVal">Team</a></li>
+                        <li><a href="#contentVal">Content</a></li>
+                    </ul>
+                </li>
             </ul>
         </aside>
 
-    </div><!-- end .container -->
+        <!-- Main validation evidence -->
+        <main>
+            <section id="feedbackVal" class="val-card">
+                <h2>Feedback Page Validation Report</h2>
 
-    <!-- =========================================================
-         FOOTER — consistent with team website
-         (Required by instructions: must include link to Page Editor
-         and student details)
-    ========================================================= -->
+                <p>
+                    The screenshot below shows the W3C validation result for the Feedback page. It confirms
+                    that the page passed validation successfully with no errors.
+                </p>
+
+                <div class="screenshot-box">
+                    <img src="images/validation_feedback.png" alt="W3C validation result for feedback.html">
+                </div>
+
+                <p class="reflection-note">
+                    While validating this page, I reviewed the form structure and corrected small HTML issues.
+                    This helped me see how validation improves both code quality and page reliability.
+                </p>
+
+                <p class="back-editor-label">Back to Page Editor</p>
+                <p class="editor-btn-wrap">
+                    <a href="pageEditor_ST3.html#feedback" class="magnetic-btn">
+                        <span class="btn-text">Feedback Page</span>
+                    </a>
+                </p>
+            </section>
+
+            <section id="teamVal" class="val-card">
+                <h2>Team Page Validation Report</h2>
+
+                <p>
+                    The screenshot below shows the W3C validation result for the Team page. It confirms
+                    that the page also passed validation with no errors.
+                </p>
+
+                <div class="screenshot-box">
+                    <img src="images/validation_team.png" alt="W3C validation result for team.html">
+                </div>
+
+                <p class="reflection-note">
+                    This validation process helped me check that the page structure was clear and correctly organised.
+                    I learned that even small markup mistakes can affect overall code quality.
+                </p>
+
+                <p class="back-editor-label">Back to Page Editor</p>
+                <p class="editor-btn-wrap">
+                    <a href="pageEditor_ST3.html#team" class="magnetic-btn">
+                        <span class="btn-text">Team Page</span>
+                    </a>
+                </p>
+            </section>
+
+            <section id="contentVal" class="val-card">
+                <h2>Content Page Validation Report</h2>
+
+                <p>
+                    The screenshot below shows the W3C validation result for the Content page. It confirms
+                    that the page passed validation successfully with no errors.
+                </p>
+
+                <div class="screenshot-box">
+                    <img src="images/validation_content_ST3.png" alt="W3C validation result for content_ST3.html">
+                </div>
+
+                <p class="reflection-note">
+                    Validating this page helped me confirm that the content was marked up properly using valid HTML.
+                    It showed me the value of checking code carefully before final submission.
+                </p>
+
+                <p class="back-editor-label">Back to Page Editor</p>
+                <p class="editor-btn-wrap">
+                    <a href="pageEditor_ST3.html#content" class="magnetic-btn">
+                        <span class="btn-text">Content Page</span>
+                    </a>
+                </p>
+            </section>
+
+            <section id="reflection" class="val-card">
+                <h2>Reflection on Validation Process</h2>
+
+                <p>
+                    Validating my pages was an important final step because it helped me identify and correct
+                    small HTML issues that could easily be missed during development. By checking each page
+                    carefully, I was able to improve the accuracy of my code and make sure it followed web standards.
+                </p>
+
+                <p>
+                    This process also showed me that validation is not only useful for removing errors, but
+                    also for improving structure, consistency and overall code quality. It helped me become
+                    more careful with element nesting, attributes and page organisation.
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Fixed shortcut back to the top of the page -->
+    <p class="top"><a href="#top">Go top</a></p>
+
+    <!-- Footer includes the required student details and Page Editor link -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="student-info">
-                <h3>Page Author</h3>
+                <h3>Student Details</h3>
                 <p><strong>Name:</strong> Manisha Fernando</p>
-                <p><strong>Student ID:</strong> 20240567</p>
-                <p><strong>Role:</strong> Student 3 — Feedback &amp; Team Page</p>
+                <p><strong>Role:</strong> Student 3</p>
+                <p><strong>Pages:</strong> Feedback, Team, Content Page</p>
             </div>
+
             <div class="footer-links">
                 <h3>Developer Links</h3>
                 <ul>
-                    <!-- Required by instructions: link to Page Editor -->
-                    <li><a href="pageEditor_ST3.html">Page Editor (ST3)</a></li>
-                    <li><a href="validation_ST3.html">Validation Evidence</a></li>
-                    <li><a href="pageEditor_ST3.html#accessibility">Accessibility &amp; Compliance</a></li>
+                    <li><a href="pageEditor_ST3.html">Page Editor</a></li>
+                    <li><a href="validation_ST3.html">Validation Page</a></li>
                 </ul>
             </div>
         </div>
+
         <div class="footer-bottom">
-            <p>&copy; 2026 Team Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
+            <p>&copy; 2026 Peace &amp; Justice Team Project</p>
         </div>
     </footer>
 
-    <script src="main.js"></script>
 </body>
 </html>
