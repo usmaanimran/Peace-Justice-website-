@@ -1,262 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peace & Justice | Page Editor (Usmaan)</title>
+    <title>Peace &amp; Justice | Page Editor — Usmaan Imran</title>
     <link rel="stylesheet" href="style.css">
-    
+
     <style>
-        /* Centers the main content block and gives it a max width so it doesn't stretch too wide on big monitors */
-        .dashboard-container {
-            max-width: 1400px;
-            margin: 40px auto 80px;
-            padding: 0 5%;
+        /* ---- Subtle page background matching the site's radial glow pattern ---- */
+        body {
+            background:
+                radial-gradient(circle at 12% 18%, rgba(255, 215, 120, 0.10), transparent 22%),
+                radial-gradient(circle at 88% 20%, rgba(34, 211, 238, 0.08), transparent 20%),
+                linear-gradient(180deg, #050910 0%, #08111d 50%, #050910 100%);
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 260px 1fr; /* main takes available space; aside is fixed width */
+            gap: 50px;
+            width: min(95%, 1300px);
+            margin: 0 auto;
+            align-items: start;
+            padding: 30px 0 80px;
         }
 
-        /* Styles the top intro area */
+        /* Stack to single column on narrow screens */
+        @media (max-width: 880px) {
+            .container { grid-template-columns: 1fr; }
+            aside { position: static !important; }
+        }
+
+        /* ---- Sidebar (aside): sticky TOC ---- */
+        aside {
+            position: sticky;
+            top: 110px;                     /* clears the fixed site header */
+            background: rgba(14, 18, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 28px;
+            backdrop-filter: blur(16px);
+        }
+
+        aside h3 {
+            font-family: var(--font-heading);
+            color: var(--c-text);
+            font-size: 30px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        /* Remove default bullets from the TOC list */
+        aside ul {
+            list-style: none;
+            padding: 10px;
+        }
+
+        aside li {
+            margin-bottom: 10px;
+            font-size:15px;
+            color: var(--c-muted);
+        }
+
+        /* Indented sub-list */
+        aside ul ul {
+            padding-left: 14px;
+            margin-top: 4px;
+        }
+
+        /* Sidebar links — animated left-border accent on hover */
+        aside a {
+            color: var(--c-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+            display: block;
+            transition: color 0.25s, border-color 0.25s, padding-left 0.25s;
+        }
+
+        aside a:hover,
+        aside a:focus-visible {
+            color: var(--c-gold);
+            border-left-color: var(--c-gold);
+            padding-left: 13px;
+            outline: none;
+        }
+
+        /* ---- Student identity banner (required by template) ---- */
+        .stud {
+            text-align: center;
+            padding: 20px 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .stud h2 {
+            font-family: var(--font-body);
+            font-size: 0.93rem;
+            color: var(--c-muted);
+            font-weight: 400;
+            letter-spacing: 0.4px;
+        }
+
+        /* ---- Page-editor intro heading ---- */
         .editor-header {
-            text-align: left;
-            margin-bottom: 50px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 30px;
+            margin-bottom: 36px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
 
         .editor-header h1 {
             font-family: var(--font-heading);
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            color: var(--text-main);
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            margin-bottom: 8px;
         }
 
         .editor-header p {
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
+            color: var(--c-muted);
+            font-size: 1rem;
         }
 
-        /* Uses CSS Grid to create a two-column layout: a 300px sidebar on the left, and the rest of the space (1fr) for the text on the right */
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        /* Makes the Table of Contents sidebar stick to the screen as you scroll down the page */
-        .toc-sidebar {
-            position: sticky;
-            top: 120px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 30px;
-            backdrop-filter: blur(16px);
-        }
-
-        .toc-sidebar h3 {
-            color: var(--text-main);
-            margin-bottom: 20px;
-            font-family: var(--font-heading);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-        }
-
-        .toc-sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .toc-sidebar li {
-            margin-bottom: 15px;
-        }
-
-        /* Base styles for the sidebar links */
-        .toc-sidebar a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            display: block;
-            border-left: 2px solid transparent;
-            padding-left: 10px;
-        }
-
-        /* Hover animation for sidebar links: turns gold and nudges right */
-        .toc-sidebar a:hover {
-            color: var(--accent-gold);
-            border-left-color: var(--accent-gold);
-            transform: translateX(5px);
-        }
-
-        /* Main Content Styling - Creates the glass-like box for the actual report text */
+        /* ---- Glass card wrapping all main sections ---- */
         .editor-content {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: rgba(14, 18, 30, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
-            padding: 50px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            padding: clamp(28px, 4vw, 50px);
+            backdrop-filter: blur(18px);
         }
 
-        /* Spacing for each major section of the report */
-        .editor-section {
-            margin-bottom: 60px;
+        /* ---- Individual sections inside the card ---- */
+        section {
+            margin-bottom: 56px;
+            scroll-margin-top: 110px;   /* prevents heading hiding behind sticky header */
         }
 
-        .editor-section h2 {
+        section h2 {
             font-family: var(--font-heading);
-            font-size: 2.2rem;
-            color: var(--text-main);
-            margin-bottom: 25px;
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            color: var(--c-text);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 15px;
         }
 
-        /* Subheadings with a custom gold glowing dot generated via CSS ::before pseudo-element */
-        .editor-section h3 {
-            font-size: 1.3rem;
-            color: var(--text-main);
-            margin: 30px 0 15px;
+        /* Subheadings with a glowing gold bullet via ::before pseudo-element */
+        section h3 {
+            font-size: 1.13rem;
+            color: var(--c-text);
+            margin: 28px 0 12px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .editor-section h3::before {
+        section h3::before {
             content: '';
-            display: block;
-            width: 8px;
-            height: 8px;
-            background: var(--accent-gold);
+            display: inline-block;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-gold);
+            background: var(--c-gold);
+            box-shadow: 0 0 8px var(--c-gold-glow);
+            flex-shrink: 0;
         }
 
-        .editor-section p,
-        .editor-section ul {
-            line-height: 1.8;
+        section p,
+        section ul,
+        section ol {
             color: #cbd5e1;
-            margin-bottom: 20px;
-            font-size: 1.05rem;
+            line-height: 1.85;
+            margin-bottom: 18px;
+            font-size: 1rem;
         }
 
-        .editor-section ul {
-            padding-left: 20px;
+        section ul,
+        section ol {
+            padding-left: 22px;
         }
 
-        .editor-section li {
+        section li {
             margin-bottom: 10px;
         }
 
-        /* Custom styling for inline code mentions to make them look like a termina */
-        .code-ref {
-            font-family: 'Courier New', monospace;
-            background: rgba(5, 7, 10, 0.8);
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            padding: 4px 8px;
-            border-radius: 6px;
-            color: var(--accent-gold);
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
-            font-size: 0.95rem;
+        /* Inline code-reference chip */
+        code {
+            font-family: var(--font-mono);
+            background: rgba(5, 7, 10, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            color: var(--c-gold);
+            padding: 3px 7px;
+            border-radius: 5px;
+            font-size: 0.87rem;
+            display: inline-block;
+            white-space: nowrap;
         }
 
-        /* Flex container to hold the "Live Page" and "Validation" buttons side-by-side */
         .live-link-group {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 18px;
         }
 
-        /* Pill-shaped button styling for the links */
         .live-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(212, 175, 55, 0.08);
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 10px 24px;
+            background: rgba(212, 175, 55, 0.07);
+            border: 1px solid var(--c-gold);
+            color: var(--c-gold);
+            padding: 9px 22px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 0.82rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-            backdrop-filter: blur(5px);
+            letter-spacing: 1.4px;
+            transition: all 0.35s var(--ease-expo);
+            backdrop-filter: blur(4px);
         }
 
-        /* Hover effect for buttons: fills with gold and lifts up */
-        .live-link:hover {
-            background: var(--accent-gold);
+        .live-link:hover,
+        .live-link:focus-visible {
+            background: var(--c-gold);
             color: #000;
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.35), inset 0 0 10px rgba(255, 255, 255, 0.4);
-            border-color: #fff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 24px rgba(212, 175, 55, 0.30);
+            outline: none;
         }
 
-        /* Data Table styling used specifically for the required Meeting Log */
+        /* ---- Meetings table ---- */
         table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            margin-top: 30px;
+            margin-top: 24px;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
 
-        th,
-        td {
-            padding: 18px 20px;
+        th, td {
+            padding: 15px 17px;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        th {
-            background: rgba(197, 160, 89, 0.1);
-            color: var(--text-main);
+        thead th {
+            background: rgba(212, 175, 55, 0.09);
+            color: var(--c-text);
             font-weight: 600;
+            font-size: 0.82rem;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            letter-spacing: 0.9px;
+        }
+
+        tbody td {
+            background: rgba(5, 7, 10, 0.38);
+            color: #cbd5e1;
+            font-size: 0.92rem;
             letter-spacing: 1px;
         }
 
-        td {
-            background: rgba(5, 7, 10, 0.4);
-            color: #cbd5e1;
+        tbody tr:last-child td { border-bottom: none; }
+
+        /* Subtle row hover highlight */
+        tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        /* ---- References list — cyan left-border accent ---- */
+        ul.ref {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.ref li {
+            padding: 10px 14px;
+            border-left: 3px solid rgba(34, 211, 238, 0.40);
+            margin-bottom: 13px;
+            background: rgba(0, 240, 255, 0.03);
+            border-radius: 0 8px 8px 0;
             font-size: 0.95rem;
         }
 
-        tr:last-child td {
-            border-bottom: none;
+        ul.ref a {
+            color: var(--c-cyan);
+            text-decoration: none;
         }
 
-        /* Subtle highlight on row hover */
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
+        ul.ref a:hover { text-decoration: underline; }
+
+        /* ---- "Go to top" anchor ---- */
+        .top {
+            position: fixed;
+            bottom: 5%;
+            left: 55%;
         }
 
-        /* Responsive override: Drops the sidebar to the top and stacks the grid to 1 column on smaller screens */
-        @media (max-width: 900px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
-            }
+        .top a {
+            display: inline-block;
+            min-width: 132px;
+            padding: 14px 22px;
+            text-align: center;
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f0cf64, #d4af37);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35), 0 0 18px rgba(212,175,55,0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
 
-            .toc-sidebar {
-                position: static;
-                margin-bottom: 30px;
-            }
+        .top a:hover, .top a:focus{
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.42), 0 0 22px rgba(212,175,55,0.25);
         }
     </style>
 </head>
 
 <body class="page-fade-in">
 
-    <header class="site-header">
+    <header class="site-header" class="top">
         <div class="nav-container">
             <a href="home.html" class="logo-link">
                 <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo">
@@ -275,63 +341,47 @@
             </nav>
         </div>
     </header>
-    <main class="dashboard-container">
-        <div class="editor-header reveal-element">
-            <h1>Developer <span class="text-gradient">Dashboard</span></h1>
-            <p>Usmaan Imran | Student ID: 20240530 | Role: Student 2 (Splash Screen & Action Impact Simulator)</p>
-        </div>
 
-        <div class="dashboard-layout">
-            
-            <aside class="toc-sidebar reveal-element delay-1">
-                <h2>Navigation Directory</h2>
+    <div class="container">
+        
+        <aside>
+            <h3>Core pages developed:</h3>
+
+            <ul class="top-level-ul">
+                <li>Student 2</li>
                 <ul>
-                    <li><a href="#tasks">1. Completed Tasks</a></li>
-                    <li><a href="#tech">2. Technical Implementation</a></li>
-                    <li><a href="#challenges">3. Challenges &amp; Lessons</a></li>
-                    <li><a href="#accessibility">4. Accessibility</a></li>
-                    <li><a href="#janet">5. JANET Compliance</a></li>
-                    <li><a href="#meetings">6. Meeting Log</a></li>
-                    <li><a href="#references">7. References</a></li>
+                    <li><a href="#splash">Splash Screen</a></li>
+                    <li><a href="#ais">Action Impact Simulator</a></li>
+                    <li><a href="#content">Content Page</a></li>
                 </ul>
-            </aside>
 
-            <div class="editor-content reveal-element delay-2">
+                <li><a href="#challenges">Challenges and Lessons Learned</a></li>
+                <li><a href="#compliance">Compliance</a></li>
+                <li><a href="#group">Group Meetings Log</a></li>
+                <li><a href="#ref">References</a></li>
+            </ul>
+        </aside>
+        
+        <main>
 
-                <section id="tasks" class="editor-section">
-                    <h2>1. Completed Tasks &amp; Responsibilities</h2>
-                    <p>As Student 2 for Team Humpty Dumpty, my main responsibility was to engineer the interactive and
-                        introductory components of our UN SDG 16 website, as well as produce a detailed academic content
-                        page. I wanted to leave a great first impression and develop tools that would allow the learning
-                        about Peace and Justice to be an active process and not mere reading. I had the following
-                        deliverables:</p>
-                    <ul>
-                        <li>Cinematic animation Splash Screen and automatic routing (<span
-                                class="code-ref">index.html</span>).</li>
-                        <li>The Action Impact Simulator (AIS), a fully interactive dashboard that is JavaScript-based
-                            (<span class="code-ref">ais.html</span>).</li>
-                        <li>The "Conflict to Peace" content page with internal anchor navigation (<span
-                                class="code-ref">content_ST2.html</span>).</li>
-                        <li>The Developer Page Editor documenting my technical process (<span
-                                class="code-ref">pageEditor_ST2.html</span>).</li>
-                        <li>The W3C Validation Evidence page (<span class="code-ref">validation_ST2.html</span>).</li>
-                    </ul>
-                </section>
+            <div class="editor-header">
+                <h1>Developer <span class="text-gradient">Dashboard</span></h1>
+                <p>Usmaan Imran &nbsp;·&nbsp; Student ID: 20240530 &nbsp;·&nbsp; Student 2 (Splash Screen &amp; Action Simulator)</p>
+            </div>
 
-                <section id="tech" class="editor-section">
-                    <h2>2. Technical Description of Implemented Pages</h2>
+            <div class="editor-content">
 
-                    <h3>Splash Screen</h3>
-                    <div class="live-link-group">
-                        <a href="index.html" target="_blank" class="live-link">Live Page</a>
-                        <a href="validation_ST2.html#splash-val" class="live-link"
-                            style="border-color: var(--c-muted); color: var(--c-text);">Validation</a>
-                    </div>
-                    <p>The Splash Screen was created to offer a cinematic and immersive introduction to our site. I
+                <section id="splash">
+                    <h2>Splash Screen</h2>
+
+                    <h3>Technical Description</h3>
+                    <p>
+                        The Splash Screen was created to offer a cinematic and immersive introduction to our site. I
                         obtained the visual depth through the application of div elements combined with personal CSS
                         <code>@keyframes</code> to provide the effects of constant breathing and glowing backgrounds.
                     </p>
-                    <p>Technically, the main functionality is achieved by using an HTML tag of the form: the
+                    <p>
+                        Technically, the main functionality is achieved by using an HTML tag of the form: the
                         <code>&lt;meta http-equiv="refresh"&gt;</code> tag. I would, however, have liked to have more
                         control for the user. I created a bespoke JavaScript code (<code>splash.js</code>) which runs a
                         live visible countdown timer on the screen. I also included a skip button to force boot. When
@@ -339,31 +389,68 @@
                         the slow meta tag with <code>window.location.href</code> to provide an abrupt transition.
                     </p>
 
-                    <h3>Action Impact Simulator (AIS)</h3>
+                    <h3>Link to the validation page</h3>
                     <div class="live-link-group">
-                        <a href="ais.html" target="_blank" class="live-link">Live Page</a>
-                        <a href="validation_ST2.html#ais-val" class="live-link"
-                            style="border-color: var(--c-muted); color: var(--c-text);">Validation</a>
+                        <a href="validation_ST2.html#splash-val" class="live-link">Validation Evidence (Splash)</a>
                     </div>
-                    <p>The AIS is an interactive dashboard developed using pure Vanilla JavaScript. The 6 action cards
+
+                    <h3>Link to the page</h3>
+                    <div class="live-link-group">
+                        <a href="splash.html" class="live-link">View Splash Screen</a>
+                    </div>
+                </section>
+
+                <section id="ais">
+                    <h2>Action Impact Simulator (AIS)</h2>
+
+                    <h3>Technical Description</h3>
+                    <p>
+                        The AIS is an interactive dashboard developed using pure Vanilla JavaScript. The 6 action cards
                         are manually inbuilt into the HTML to meet the structural demands of the brief. In order to
                         ensure smooth work by the JavaScript math, I became familiar with the custom data attributes in
                         HTML5. I added <code>data-pts</code> attributes to each card in order to keep the point values.
                     </p>
-                    <p>I used a JavaScript loop to go through these cards and add event listeners. Upon clicking a card,
+                    <p>
+                        I used a JavaScript loop to go through these cards and add event listeners. Upon clicking a card,
                         the script will use <code>classList.toggle('selected')</code>, recalculate the aggregate score,
                         and update the UI text. The dynamic circular gauge is one of the most interesting technical
                         features I introduced here. Using the <code>stroke-dashoffset</code> property of an SVG circle
                         and mathematical manipulations regarding the summation of the score, it is possible to make the
-                        gauge appearance fill up.</p>
+                        gauge appearance fill up. Additionally, I implemented a gooey liquid blob animation for the 
+                        background that shifts colors based on the user's score interacting with specific body classes.
+                    </p>
 
-                    <h3>Content Page: Conflict to Peace</h3>
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>
+                            <strong>Keyboard Navigation:</strong> I researched and added <code>tabindex="0"</code> and
+                            <code>role="button"</code> to the HTML cards. I coded a specific event listener in
+                            <code>ais.js</code> that responds to keydowns of the 'Enter' and 'Space' keys, allowing
+                            users to play the simulator fully without a mouse.
+                        </li>
+                        <li>
+                            <strong>ARIA States:</strong> I implemented <code>aria-pressed="true/false"</code> states
+                            to dynamically inform screen readers when a card is selected.
+                        </li>
+                    </ul>
+
+                    <h3>Link to the validation page</h3>
                     <div class="live-link-group">
-                        <a href="content_ST2.html" target="_blank" class="live-link">Live Page</a>
-                        <a href="validation_ST2.html#content-val" class="live-link"
-                            style="border-color: var(--c-muted); color: var(--c-text);">Validation</a>
+                        <a href="validation_ST2.html#ais-val" class="live-link">Validation Evidence (AIS)</a>
                     </div>
-                    <p>The page conforms strictly to the common global template that was created by Student 1. In this
+
+                    <h3>Link to the page</h3>
+                    <div class="live-link-group">
+                        <a href="ais.html" class="live-link">View Simulator Page</a>
+                    </div>
+                </section>
+
+                <section id="content">
+                    <h2>Content Page (Student 2)</h2>
+
+                    <h3>Technical Description</h3>
+                    <p>
+                        The page conforms strictly to the common global template that was created by Student 1. In this
                         case, I was more interested in good document organization. I created the essay with semantic
                         HTML5 markups such as <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, and
                         <code>&lt;aside&gt;</code> such that the browser actually comprehends the layout. I also used a
@@ -371,124 +458,108 @@
                         enable a user to jump directly to various sections of the essay.
                     </p>
 
+                    <h3>Link to the validation page</h3>
+                    <div class="live-link-group">
+                        <a href="validation_ST2.html#content-val" class="live-link">Validation Evidence (Content)</a>
+                    </div>
 
+                    <h3>Link to the page</h3>
+                    <div class="live-link-group">
+                        <a href="content_ST2.html" class="live-link">View Content Page</a>
+                    </div>
                 </section>
 
-                <section id="challenges" class="editor-section">
-                    <h2>3. Challenges &amp; Lessons Learned</h2>
+                <section id="challenges">
+                    <h2>Challenges and Lessons Learned</h2>
 
-                    <h3>Challenge 1: CSS vs. Global JavaScript Conflict</h3>
-                    <p>There was a giant technical problem that occurred when we began to incorporate my personal pages
-                        with the template of Student 1. My CSS-only "Go to Top" button on my Content Page was the result
-                        of much time spent fitting the strict coursework brief. The back-to-top button was, however,
-                        automatically injected using the global <code>main.js</code> file, which was programmed to
-                        inject a JavaScript-driven button on all pages. As I loaded my page, I realized there were two
-                        overlapping buttons fighting for clicks!</p>
-                    <p>Being a beginner, the initial thought that came to my mind was to simply delete the global
-                        script, but then I knew that would break the rest of my team's pages. This made me acquire
-                        knowledge on DOM conditional logic. Our solution was to change the global script to do a check
-                        before its button is created: <code>if (!document.querySelector('.back-to-top-css'))</code>.
-                        This logic amounts to: "Create the JS button only when Usmaan's CSS button does NOT exist on
-                        this page." The value of understanding variable scope and conditional delivery in modular team
-                        applications was strongly enforced by this experience.</p>
+                    <h3>Challenge 1 — Navigating Without Global Scripts</h3>
+                    <p>
+                        During development, we initially relied on a global <code>main.js</code> script to handle UI 
+                        components like a sitewide back-to-top button. However, this caused severe conflicts with my 
+                        custom CSS implementations, resulting in overlapping buttons fighting for clicks on my Content Page. 
+                        Since the team ultimately decided to drop <code>main.js</code> entirely to improve performance and 
+                        rely on CSS-only solutions, I had to pivot. I engineered a pure CSS back-to-top anchor link 
+                        (using <code>scroll-behavior: smooth</code>) that operates completely independently of JavaScript, 
+                        teaching me the importance of native browser features over heavy script dependencies.
+                    </p>
 
-                    <h3>Challenge 2: State Management and Logic Bugs in the Simulator</h3>
-                    <p>In the construction of the Action Impact Simulator, a large logic bug occurred. My JavaScript had
+                    <h3>Challenge 2 — State Management and Logic Bugs in the Simulator</h3>
+                    <p>
+                        In the construction of the Action Impact Simulator, a large logic bug occurred. My JavaScript had
                         to serve as a way of adding points each time a card was clicked. A user who clicked the "Vote
                         Locally" card five times would simply get an infinite number of points! I needed time to learn
                         how to monitor the state of the card. I was taught how to verify whether a card was already
                         active. With the script now depending on <code>card.classList.toggle('selected')</code>, it
                         determines whether the card is being turned on or off, and <em>then</em> adds or subtracts the
                         given <code>data-pts</code> value. It taught me that code writing is not just about making
-                        things look good, but anticipating how users will attempt to break your application.</p>
+                        things look good, but anticipating how users will attempt to break your application.
+                    </p>
 
-                    <h3>Challenge 3: The Skip Button that Cannot be Clicked (Z-Index Mystery)</h3>
-                    <p>When constructing the Splash Screen, I made the background deep and cinematic with div elements
+                    <h3>Challenge 3 — The Skip Button that Cannot be Clicked (Z-Index Mystery)</h3>
+                    <p>
+                        When constructing the Splash Screen, I made the background deep and cinematic with div elements
                         stacked on top of each other. All appeared aesthetically flawless, and I had my “Force Boot”
                         skip button exactly where I desired. But upon clicking it in the browser, nothing occurred. The
-                        hover effect was not activated, and the JavaScript event listener remained silent.</p>
-                    <p>Hours of debugging allowed me to find out it was a CSS stacking problem. Since I had set my
+                        hover effect was not activated, and the JavaScript event listener remained silent.
+                    </p>
+                    <p>
+                        Hours of debugging allowed me to find out it was a CSS stacking problem. Since I had set my
                         glowing overlay background to <code>position: absolute</code> to cover the whole screen, it was
                         invisibly sitting on top of my button, catching all the mouse clicks. I got to know about the
                         CSS "stacking context" and rectified the problem by assigning my main wrapper
                         <code>position: relative</code> and <code>z-index: 10</code>. This brought the button physically
-                        over the background layers, rendering it fully clickable. It made me understand that just
-                        because you can see an element doesn't mean it's physically on top.
+                        over the background layers, rendering it fully clickable.
                     </p>
 
-                    <h3>Challenge 4: The Jarring Background Cut (Cinematic Crossfading)</h3>
-                    <p>For the Action Impact Simulator, I initially decided to change the background depending on the
-                        user's score by using JavaScript to replace the <code>background-image</code> property on the
-                        <code>&lt;body&gt;</code> element. However, the transition was a sharp, abrupt cut that totally
-                        destroyed the movie-theater essence I was hoping to achieve. I attempted to add a CSS
-                        transition, but soon discovered that browsers have a hard time smoothly transitioning intricate
-                        background gradients.
+                    <h3>Challenge 4 — Engineering the Interactive Liquid Background</h3>
+                    <p>
+                        For the Action Impact Simulator, I initially decided to change the background depending on the
+                        user's score by swapping a single static background image. However, the transition was a sharp, 
+                        abrupt cut that totally destroyed the immersive experience I was hoping to achieve. 
                     </p>
-                    <p>To address this, I entirely re-engineered my approach. Rather than replacing the background of
-                        the body, I used three distinct and fixed div layers (<code>#bgLow</code>, <code>#bgMed</code>,
-                        <code>#bgHigh</code>), positioned them in the background with an opacity of 0. My JavaScript
-                        logic then changed the active state by adding an <code>.active</code> class, transitioning the
-                        opacity to 1 over 1.6 seconds. This created beautiful, smooth crossfading. It was an enormous
-                        lesson in creative problem-solving: you cannot always force a single property to do what you
-                        wish, and must sometimes build a mechanical workaround.
+                    <p>
+                        To address this, I engineered a highly complex visual workaround. I utilized absolute positioned 
+                        <code>div</code> elements representing "blobs" moving via CSS <code>@keyframes</code>, and unified 
+                        them using a heavily mathematical SVG <code>&lt;filter id="gooey-effect"&gt;</code>. My JavaScript 
+                        logic then changes the active state by applying specific classes directly to the <code>body</code>. 
+                        This triggers smooth CSS color transitions on the moving blobs, providing a flawless liquid animation.
                     </p>
 
-                    <h3>Challenge 5: Reacting Grids and Squished Cards</h3>
-                    <p>The initial 6 hardcoded action cards I constructed were built on a large desktop screen. I
+                    <h3>Challenge 5 — Reacting Grids and Squished Cards</h3>
+                    <p>
+                        The initial 6 hardcoded action cards I constructed were built on a large desktop screen. I
                         inserted them using simple CSS next to each other and was proud of it—until I shrunk my browser
                         window to imitate a cell phone. The cards did not stack; they merely squeezed together until the
-                        text overlapped and became completely unreadable.</p>
-                    <p>I first attempted to write a series of complex <code>@media</code> queries to force column
-                        formats at various screen sizes. Then, while researching, I found the strength of the
-                        <code>auto-fit</code> and <code>minmax()</code> functions in CSS Grid. I replaced dozens of code
-                        lines with a single one:
+                        text overlapped. I replaced dozens of code lines with a single one:
                         <code>grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));</code>. This commanded the
                         browser to fit as many 240px cards in a row as it could, wrapping them automatically when the
-                        screen became too narrow. It was a breakthrough in understanding modern fluid responsive design.
+                        screen became too narrow.
                     </p>
                 </section>
 
-                <section id="accessibility" class="editor-section">
-                    <h2>4. Accessibility Considerations</h2>
-                    <p>As I was working on the site, I understood that it is easy to make a webpage look cool, but it
-                        does not do much good when certain individuals are not able to use it. I placed a very high
-                        value on keyboard navigation and screen-reader support:</p>
+                <section id="compliance">
+                    <h2 id="accessibility">Compliance</h2>
+                    <p>
+                        All three pages I authored are designed to be in full compliance with Janet's Acceptable Use 
+                        Policy and with relevant UK legal requirements for web publishing.
+                    </p>
                     <ul>
-                        <li><strong>Keyboard Interactivity:</strong> I had initially created my action cards using the
-                            <code>&lt;div&gt;</code> tag, which meant a user using the Tab key could not select them. I
-                            researched and added <code>tabindex="0"</code> and <code>role="button"</code> to the HTML.
-                            Moreover, I coded a specific event listener in <code>ais.js</code> that responds to keydowns
-                            of the 'Enter' and 'Space' keys, allowing users to play the simulator fully without a mouse.
-                            I also implemented <code>aria-pressed="true/false"</code> states to dynamically inform
-                            screen readers when a card is selected.
-                        </li>
-                        <li><strong>Semantic Context:</strong> All content images on my page have descriptive
-                            <code>alt</code> text to ensure clear narratives. Conversely, for the decorative SVG icons
-                            applied inside the simulator cards, I learned how to apply <code>aria-hidden="true"</code>.
-                            This ensures the audio experience remains clean, preventing the screen reader from reading
-                            unstructured raw SVG code.
-                        </li>
-                    </ul>
-                </section>
-
-                <section id="janet" class="editor-section">
-                    <h2>5. Compliance with JANET Regulations</h2>
-                    <p>Each and every page I have written is in full compliance with the JANET Acceptable Use Policy and
-                        the web publishing policies at the university:</p>
-                    <ul>
-                        <li><strong>Content Integrity:</strong> The content introduced about peacebuilding and resolving
+                        <li>
+                            <strong>Content Integrity:</strong> The content introduced about peacebuilding and resolving
                             conflicts firmly follows the guidelines that the UN provides the public on SDG 16. The text
                             is educational, original, and does not include any offensive, defamatory, or prohibited
-                            materials.</li>
-                        <li><strong>Asset Usage:</strong> To comply with copyright regulations and academic integrity,
+                            materials.
+                        </li>
+                        <li>
+                            <strong>Asset Usage:</strong> To comply with copyright regulations and academic integrity,
                             all backgrounds, textures, and photographs were carefully selected from royalty-free
                             libraries (like Unsplash) explicitly approved for educational and non-commercial purposes.
                         </li>
                     </ul>
                 </section>
 
-                <section id="meetings" class="editor-section">
-                    <h2>6. Group Meetings &amp; Contribution Log</h2>
+                <section id="group">
+                    <h2>Group Meetings and Individual Contribution Log</h2>
                     <table>
                         <thead>
                             <tr>
@@ -517,15 +588,13 @@
                                 <td>26 Feb 2026 (Hybrid)</td>
                                 <td>Merge core pages and test routing.</td>
                                 <td>Yes</td>
-                                <td>I integrated the Splash screen timing with the Home page, ensuring the <span
-                                        class="code-ref">meta refresh</span> fired perfectly.</td>
+                                <td>I integrated the Splash screen timing with the Home page, ensuring the <code>meta refresh</code> fired perfectly.</td>
                             </tr>
                             <tr>
                                 <td>05 Mar 2026 (Discord)</td>
                                 <td>Team code review and bug fixing.</td>
                                 <td>Yes</td>
-                                <td>I resolved the conflict between my CSS-only back-to-top button and the global JS
-                                    script by introducing conditional DOM rendering.</td>
+                                <td>Refactored my CSS and JS to operate independently from the removed global scripts, ensuring my components functioned perfectly in isolation.</td>
                             </tr>
                             <tr>
                                 <td>12 Mar 2026 (Face-to-Face)</td>
@@ -538,130 +607,115 @@
                                 <td>18 Mar 2026 (Hybrid)</td>
                                 <td>Final W3C validation and packaging.</td>
                                 <td>Yes</td>
-                                <td>I ran `splash.html`, `ais.html`, and `content_ST2.html` through the W3C validator,
+                                <td>I ran <code>splash.html</code>, <code>ais.html</code>, and <code>content_ST2.html</code> through the W3C validator,
                                     confirmed zero errors, and took the required screenshots.</td>
                             </tr>
                         </tbody>
                     </table>
                 </section>
 
-                <section id="references" class="editor-section">
-                    <h2>7. References &amp; Technical Bibliography</h2>
-                    <p>The following technical documentation, community discussions, and official guidelines were
-                        consulted and utilized to engineer the specific features of my coursework deliverables:</p>
+                <section id="ref">
+                    <h2>References</h2>
+                    <p>
+                        The following technical documentation, community discussions, and official guidelines were
+                        consulted and utilized to engineer the specific features of my coursework deliverables:
+                    </p>
 
-                    <div class="reference-grid"
-                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">Splash Screen &amp; Load States</h3>
-                            <ul
-                                style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>&lt;meta&gt; http-equiv attribute</em> (Automated
-                                    Routing). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/http-equiv"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>GeeksforGeeks:</strong> <em>Create a Splash Page App in HTML CSS &amp;
-                                        JavaScript</em>. <a
-                                        href="https://www.geeksforgeeks.org/javascript/create-a-splash-page-app-in-html-css-javascript/"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>DEV Community:</strong> <em>How to make a Splash Screen using HTML CSS and
-                                        JavaScript</em>. <a
-                                        href="https://dev.to/saikatbishal/how-to-make-a-splash-screen-using-html-css-and-javascript-240m"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>SitePoint:</strong> <em>How do you make a JavaScript splash page?</em>
-                                    (Fading and lifecycle logic). <a
-                                        href="https://www.sitepoint.com/community/t/how-do-you-make-a-javascript-splash-page/44555"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">CSS Layout &amp; Visual Dynamism</h3>
-                            <ul
-                                style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>Using CSS transitions</em> (Used to engineer the
-                                    1.6s opacity crossfades for AIS backgrounds). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>CSS Grid Layout Module</em>. <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>CSS-Tricks:</strong> <em>A Complete Guide to CSS Grid Layout</em> (Used for
-                                    responsive action cards). <a
-                                        href="https://css-tricks.com/complete-guide-css-grid-layout/" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>CSS-Tricks:</strong> <em>How SVG Line Animation Works</em> (Used for AIS
-                                    dynamic circular gauge). <a href="https://css-tricks.com/svg-line-animation-works/"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>Animista:</strong> <em>CSS Animations Keyframe generator</em> (Used for
-                                    Splash Screen glowing effects). <a href="https://animista.net/" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">JavaScript Logic &amp; Interactivity</h3>
-                            <ul
-                                style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>Element.classList</em> (Used to toggle the
-                                    `.active` states for background layers and action cards). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>W3Schools:</strong> <em>JavaScript Introduction &amp; Core Logic</em>. <a
-                                        href="https://www.w3schools.com/js/" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>Client-side form validation</em> (Used to
-                                    validate interactions). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>addEventListener()</em> (Core logic capturing
-                                    keyboard/mouse events). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>W3Schools:</strong> <em>HTML5 Web Storage</em> (Reference for passing user
-                                    states). <a href="https://www.w3schools.com/html/html5_webstorage.asp"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">Academic Context &amp; Compliance</h3>
-                            <ul
-                                style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>University of Westminster:</strong> (2026). <em>Web Design and Development
-                                        Lecture Notes</em>.</li>
-                                <li><strong>United Nations:</strong> (n.d.). <em>Sustainable Development Goal 16: Peace,
-                                        Justice and Strong Institutions</em>. <a href="https://sdgs.un.org/goals/goal16"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>W3C:</strong> (n.d.). <em>Markup Validation Service</em>. <a
-                                        href="https://validator.w3.org/" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>Jisc:</strong> (n.d.). <em>Janet Acceptable Use Policy</em>. <a
-                                        href="https://www.jisc.ac.uk/janet/policies/acceptable-use" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <ul class="ref">
+                        <li>
+                            MDN Web Docs: <em>&lt;meta&gt; http-equiv attribute</em> (Automated Routing).
+                            Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/http-equiv" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/http-equiv</a>
+                        </li>
+                        <li>
+                            GeeksforGeeks: <em>Create a Splash Page App in HTML CSS &amp; JavaScript</em>.
+                            Available at: <a href="https://www.geeksforgeeks.org/javascript/create-a-splash-page-app-in-html-css-javascript/" target="_blank">https://www.geeksforgeeks.org/javascript/create-a-splash-page-app-in-html-css-javascript/</a>
+                        </li>
+                        <li>
+                            DEV Community: <em>How to make a Splash Screen using HTML CSS and JavaScript</em>.
+                            Available at: <a href="https://dev.to/saikatbishal/how-to-make-a-splash-screen-using-html-css-and-javascript-240m" target="_blank">https://dev.to/saikatbishal/how-to-make-a-splash-screen-using-html-css-and-javascript-240m</a>
+                        </li>
+                        <li>
+                            SitePoint: <em>How do you make a JavaScript splash page?</em> (Fading and lifecycle logic).
+                            Available at: <a href="https://www.sitepoint.com/community/t/how-do-you-make-a-javascript-splash-page/44555" target="_blank">https://www.sitepoint.com/community/t/how-do-you-make-a-javascript-splash-page/44555</a>
+                        </li>
+                        <li>
+                            MDN Web Docs: <em>Using CSS transitions</em>.
+                            Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions" target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions</a>
+                        </li>
+                        <li>
+                            MDN Web Docs: <em>CSS Grid Layout Module</em>.
+                            Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout" target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout</a>
+                        </li>
+                        <li>
+                            CSS-Tricks: <em>A Complete Guide to CSS Grid Layout</em>.
+                            Available at: <a href="https://css-tricks.com/complete-guide-css-grid-layout/" target="_blank">https://css-tricks.com/complete-guide-css-grid-layout/</a>
+                        </li>
+                        <li>
+                            CSS-Tricks: <em>How SVG Line Animation Works</em>.
+                            Available at: <a href="https://css-tricks.com/svg-line-animation-works/" target="_blank">https://css-tricks.com/svg-line-animation-works/</a>
+                        </li>
+                        <li>
+                            Animista: <em>CSS Animations Keyframe generator</em>.
+                            Available at: <a href="https://animista.net/" target="_blank">https://animista.net/</a>
+                        </li>
+                        <li>
+                            MDN Web Docs: <em>Element.classList</em>.
+                            Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/Element/classList</a>
+                        </li>
+                        <li>
+                            W3Schools: <em>JavaScript Introduction &amp; Core Logic</em>.
+                            Available at: <a href="https://www.w3schools.com/js/" target="_blank">https://www.w3schools.com/js/</a>
+                        </li>
+                        <li>
+                            MDN Web Docs: <em>addEventListener()</em>.
+                            Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" target="_blank">https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener</a>
+                        </li>
+                        <li>
+                            University of Westminster (2026): <em>Web Design and Development Lecture Notes</em>. Internal document.
+                        </li>
+                        <li>
+                            United Nations: <em>Sustainable Development Goal 16: Peace, Justice and Strong Institutions</em>.
+                            Available at: <a href="https://sdgs.un.org/goals/goal16" target="_blank">https://sdgs.un.org/goals/goal16</a>
+                        </li>
+                        <li>
+                            W3C: <em>Markup Validation Service</em>.
+                            Available at: <a href="https://validator.w3.org/" target="_blank">https://validator.w3.org/</a>
+                        </li>
+                        <li>
+                            Jisc: <em>Janet Acceptable Use Policy</em>.
+                            Available at: <a href="https://www.jisc.ac.uk/janet/policies/acceptable-use" target="_blank">https://www.jisc.ac.uk/janet/policies/acceptable-use</a>
+                        </li>
+                        <li>
+                            CSS-Tricks: <em>The Gooey Effect</em>.
+                            Available at: <a href="https://css-tricks.com/gooey-effect/" target="_blank">https://css-tricks.com/gooey-effect/</a>
+                        </li>
+                        <li>
+                            CSS-Tricks: <em>Countdown timer and ring</em>.
+                            Available at: <a href="https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript/" target="_blank">https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript/</a>
+                        </li>
+                        <li>
+                            YouTube: <em>Progress Bar</em>.
+                            Available at: <a href="https://www.youtube.com/watch?v=4LBRMSk6PLY" target="_blank">https://www.youtube.com/watch?v=4LBRMSk6PLY</a>
+                        </li>
+                    </ul>
                 </section>
-            </div>
-        </div>
-    </main>
 
-    <footer class="site-footer">
+            </div><p class="top"><a href="#top">Back to Top</a></p>
+
+        </main></div><footer class="site-footer">
         <div class="footer-container">
             <div class="student-info">
                 <h3>Page Author</h3>
                 <p><strong>Name:</strong> Usmaan Imran</p>
                 <p><strong>Student ID:</strong> 20240530</p>
-                <p><strong>Role:</strong> Student 2 (Splash Screen & Action Impact Simulator)</p>
+                <p><strong>Role:</strong> Student 2 (Splash Screen &amp; Action Simulator)</p>
             </div>
             <div class="footer-links">
                 <h3>Developer Links</h3>
                 <ul>
                     <li><a href="pageEditor_ST2.html">Page Editor (ST2)</a></li>
                     <li><a href="validation_ST2.html">Validation Evidence</a></li>
-                    <li><a href="pageEditor_ST2.html#accessibility">Accessibility & Compliance</a></li>
+                    <li><a href="pageEditor_ST2.html#accessibility">Accessibility &amp; Compliance</a></li>
                 </ul>
             </div>
         </div>
@@ -669,7 +723,5 @@
             <p>&copy; 2026 Team Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
         </div>
     </footer>
-    <script src="main.js"></script>
 </body>
-
 </html>
