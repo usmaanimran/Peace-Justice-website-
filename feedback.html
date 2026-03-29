@@ -2,243 +2,335 @@
 <html lang="en">
 
 <head>
-    <!-- Basic page setup -->
+    <!-- Basic document setup -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Browser tab title -->
     <title>Peace & Justice | Feedback & Support Directory</title>
+    <meta name="description" content="Student 3 feedback page for SDG 16 with a scrollable programme directory, community reviews, and a validated feedback form.">
 
-    <!-- Short page summary -->
-    <meta name="description"
-        content="Student 3 feedback page for SDG 16 with a scrollable programme directory, community reviews, and a validated feedback form.">
-
-    <!-- Shared global stylesheet used by the whole team -->
+    <!-- Shared site-wide styling -->
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* Page-specific styling for Student 3 Feedback page.
-           This keeps the same dark, glassy visual style used by the team,
-           but adds layout/styling only needed for this page. */
+        /* Shared card look reused across programme cards, reviews and form panels */
+        .program-card,
+        .review-card,
+        .rating-summary,
+        .feedback-form,
+        .form-section {
+            background: rgba(14, 22, 36, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+        }
 
+        /* Small gap under legends improves readability inside nested fieldsets */
+        .feedback-form legend {
+            margin-bottom: 10px;
+        }
+
+        /* Keeps the page centred and prevents content from stretching too wide */
         .feedback-wrapper {
-            max-width: 1200px;
+            max-width: 1160px;
             margin: 40px auto 80px;
             padding: 0 20px;
         }
 
+        /* Intro is centred to give it a simple hero-style feel */
         .page-intro-panel {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            backdrop-filter: blur(16px);
-            padding: 40px;
             text-align: center;
-            margin-bottom: 35px;
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
         }
 
-        .page-intro-panel h1 {
-            font-family: var(--font-heading);
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            color: var(--text-main);
-        }
-
-        .page-intro-panel p {
-            max-width: 850px;
-            margin: 0 auto;
-            color: var(--text-muted);
-            line-height: 1.8;
-            font-size: 1.03rem;
-        }
-
-        .section-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            backdrop-filter: blur(16px);
-            padding: 35px;
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
-            margin-bottom: 35px;
-        }
-
-        .section-card h2 {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            margin-bottom: 12px;
-            color: var(--text-main);
-        }
-
-        .section-card .section-lead {
-            color: var(--text-muted);
-            line-height: 1.75;
-            margin-bottom: 24px;
-        }
-
-        .directory-scroll-box {
-            max-height: 700px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        /* Thin custom scrollbar to make the scrollable area look intentional */
-        .directory-scroll-box::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .directory-scroll-box::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
-        }
-
-        .directory-scroll-box::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-gold));
-            border-radius: 20px;
-        }
-
-        .program-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 22px;
-        }
-
-        .program-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        /* Small decorative line and label row used above the main heading */
+        .intro-kicker {
             display: flex;
-            flex-direction: column;
-        }
-
-        .program-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(0, 240, 255, 0.35);
-            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.4);
-        }
-
-        .program-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .program-content {
-            padding: 22px;
-        }
-
-        .program-content h3 {
-            color: var(--accent-cyan);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .program-content p {
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 14px;
-        }
-
-        .program-tags {
-            display: flex;
-            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
             gap: 10px;
             margin-bottom: 16px;
         }
 
-        .program-tags span {
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-main);
-            font-size: 0.85rem;
-            padding: 7px 11px;
-            border-radius: 999px;
+        /* Gold accent helps connect intro details with the overall theme */
+        .intro-kicker-line,
+        .intro-divider {
+            background: var(--c-gold);
         }
 
-        .program-btn {
-            display: inline-block;
-            text-decoration: none;
+        .intro-kicker-line {
+            width: 34px;
+            height: 1px;
+            opacity: 0.7;
+        }
+
+        .intro-divider {
+            width: 58px;
+            height: 2px;
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
+
+        /* Heading font reused for main title and section titles for consistency */
+        .page-intro-panel h1,
+        .section-heading {
+            font-family: var(--font-heading);
+            color: var(--c-text);
+        }
+
+        .page-intro-panel h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .section-heading {
+            font-size: clamp(1.45rem, 2.5vw, 1.9rem);
+            margin-bottom: 8px;
+        }
+
+        /* Softer text tone keeps supporting content readable on the dark background */
+        .page-intro-panel p,
+        .section-lead,
+        .program-content p,
+        .review-card p {
+            color: #c8d4e0;
+            line-height: 1.75;
+        }
+
+        .page-intro-panel p {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .section-lead {
+            margin-bottom: 20px;
+        }
+
+        /* Subtle border tint helps distinguish major content blocks */
+        .directory-section {
+            border-color: rgba(212, 175, 55, 0.22);
+        }
+
+        .reviews-section {
+            border-color: rgba(34, 211, 238, 0.16);
+        }
+
+        /* Sorting control kept aligned to the right so it reads like a utility action */
+        .directory-topbar {
+            color: var(--c-text);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        /* Dark option text improves readability inside the native dropdown list */
+        .directory-topbar select option {
             color: #000;
-            background: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            padding: 11px 16px;
-            border-radius: 10px;
-            font-weight: 700;
-            transition: all 0.3s ease;
         }
 
-        .program-btn:hover,
-        .program-btn:focus {
+        /* Light custom styling avoids the default browser select look */
+        .directory-topbar select {
             background: transparent;
-            color: var(--accent-gold);
-            transform: translateY(-2px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--c-text);
+        }
+
+        /* Inputs are given a soft surface so they feel part of the page design */
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: var(--c-text);
+            border-radius: var(--radius-sm);
+            font: inherit;
+        }
+
+        /* Gentle gradient helps the form area stand out without becoming too bright */
+        .feedback-form,
+        .form-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(212, 175, 55, 0.03));
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 10px 12px;
+            font-size: 0.9rem;
+        }
+
+        .directory-topbar select {
+            padding: 8px 12px;
+        }
+
+        /* Scrollable programme area prevents this section from taking over the full page */
+        .directory-scroll-box {
+            max-height: 700px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        /* Slim custom scrollbar keeps the scroll area neat and easy to spot */
+        .directory-scroll-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .directory-scroll-box::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.65);
+            border-radius: 10px;
+        }
+
+        /* Grid layout keeps cards and form sections organised and easy to scan */
+        .program-grid,
+        .reviews-grid,
+        .form-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .program-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
 
         .reviews-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            gap: 24px;
+            grid-template-columns: 1.05fr 1fr;
             align-items: start;
         }
 
         .review-strip {
             display: grid;
-            gap: 18px;
+            gap: 14px;
         }
 
-        .review-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--accent-cyan);
-            border-radius: 0 14px 14px 0;
-            padding: 20px 22px;
+        /* Programme cards use a small hover lift so they feel clickable without overdoing animation */
+        .program-card {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, border-color 0.25s ease;
         }
 
-        .review-card h3 {
-            margin-bottom: 8px;
-            color: var(--text-main);
-            font-size: 1.05rem;
+        .program-card:hover,
+        .review-card:hover {
+            transform: translateY(-3px);
         }
 
-        .review-card .stars {
-            color: var(--accent-gold);
-            letter-spacing: 2px;
+        /* Fixed image height keeps card sizes visually balanced */
+        .program-card img {
+            width: 100%;
+            height: 185px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .program-content {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .program-content h3,
+        .big-score {
+            font-family: var(--font-heading);
+        }
+
+        .program-content h3 {
+            font-size: 1.1rem;
             margin-bottom: 10px;
-            font-size: 1rem;
+            color: var(--c-text);
         }
 
-        .review-card p {
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin: 0;
+        /* Tags help break information into quick visual cues */
+        .program-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
         }
 
+        /* Removes default link underline inside custom button styling */
+        .program-btn,
+        .program-btn .btn-text {
+            text-decoration: none;
+        }
+
+        .program-tags span,
+        .rating-badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            color: #e8c84a;
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+
+        /* Slight gradient gives the summary block more visual emphasis */
+        .rating-summary {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.16), rgba(34, 211, 238, 0.12));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+        }
+
+        .rating-main {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .big-score {
+            font-size: 2.4rem;
+            color: var(--c-gold);
+        }
+
+        /* Review cards use a coloured left edge to separate them from programme cards */
+        .review-card {
+            padding: 16px;
+            border-left: 3px solid var(--c-cyan);
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.10), rgba(212, 175, 55, 0.08));
+            border-radius: var(--radius-md);
+        }
+
+        .stars,
+        .review-rating-value {
+            color: var(--c-gold);
+        }
+
+        .review-meta {
+            font-size: 0.8rem;
+            color: var(--c-muted);
+            margin-top: 8px;
+        }
+
+        /* Form container has a little extra padding to make longer forms feel less cramped */
         .feedback-form {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 24px;
+            padding: 22px;
+            border-color: rgba(212, 175, 55, 0.22);
         }
 
-        .feedback-form fieldset {
+        .feedback-form > fieldset,
+        .form-section {
             border: none;
             padding: 0;
             margin: 0;
         }
 
-        .feedback-form legend {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            margin-bottom: 20px;
+        .form-section {
+            padding: 16px;
+            margin-bottom: 14px;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .form-grid {
-            display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px 20px;
+            gap: 13px 16px;
         }
 
         .form-group {
@@ -246,133 +338,101 @@
             flex-direction: column;
         }
 
+        /* Full-width fields are used where a single row improves readability */
         .form-group.full-width {
             grid-column: 1 / -1;
         }
 
-        .form-group label {
-            margin-bottom: 8px;
-            color: var(--text-main);
-            font-weight: 600;
+        .form-group label,
+        .feedback-form legend,
+        .form-section legend {
+            color: var(--c-gold);
+            font-weight: 700;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select,
-        .form-group datalist {
-            background: rgba(8, 12, 18, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-            border-radius: 10px;
-            padding: 12px 14px;
-            font: inherit;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        .form-group label {
+            color: #d0dce8;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 130px;
+            min-height: 110px;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.12);
+        #address {
+            min-height: 82px;
         }
 
-        .help-text {
-            margin-top: 6px;
-            font-size: 0.88rem;
-            color: var(--text-muted);
+        /* Small helper text and inline feedback are visually secondary but still readable */
+        .help-text,
+        .char-counter,
+        .error-text {
+            margin-top: 4px;
+            font-size: 0.8rem;
+        }
+
+        .help-text,
+        .char-counter {
+            color: var(--c-muted);
         }
 
         .char-counter {
-            margin-top: 8px;
-            font-size: 0.88rem;
-            color: var(--text-muted);
             text-align: right;
         }
 
         .error-text {
-            min-height: 20px;
-            margin-top: 6px;
             color: #ff8a8a;
-            font-size: 0.88rem;
-        }
-
-        .status-message {
-            display: none;
-            margin-top: 18px;
-            padding: 14px 16px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-
-        .status-message.success {
-            display: block;
-            background: rgba(34, 197, 94, 0.12);
-            border: 1px solid rgba(34, 197, 94, 0.35);
-            color: #b7f7c5;
-        }
-
-        .status-message.error {
-            display: block;
-            background: rgba(239, 68, 68, 0.12);
-            border: 1px solid rgba(239, 68, 68, 0.35);
-            color: #ffc3c3;
+            min-height: 17px;
         }
 
         .form-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 10px;
+            gap: 10px;
+            margin-top: 14px;
         }
 
-        .action-btn {
-            border: 1px solid var(--accent-gold);
-            background: var(--accent-gold);
-            color: #000;
-            padding: 12px 18px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        /* Status box is reused for both success and error messages */
+        .status-message {
+            display: none;
+            margin-top: 14px;
+            padding: 11px 15px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.88rem;
         }
 
-        .action-btn.secondary {
-            background: transparent;
-            color: var(--accent-gold);
+        .status-message.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid var(--c-green);
+            color: #b7f7c5;
         }
 
-        .action-btn:hover,
-        .action-btn:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.28);
+        .status-message.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #ffc3c3;
         }
 
-        .action-btn.secondary:hover,
-        .action-btn.secondary:focus {
-            background: var(--accent-gold);
-            color: #000;
+        /* Shared spacing for the three main content panels */
+        .page-intro-panel,
+        .directory-section,
+        .reviews-section {
+            width: 100%;
+            padding: 32px;
+            margin-bottom: 28px;
         }
 
+        /* On smaller screens, everything stacks into a single column for readability */
         @media (max-width: 960px) {
             .program-grid,
             .reviews-grid,
             .form-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .page-intro-panel,
-            .section-card {
-                padding: 24px;
-            }
-
-            .page-intro-panel h1 {
-                font-size: 2.2rem;
             }
 
             .directory-scroll-box {
@@ -381,173 +441,12 @@
                 padding-right: 0;
             }
         }
-
-        /* Small top row for heading + dropdown */
-        .directory-topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 22px;
-            flex-wrap: wrap;
-        }
-
-        .directory-filter {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .directory-filter label {
-            color: var(--text-main);
-            font-weight: 600;
-        }
-
-        .directory-filter select {
-            background: rgba(8, 12, 18, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: var(--text-main);
-            border-radius: 10px;
-            padding: 10px 14px;
-            font: inherit;
-            min-width: 190px;
-            cursor: pointer;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .directory-filter select:hover,
-        .directory-filter select:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.12);
-            transform: translateY(-1px);
-        }
-
-        /* Make cards stand out a little more but stay in team style */
-        .program-card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
-        }
-
-        .program-content h3 {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding-bottom: 8px;
-        }
-
-        /* Rating summary box */
-        .rating-summary {
-            background: rgba(255, 255, 255, 0.035);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-left: 4px solid var(--accent-gold);
-            border-radius: 16px;
-            padding: 22px;
-            margin-bottom: 22px;
-            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.25);
-        }
-
-        .rating-summary h3 {
-            color: var(--text-main);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        .rating-score {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-        }
-
-        .rating-score .big-score {
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: var(--accent-gold);
-            line-height: 1;
-        }
-
-        .rating-score .rating-label {
-            font-size: 1rem;
-            color: var(--text-main);
-            font-weight: 700;
-        }
-
-        .rating-meta {
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* Review meta details */
-        .review-meta {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 14px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .review-rating-value {
-            color: var(--accent-gold);
-            font-weight: 700;
-        }
-
-        .review-more {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--accent-cyan);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .review-more:hover,
-        .review-more:focus {
-            color: var(--accent-gold);
-        }
-
-        /* Fieldset grouping */
-        .form-section {
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .form-section legend {
-            padding: 0 8px;
-            color: var(--accent-cyan);
-            font-weight: 700;
-        }
-
-        /* Address textarea height */
-        #address {
-            min-height: 90px;
-            resize: vertical;
-        }
-
-        @media (max-width: 960px) {
-            .directory-topbar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .directory-filter {
-                width: 100%;
-            }
-
-            .directory-filter select {
-                width: 100%;
-            }
-        }
     </style>
 </head>
 
-<body class="page-fade-in">
+<body class="page-fade-in feedback-bg">
 
-    <!-- Shared header and navigation to keep consistency with the team template -->
+    <!-- Shared page header and navigation -->
     <header class="site-header">
         <div class="nav-container">
             <a href="home.html" class="logo-link" aria-label="Home - Peace and Justice">
@@ -555,11 +454,8 @@
                     onerror="this.style.display='none'">
                 <span class="site-title">Peace <span class="text-gradient">&amp;</span> Justice</span>
             </a>
-
-            <!-- Mobile nav button reused from shared site structure -->
             <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
                 aria-controls="feedback-nav-list" type="button">☰</button>
-
             <nav class="main-nav" aria-label="Primary Navigation">
                 <ul id="feedback-nav-list">
                     <li><a href="home.html">Home</a></li>
@@ -577,149 +473,136 @@
     <main class="main-content">
         <div class="feedback-wrapper">
 
-            <!-- Intro panel gives the page a polished opening and explains its purpose -->
-            <section class="page-intro-panel reveal-element">
-                <h1>Feedback <span class="text-gradient">&amp;</span> Support Directory</h1>
+            <!-- Intro section gives context before users reach the directory and form -->
+            <section class="card page-intro-panel reveal-element" aria-labelledby="intro-heading">
+                <div class="intro-kicker">
+                    <div class="intro-kicker-line"></div>
+                    <span>SDG 16</span>
+                    <div class="intro-kicker-line"></div>
+                </div>
+                <h1 id="intro-heading">Feedback <span class="text-gradient">&amp;</span><br>Support Directory</h1>
+                <div class="intro-divider"></div>
                 <p>
-                    Building peace and justice requires more than awareness. People also need clear places to go for
-                    support, dialogue, and guidance. This page highlights practical community programmes linked to SDG
-                    16 and allows visitors to share their experience, suggestions, and feedback through a structured form.
+                    Building peace and justice requires more than awareness. People also need clear places to go for support, dialogue and guidance. 
+                    This space brings together real community initiatives that support peace, fairness and inclusion. Explore the programmes below and share your thoughts, experiences or ideas to help strengthen these efforts.
                 </p>
             </section>
 
-            <!-- Scrollable programme directory required by the coursework -->
-            <section class="section-card reveal-element delay-1" aria-labelledby="directory-heading">
-                <h2 id="directory-heading">Programme Directory</h2>
+            <!-- Scrollable programme list -->
+            <section class="card directory-section reveal-element delay-1" aria-labelledby="directory-heading">
+                <h2 class="section-heading" id="directory-heading">Programme Directory</h2>
                 <p class="section-lead">
-                    The following programmes show how schools, communities, and support services can make justice more
-                    visible, accessible, and inclusive. Scroll through the directory to explore different types of support.
+                    Explore a range of community and student-focused programmes that support fairness, inclusion, dialogue and access to guidance. These initiatives reflect how SDG 16 can be encouraged through practical
+                    support systems, peaceful engagement and stronger community connections.
                 </p>
 
+                <!-- Sorting is decorative here; it is styled for browsing rather than functionality -->
                 <div class="directory-topbar">
-                    <div></div>
-                    <div class="directory-filter">
-                        <label for="programmeSort">Sort / Filter</label>
-                        <select id="programmeSort" name="programmeSort" aria-label="Sort programmes">
-                            <option value="popular">Most Popular</option>
-                            <option value="student">Student-friendly</option>
-                            <option value="nearest">Nearest</option>
-                            <option value="support">Support Services</option>
-                        </select>
-                    </div>
+                    <label for="programmeSort">Sort / Filter</label>
+                    <select id="programmeSort" name="programmeSort" aria-label="Sort programmes">
+                        <option value="" selected hidden>Select option</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="student">Student-friendly</option>
+                        <option value="nearest">Nearest</option>
+                        <option value="support">Support Services</option>
+                    </select>
                 </div>
 
                 <div class="directory-scroll-box">
                     <div class="program-grid">
 
                         <article class="program-card">
-                            <img src="images/legal-clinic.jpg"
+                            <img src="images/legal_aid.png"
                                 alt="A legal support discussion showing guidance being provided to a community member">
                             <div class="program-content">
                                 <h3>Community Legal Aid Clinic</h3>
-                                <p>
-                                    A support programme that connects individuals with basic legal guidance, referral
-                                    pathways, and rights awareness sessions. It is especially useful for people who may
-                                    feel overwhelmed by legal language or formal procedures.
-                                </p>
+                                <p>A support programme that connects individuals with basic legal guidance, referral pathways and rights awareness sessions. Especially useful for people who feel
+                                    overwhelmed by legal language or formal procedures.</p>
                                 <div class="program-tags">
                                     <span>Rights Awareness</span>
                                     <span>Practical Support</span>
                                     <span>Inclusive Access</span>
                                 </div>
-                                <a href="#feedback-form" class="program-btn">Recommend This</a>
+                                <a href="#feedback-form" class="magnetic-btn program-btn"><span class="btn-text">Recommend This</span></a>
                             </div>
                         </article>
 
                         <article class="program-card">
-                            <img src="images/youth-dialogue.jpg"
+                            <img src="images/youth_leadership.jpg"
                                 alt="Young people in discussion representing civic participation and peaceful dialogue">
                             <div class="program-content">
                                 <h3>Youth Civic Dialogue Hub</h3>
-                                <p>
-                                    A student-focused initiative that encourages respectful debate, leadership, public
-                                    discussion, and stronger understanding of democratic participation. It helps young
-                                    people practise peaceful communication in shared spaces.
-                                </p>
+                                <p>A student-focused initiative that encourages respectful debate, leadership, public discussion and stronger understanding of democratic participation. Helps young
+                                    people practise peaceful communication in shared spaces.</p>
                                 <div class="program-tags">
                                     <span>Youth Voice</span>
                                     <span>Dialogue</span>
                                     <span>Leadership</span>
                                 </div>
-                                <a href="#feedback-form" class="program-btn">Share Opinion</a>
+                                <a href="#feedback-form" class="magnetic-btn program-btn"><span class="btn-text">Share Opinion</span></a>
                             </div>
                         </article>
 
                         <article class="program-card">
-                            <img src="images/digital-support.jpg"
+                            <img src="images/digital_justice.png"
                                 alt="A person using digital tools to access support services and public information">
                             <div class="program-content">
                                 <h3>Digital Justice Access Desk</h3>
-                                <p>
-                                    A digital-first support channel that helps users find trustworthy public resources,
-                                    reporting pathways, and guidance in a more accessible and less intimidating format.
-                                    It is valuable for people who prefer remote support.
-                                </p>
+                                <p>A digital-first support channel that helps users find trustworthy public resources, reporting pathways and guidance in a more accessible and less intimidating format.
+                                    Valuable for people who prefer remote support.</p>
                                 <div class="program-tags">
                                     <span>Digital Access</span>
                                     <span>Guided Support</span>
                                     <span>Remote Help</span>
                                 </div>
-                                <a href="#feedback-form" class="program-btn">Suggest Improvements</a>
+                                <a href="#feedback-form" class="magnetic-btn program-btn"><span class="btn-text">Suggest Improvements</span></a>
                             </div>
                         </article>
 
                         <article class="program-card">
-                            <img src="images/community-mediation.jpg"
+                            <img src="images/community.jpg"
                                 alt="A peaceful community discussion or mediation meeting focused on conflict resolution">
                             <div class="program-content">
                                 <h3>Neighbourhood Mediation Circle</h3>
-                                <p>
-                                    A local programme designed to reduce everyday conflict through guided conversation,
-                                    listening, and problem-solving. This kind of initiative can improve trust and reduce
-                                    the need for situations to escalate.
-                                </p>
+                                <p>A local programme designed to reduce everyday conflict through guided conversation, listening and problem-solving. Can improve trust and reduce the need for
+                                    situations to escalate.</p>
                                 <div class="program-tags">
                                     <span>Conflict Resolution</span>
                                     <span>Local Trust</span>
                                     <span>Community Care</span>
                                 </div>
-                                <a href="#feedback-form" class="program-btn">Leave Feedback</a>
+                                <a href="#feedback-form" class="magnetic-btn program-btn"><span class="btn-text">Leave Feedback</span></a>
                             </div>
                         </article>
 
                         <article class="program-card">
-                            <img src="images/school-rights.jpg"
+                            <img src="images/school_rights.png"
                                 alt="Students in a learning space discussing rights, fairness, and support services">
                             <div class="program-content">
                                 <h3>School Rights Awareness Workshop</h3>
-                                <p>
-                                    A programme that introduces students to basic rights, respectful reporting channels, and how
-                                    to seek guidance when facing unfair treatment. It helps build confidence and early awareness.
-                                </p>
+                                <p>A programme that introduces students to basic rights, respectful reporting channels and how to seek guidance when facing unfair treatment. Builds confidence and
+                                    early awareness.</p>
                                 <div class="program-tags">
                                     <span>Student Support</span>
                                     <span>Rights Education</span>
                                     <span>Awareness</span>
                                 </div>
-                                <a href="#feedback-form" class="program-btn">Learn More</a>
+                                <a href="#feedback-form" class="magnetic-btn program-btn"><span class="btn-text">Learn More</span></a>
                             </div>
                         </article>
 
                         <article class="program-card">
-                            <img src="images/women-support.jpg"
+                            <img src="images/inclusive_community.png"
                                 alt="Community support setting showing inclusive guidance and safe access to help">
                             <div class="program-content">
                                 <h3>Inclusive Community Help Point</h3>
-                                <p>
-                                    A welcoming support point that helps women, youth, and vulnerable groups find safe services,
-                                    trusted referrals, and practical guidance in a clear and respectful way.
-                                </p>
+                                <p>A welcoming support point that helps women, youth and vulnerable groups find safe services, trusted referrals, and practical guidance in a clear and respectful way.</p>
                                 <div class="program-tags">
                                     <span>Inclusive Help</span>
                                     <span>Safe Access</span>
                                     <span>Community Guidance</span>
                                 </div>
-                                <a href="#feedback-form" class="program-btn">Get Involved</a>
+                                <a href="#feedback-form" class="magnetic-btn program-btn"><span class="btn-text">Get Involved</span></a>
                             </div>
                         </article>
 
@@ -727,34 +610,29 @@
                 </div>
             </section>
 
-            <!-- Reviews + form section gives the page both visual depth and interactive marks -->
-            <section class="section-card reveal-element delay-2" aria-labelledby="feedback-heading">
-                <h2 id="feedback-heading">Community Reviews &amp; Visitor Feedback</h2>
+            <!-- Reviews and form are paired so users can browse feedback before adding their own -->
+            <section class="card reviews-section reveal-element delay-2" aria-labelledby="feedback-heading">
+                <h2 class="section-heading" id="feedback-heading">Community Reviews &amp; Visitor Feedback</h2>
                 <p class="section-lead">
-                    Visitors can look at sample feedback and then submit their own response. The form checks important
-                    fields using JavaScript so that the user gets clear guidance instead of submitting incomplete details.
+                    Real people, real experiences. Browse what our community says about the listed programmes, then use the form to share your own thoughts, rate your experience or suggest improvements.
                 </p>
+
                 <div class="rating-summary">
-                <h3>Overall Community Rating</h3>
-                <div class="rating-score">
-                    <span class="big-score">8.8/10</span>
-                    <span class="rating-label">Excellent</span>
+                    <div class="rating-main">
+                        <span class="big-score">8.8<span class="big-score-unit">/10</span></span>
+                        <span class="rating-badge">Excellent</span>
+                    </div>
+                    <div class="rating-count">124 Reviews</div>
+                    <div class="rating-meta">Most users rated programmes as practical and welcoming.</div>
                 </div>
-                <p class="rating-meta">
-                    Based on 124 visitor reviews, most users described the listed programmes as practical, welcoming,
-                    and easy to understand.
-                </p>
-            </div>
 
                 <div class="reviews-grid">
                     <div class="review-strip">
+
                         <article class="review-card">
                             <h3>Useful and approachable</h3>
-                            <div class="stars" aria-label="5 star review">★★★★★</div>
-                            <p>
-                                The programme summaries are easy to understand and feel realistic. I especially liked
-                                that support is shown in both digital and community-based forms.
-                            </p>
+                            <p class="stars">5 star review <span aria-hidden="true">★★★★★</span></p>
+                            <p>The programme summaries are easy to understand and feel realistic. I especially liked that support is shown in both digital and community based forms.</p>
                             <a href="#" class="review-more">See more</a>
                             <div class="review-meta">
                                 <span>Reviewed by: Ayesha Perera</span>
@@ -765,11 +643,8 @@
 
                         <article class="review-card">
                             <h3>Strong student focus</h3>
-                            <div class="stars" aria-label="4 star review">★★★★☆</div>
-                            <p>
-                                The youth dialogue idea is very relevant because students often need safe ways to learn
-                                how justice, respect, and participation work in real life.
-                            </p>
+                            <p class="stars">4 star review <span aria-hidden="true">★★★★☆</span></p>
+                            <p>The youth dialogue idea is very relevant because students often need safe ways to learn how justice, respect and participation work in real life.</p>
                             <a href="#" class="review-more">See more</a>
                             <div class="review-meta">
                                 <span>Reviewed by: Nimal Jayasinghe</span>
@@ -780,11 +655,8 @@
 
                         <article class="review-card">
                             <h3>Clear and well structured</h3>
-                            <div class="stars" aria-label="5 star review">★★★★★</div>
-                            <p>
-                                The page makes SDG 16 feel practical. It does not only explain the issue, but also
-                                shows how support could be organised in a way that feels reachable.
-                            </p>
+                            <p class="stars">5 star review <span aria-hidden="true">★★★★★</span></p>
+                            <p>The page makes SDG 16 feel practical. It not only explains the issue, but also shows how support could be organised in a way that feels reachable.</p>
                             <a href="#" class="review-more">See more</a>
                             <div class="review-meta">
                                 <span>Reviewed by: Kavindi Fernando</span>
@@ -792,9 +664,10 @@
                                 <span class="review-rating-value">9.0/10</span>
                             </div>
                         </article>
+
                     </div>
 
-                    <!-- Main form required for Student 3 -->
+                    <!-- Feedback form with grouped fields for clearer structure -->
                     <form id="feedback-form" class="feedback-form" novalidate>
                         <fieldset>
                             <legend>Share Your Feedback</legend>
@@ -802,22 +675,26 @@
                             <fieldset class="form-section">
                                 <legend>Personal Details</legend>
                                 <div class="form-grid">
+
                                     <div class="form-group">
                                         <label for="fullName">Full Name</label>
-                                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                                        <input type="text" id="fullName" name="fullName"
+                                            placeholder="Enter your full name" required>
                                         <div class="error-text" id="fullNameError"></div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email">Email Address</label>
-                                        <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                                        <input type="email" id="email" name="email"
+                                            placeholder="example@email.com" required>
                                         <div class="error-text" id="emailError"></div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="telephone">Telephone</label>
-                                        <input type="tel" id="telephone" name="telephone" placeholder="+94 77 123 4567" required>
-                                        <div class="help-text">Enter digits with optional +, spaces or hyphens.</div>
+                                        <input type="tel" id="telephone" name="telephone"
+                                            placeholder="+94 77 123 4567" required>
+                                        <div class="help-text">Digits with optional +, spaces or hyphens.</div>
                                         <div class="error-text" id="telephoneError"></div>
                                     </div>
 
@@ -829,31 +706,36 @@
 
                                     <div class="form-group full-width">
                                         <label for="address">Address</label>
-                                        <textarea id="address" name="address" placeholder="Enter your city, area, or a short address"
+                                        <textarea id="address" name="address"
+                                            placeholder="Enter your city, area, or a short address"
                                             required></textarea>
                                         <div class="error-text" id="addressError"></div>
                                     </div>
+
                                 </div>
                             </fieldset>
 
                             <fieldset class="form-section">
                                 <legend>Feedback Details</legend>
                                 <div class="form-grid">
+
                                     <div class="form-group">
                                         <label for="interestArea">Interest Area</label>
                                         <input list="interestOptions" id="interestArea" name="interestArea"
                                             placeholder="Choose or type an area" required>
                                         <datalist id="interestOptions">
-                                            <option value="Legal Support"></option>
+                                            <option value="Legal Aid Support"></option>
                                             <option value="Youth Dialogue"></option>
-                                            <option value="Digital Access"></option>
+                                            <option value="Digital Justice Access"></option>
                                             <option value="Community Mediation"></option>
+                                            <option value="Rights Awareness"></option>
+                                            <option value="Inclusive Community Support"></option>
                                         </datalist>
                                         <div class="error-text" id="interestAreaError"></div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="meetingTime">Preferred Contact Date &amp; Time</label>
+                                        <label for="meetingTime">Date & Time of Feedback</label>
                                         <input type="datetime-local" id="meetingTime" name="meetingTime" required>
                                         <div class="error-text" id="meetingTimeError"></div>
                                     </div>
@@ -861,35 +743,39 @@
                                     <div class="form-group full-width">
                                         <label for="comments">Comments</label>
                                         <textarea id="comments" name="comments" maxlength="250"
-                                            placeholder="Share your thoughts, suggestions, or experience..." required></textarea>
+                                            placeholder="Share your thoughts, suggestions, or experience..."
+                                            required></textarea>
                                         <div class="char-counter">
                                             <span id="charCount">250</span> characters remaining
                                         </div>
                                         <div class="error-text" id="commentsError"></div>
                                     </div>
+
                                 </div>
                             </fieldset>
 
                             <div class="form-actions">
-                                <button type="submit" class="action-btn">Submit Feedback</button>
-                                <button type="reset" class="action-btn secondary">Reset Form</button>
+                                <button type="submit" class="magnetic-btn action-btn"><span class="btn-text">Submit Feedback</span></button>
+                                <button type="reset" class="magnetic-btn action-btn"><span class="btn-text">Reset Form</span></button>
                             </div>
 
+                            <!-- Live status area used for success and validation feedback -->
                             <div id="formStatus" class="status-message" aria-live="polite"></div>
                         </fieldset>
                     </form>
                 </div>
             </section>
+
         </div>
     </main>
 
-    <!-- Shared footer structure, updated with your details -->
+    <!-- Standard footer with student details and supporting coursework links -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="student-info">
                 <h3>Page Author</h3>
-                <p><strong>Name:</strong> methmi thusi</p>
-                <p><strong>Student ID:</strong> 20250678</p>
+                <p><strong>Name:</strong> Manisha Fernando</p>
+                <p><strong>Student ID:</strong> 20240567</p>
                 <p><strong>Role:</strong> Student 3 - Feedback, Team &amp; Content Page</p>
             </div>
             <div class="footer-links">
@@ -906,165 +792,141 @@
         </div>
     </footer>
 
+    <!-- Shared site behaviour -->
     <script src="main.js"></script>
 
     <script>
+    // Wait until the page is fully loaded before working with the form
     document.addEventListener("DOMContentLoaded", function () {
+        // Frequently used form elements
         const form = document.getElementById("feedback-form");
-        const fullName = document.getElementById("fullName");
-        const email = document.getElementById("email");
-        const telephone = document.getElementById("telephone");
-        const visitDate = document.getElementById("visitDate");
-        const address = document.getElementById("address");
-        const interestArea = document.getElementById("interestArea");
-        const meetingTime = document.getElementById("meetingTime");
         const comments = document.getElementById("comments");
         const charCount = document.getElementById("charCount");
         const statusBox = document.getElementById("formStatus");
-
         const maxChars = 250;
 
-        function updateCharacterCount() {
-            const remaining = maxChars - comments.value.length;
-            charCount.textContent = remaining;
+        // Live character counter for the comments box
+        comments.addEventListener("input", function () {
+            charCount.textContent = maxChars - comments.value.length;
+        });
+
+        // Shows an error message beside the field and adds a soft red highlight
+        function setError(inputId, errorId, message) {
+            document.getElementById(errorId).textContent = message;
+            const input = document.getElementById(inputId);
+            input.style.borderColor = "#ff8a8a";
+            input.style.boxShadow = "0 0 0 3px rgba(255,138,138,0.12)";
         }
 
-        updateCharacterCount();
-
-        comments.addEventListener("input", updateCharacterCount);
-
+        // Clears previous validation messages before running checks again
         function clearErrors() {
-            const errorBoxes = document.querySelectorAll(".error-text");
-            errorBoxes.forEach(function (box) {
-                box.textContent = "";
+            form.querySelectorAll(".error-text").forEach(function (el) {
+                el.textContent = "";
             });
-
-            const fields = form.querySelectorAll("input, textarea, select");
-            fields.forEach(function (field) {
-                field.style.borderColor = "";
-                field.style.boxShadow = "";
+            form.querySelectorAll("input, textarea, select").forEach(function (el) {
+                el.style.borderColor = "";
+                el.style.boxShadow = "";
             });
-
             statusBox.className = "status-message";
             statusBox.textContent = "";
         }
 
-        function setError(inputElement, errorId, message) {
-            document.getElementById(errorId).textContent = message;
-            inputElement.style.borderColor = "#ff8a8a";
-            inputElement.style.boxShadow = "0 0 0 3px rgba(255, 138, 138, 0.12)";
-        }
-
-        function isEmailValid(value) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-        }
-
-        function isPhoneValid(value) {
-            return /^[+\d\s-]{7,20}$/.test(value);
-        }
-
+        // Main validation logic kept separate so submit handling stays cleaner
         function validateForm() {
             clearErrors();
+            let valid = true;
 
-            let isValid = true;
+            // Used to stop users choosing past dates
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            const now = new Date();
+            const fullName     = document.getElementById("fullName").value.trim();
+            const email        = document.getElementById("email").value.trim();
+            const telephone    = document.getElementById("telephone").value.trim();
+            const visitDate    = document.getElementById("visitDate").value;
+            const address      = document.getElementById("address").value.trim();
+            const interestArea = document.getElementById("interestArea").value.trim();
+            const meetingTime  = document.getElementById("meetingTime").value;
+            const commentsVal  = comments.value.trim();
 
-            if (fullName.value.trim() === "") {
-                setError(fullName, "fullNameError", "Please enter your full name.");
-                isValid = false;
+            // Basic empty-field and format checks
+            if (!fullName) {
+                setError("fullName", "fullNameError", "Please enter your full name.");
+                valid = false;
+            }
+            if (!email) {
+                setError("email", "emailError", "Please enter your email address.");
+                valid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                setError("email", "emailError", "Please enter a valid email address.");
+                valid = false;
+            }
+            if (!telephone) {
+                setError("telephone", "telephoneError", "Please enter your telephone number.");
+                valid = false;
+            } else if (!/^[+\d\s-]{7,20}$/.test(telephone)) {
+                setError("telephone", "telephoneError", "Please enter a valid telephone number.");
+                valid = false;
+            }
+            if (!visitDate) {
+                setError("visitDate", "visitDateError", "Please select a preferred visit date.");
+                valid = false;
+            } else if (new Date(visitDate) < today) {
+                setError("visitDate", "visitDateError", "Please choose today or a future date.");
+                valid = false;
+            }
+            if (!address) {
+                setError("address", "addressError", "Please enter your address.");
+                valid = false;
+            } else if (address.length < 8) {
+                setError("address", "addressError", "Please enter a more complete address.");
+                valid = false;
+            }
+            if (!interestArea) {
+                setError("interestArea", "interestAreaError", "Please choose or type an interest area.");
+                valid = false;
+            }
+            if (!meetingTime) {
+                setError("meetingTime", "meetingTimeError", "Please select the date and time of feedback.");
+                valid = false;
+            } else if (new Date(meetingTime) < new Date()) {
+                setError("meetingTime", "meetingTimeError", "Please choose a future date and time.");
+                valid = false;
+            }
+            if (!commentsVal) {
+                setError("comments", "commentsError", "Please enter your comments.");
+                valid = false;
+            } else if (commentsVal.length < 10) {
+                setError("comments", "commentsError", "Please enter at least 10 characters.");
+                valid = false;
             }
 
-            if (email.value.trim() === "") {
-                setError(email, "emailError", "Please enter your email address.");
-                isValid = false;
-            } else if (!isEmailValid(email.value.trim())) {
-                setError(email, "emailError", "Please enter a valid email address.");
-                isValid = false;
-            }
-
-            if (telephone.value.trim() === "") {
-                setError(telephone, "telephoneError", "Please enter your telephone number.");
-                isValid = false;
-            } else if (!isPhoneValid(telephone.value.trim())) {
-                setError(telephone, "telephoneError", "Please enter a valid telephone number.");
-                isValid = false;
-            }
-
-            if (visitDate.value === "") {
-                setError(visitDate, "visitDateError", "Please select a preferred visit date.");
-                isValid = false;
-            } else {
-                const selectedDate = new Date(visitDate.value);
-                if (selectedDate < today) {
-                    setError(visitDate, "visitDateError", "Please choose today or a future date.");
-                    isValid = false;
-                }
-            }
-
-            if (address.value.trim() === "") {
-                setError(address, "addressError", "Please enter your address.");
-                isValid = false;
-            } else if (address.value.trim().length < 8) {
-                setError(address, "addressError", "Please enter a more complete address.");
-                isValid = false;
-            }
-
-            if (interestArea.value.trim() === "") {
-                setError(interestArea, "interestAreaError", "Please choose or type an interest area.");
-                isValid = false;
-            }
-
-            if (meetingTime.value === "") {
-                setError(meetingTime, "meetingTimeError", "Please select a preferred contact date and time.");
-                isValid = false;
-            } else {
-                const selectedDateTime = new Date(meetingTime.value);
-                if (selectedDateTime < now) {
-                    setError(meetingTime, "meetingTimeError", "Please choose a future date and time.");
-                    isValid = false;
-                }
-            }
-
-            if (comments.value.trim() === "") {
-                setError(comments, "commentsError", "Please enter your comments.");
-                isValid = false;
-            } else if (comments.value.trim().length < 10) {
-                setError(comments, "commentsError", "Please enter at least 10 characters.");
-                isValid = false;
-            }
-
-            return isValid;
+            return valid;
         }
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-
+        // Prevents page reload and shows either success or error feedback
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
             if (validateForm()) {
                 statusBox.className = "status-message success";
                 statusBox.textContent = "Thank you for your feedback! Your response has been recorded successfully.";
-
-                form.reset();
-                clearErrors();
-                statusBox.className = "status-message success";
-                statusBox.textContent = "Thank you for your feedback! Your response has been recorded successfully.";
-                charCount.textContent = maxChars;
             } else {
                 statusBox.className = "status-message error";
                 statusBox.textContent = "Please correct the highlighted fields before submitting the form.";
             }
         });
 
+        // Reset button clears visible errors and restores the counter
         form.addEventListener("reset", function () {
             setTimeout(function () {
-                clearErrors();
+                form.querySelectorAll(".error-text").forEach(function (el) {
+                    el.textContent = "";
+                });
                 charCount.textContent = maxChars;
             }, 0);
         });
     });
     </script>
-</body>
 
+</body>
 </html>
