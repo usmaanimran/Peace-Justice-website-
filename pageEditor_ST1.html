@@ -4,262 +4,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peace & Justice | Page Editor (Thasreef)</title>
-    
+    <title>Peace &amp; Justice | Page Editor — Thasreef Mohomad</title>
     <link rel="stylesheet" href="style.css">
-    
+
     <style>
-        /* PAGE-SPECIFIC EMBEDDED CSS: TARGETS ONLY ST1 CONTENT */
-        
-        /* Centers the main content block and gives it a max width so it doesn't stretch too wide on big monitors */
-        .dashboard-container {
-            max-width: 1400px;
-            margin: 40px auto 80px;
-            padding: 0 5%;
+        /* ---- Subtle page background matching the site's radial glow pattern ---- */
+        body {
+            background:
+                radial-gradient(circle at 12% 18%, rgba(255, 215, 120, 0.10), transparent 22%),
+                radial-gradient(circle at 88% 20%, rgba(34, 211, 238, 0.08), transparent 20%),
+                linear-gradient(180deg, #050910 0%, #08111d 50%, #050910 100%);
         }
 
-        /* Styles the top intro area */
+        .container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            /* main takes available space; aside is fixed width */
+            gap: 50px;
+            width: min(95%, 1300px);
+            margin: 0 auto;
+            align-items: start;
+            padding: 30px 0 80px;
+        }
+
+        /* Stack to single column on narrow screens */
+        @media (max-width: 880px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: static !important;
+            }
+        }
+
+        /* ---- Sidebar (aside): sticky TOC ---- */
+        aside {
+            position: sticky;
+            top: 110px;
+            /* clears the fixed site header */
+            background: rgba(14, 18, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 28px;
+            backdrop-filter: blur(16px);
+        }
+
+        aside h3 {
+            font-family: var(--font-heading);
+            color: var(--c-text);
+            font-size: 30px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        /* Remove default bullets from the TOC list */
+        aside ul {
+            list-style: none;
+            padding: 10px;
+        }
+
+        aside li {
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--c-muted);
+        }
+
+        /* Indented sub-list */
+        aside ul ul {
+            padding-left: 14px;
+            margin-top: 4px;
+        }
+
+        /* Sidebar links — animated left-border accent on hover */
+        aside a {
+            color: var(--c-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+            display: block;
+            transition: color 0.25s, border-color 0.25s, padding-left 0.25s;
+        }
+
+        aside a:hover,
+        aside a:focus-visible {
+            color: var(--c-gold);
+            border-left-color: var(--c-gold);
+            padding-left: 13px;
+            outline: none;
+        }
+
+        /* ---- Student identity banner (required by template) ---- */
+        .stud {
+            text-align: center;
+            padding: 20px 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .stud h2 {
+            font-family: var(--font-body);
+            font-size: 0.93rem;
+            color: var(--c-muted);
+            font-weight: 400;
+            letter-spacing: 0.4px;
+        }
+
+        /* ---- Page-editor intro heading ---- */
         .editor-header {
-            text-align: left;
-            margin-bottom: 50px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 30px;
+            margin-bottom: 36px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
 
         .editor-header h1 {
             font-family: var(--font-heading);
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            color: var(--text-main);
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            margin-bottom: 8px;
         }
 
         .editor-header p {
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
+            color: var(--c-muted);
+            font-size: 1rem;
         }
 
-        /* Uses CSS Grid to create a two-column layout: a 300px sidebar on the left, and the rest of the space (1fr) for the text on the right */
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-
-        /* Makes the Table of Contents sidebar stick to the screen as you scroll down the page */
-        .toc-sidebar {
-            position: sticky;
-            top: 120px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 30px;
-            backdrop-filter: blur(16px);
-        }
-
-        .toc-sidebar h3 {
-            color: var(--text-main);
-            margin-bottom: 20px;
-            font-family: var(--font-heading);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-        }
-
-        .toc-sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .toc-sidebar li {
-            margin-bottom: 15px;
-        }
-
-        /* Base styles for the sidebar links */
-        .toc-sidebar a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            display: block;
-            border-left: 2px solid transparent;
-            padding-left: 10px;
-        }
-
-        /* Hover animation for sidebar links: turns gold and nudges right */
-        .toc-sidebar a:hover {
-            color: var(--accent-gold);
-            border-left-color: var(--accent-gold);
-            transform: translateX(5px);
-        }
-
-        /* Main Content Styling - Creates the glass-like box for the actual report text */
+        /* ---- Glass card wrapping all main sections ---- */
         .editor-content {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: rgba(14, 18, 30, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
-            padding: 50px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            padding: clamp(28px, 4vw, 50px);
+            backdrop-filter: blur(18px);
         }
 
-        /* Spacing for each major section of the report */
-        .editor-section {
-            margin-bottom: 60px;
+        /* ---- Individual sections inside the card ---- */
+        section {
+            margin-bottom: 56px;
+            scroll-margin-top: 110px;
+            /* prevents heading hiding behind sticky header */
         }
 
-        .editor-section h2 {
+        section h2 {
             font-family: var(--font-heading);
-            font-size: 2.2rem;
-            color: var(--text-main);
-            margin-bottom: 25px;
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            color: var(--c-text);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 15px;
         }
 
-        /* Subheadings with a custom gold glowing dot generated via CSS ::before pseudo-element */
-        .editor-section h3 {
-            font-size: 1.3rem;
-            color: var(--text-main);
-            margin: 30px 0 15px;
+        /* Subheadings with a glowing gold bullet via ::before pseudo-element */
+        section h3 {
+            font-size: 1.13rem;
+            color: var(--c-text);
+            margin: 28px 0 12px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .editor-section h3::before {
+        section h3::before {
             content: '';
-            display: block;
-            width: 8px;
-            height: 8px;
-            background: var(--accent-gold);
+            display: inline-block;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-gold);
+            background: var(--c-gold);
+            box-shadow: 0 0 8px var(--c-gold-glow);
+            flex-shrink: 0;
         }
 
-        .editor-section p,
-        .editor-section ul {
-            line-height: 1.8;
+        section p,
+        section ul,
+        section ol {
             color: #cbd5e1;
-            margin-bottom: 20px;
-            font-size: 1.05rem;
+            line-height: 1.85;
+            margin-bottom: 18px;
+            font-size: 1rem;
         }
 
-        .editor-section ul {
-            padding-left: 20px;
+        section ul,
+        section ol {
+            padding-left: 22px;
         }
 
-        .editor-section li {
+        section li {
             margin-bottom: 10px;
         }
 
-        /* Custom styling for inline code mentions to make them look like a termina */
-        .code-ref {
-            font-family: 'Courier New', monospace;
-            background: rgba(5, 7, 10, 0.8);
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            padding: 4px 8px;
-            border-radius: 6px;
-            color: var(--accent-gold);
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
-            font-size: 0.95rem;
+        /* Inline code-reference chip */
+        code {
+            font-family: var(--font-mono);
+            background: rgba(5, 7, 10, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            color: var(--c-gold);
+            padding: 3px 7px;
+            border-radius: 5px;
+            font-size: 0.87rem;
+            display: inline-block;
+            white-space: nowrap;
         }
 
-        /* Flex container to hold the "Live Page" and "Validation" buttons side-by-side */
         .live-link-group {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 18px;
         }
 
-        /* Pill-shaped button styling for the links */
         .live-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(212, 175, 55, 0.08);
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            padding: 10px 24px;
+            background: rgba(212, 175, 55, 0.07);
+            border: 1px solid var(--c-gold);
+            color: var(--c-gold);
+            padding: 9px 22px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 0.82rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-            backdrop-filter: blur(5px);
+            letter-spacing: 1.4px;
+            transition: all 0.35s var(--ease-expo);
+            backdrop-filter: blur(4px);
         }
 
-        /* Hover effect for buttons: fills with gold and lifts up */
-        .live-link:hover {
-            background: var(--accent-gold);
+        .live-link:hover,
+        .live-link:focus-visible {
+            background: var(--c-gold);
             color: #000;
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.35), inset 0 0 10px rgba(255, 255, 255, 0.4);
-            border-color: #fff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 24px rgba(212, 175, 55, 0.30);
+            outline: none;
         }
 
-        /* Data Table styling used specifically for the required Meeting Log */
+        /* ---- Meetings table ---- */
         table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            margin-top: 30px;
+            margin-top: 24px;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
 
         th,
         td {
-            padding: 18px 20px;
+            padding: 15px 17px;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        th {
-            background: rgba(197, 160, 89, 0.1);
-            color: var(--text-main);
+        thead th {
+            background: rgba(212, 175, 55, 0.09);
+            color: var(--c-text);
             font-weight: 600;
+            font-size: 0.82rem;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            letter-spacing: 0.9px;
+        }
+
+        tbody td {
+            background: rgba(5, 7, 10, 0.38);
+            color: #cbd5e1;
+            font-size: 0.92rem;
             letter-spacing: 1px;
         }
 
-        td {
-            background: rgba(5, 7, 10, 0.4);
-            color: #cbd5e1;
-            font-size: 0.95rem;
-        }
-
-        tr:last-child td {
+        tbody tr:last-child td {
             border-bottom: none;
         }
 
-        /* Subtle highlight on row hover */
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
+        /* Subtle row hover highlight */
+        tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.025);
         }
 
-        /* Responsive override: Drops the sidebar to the top and stacks the grid to 1 column on smaller screens */
-        @media (max-width: 900px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
-            }
+        /* ---- References list — cyan left-border accent ---- */
+        ul.ref {
+            list-style: none;
+            padding: 0;
+        }
 
-            .toc-sidebar {
-                position: static;
-                margin-bottom: 30px;
-            }
+        ul.ref li {
+            padding: 10px 14px;
+            border-left: 3px solid rgba(34, 211, 238, 0.40);
+            margin-bottom: 13px;
+            background: rgba(0, 240, 255, 0.03);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        ul.ref a {
+            color: var(--c-cyan);
+            text-decoration: none;
+        }
+
+        ul.ref a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---- "Go to top" anchor ---- */
+        .top {
+            position: fixed;
+            bottom: 5%;
+            left: 55%;
+        }
+
+        .top a {
+            display: inline-block;
+            min-width: 132px;
+            padding: 14px 22px;
+            text-align: center;
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f0cf64, #d4af37);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 18px rgba(212, 175, 55, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .top a:hover,
+        .top a:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.42), 0 0 22px rgba(212, 175, 55, 0.25);
         }
     </style>
 </head>
 
 <body class="page-fade-in">
 
-    <header class="site-header">
+    <header class="site-header" class="top">
         <div class="nav-container">
             <a href="home.html" class="logo-link">
                 <img src="images/crow.png" alt="Peace and Justice Logo" class="nav-logo">
@@ -279,68 +357,82 @@
         </div>
     </header>
 
-    <main class="dashboard-container">
-        <div class="editor-header reveal-element">
-            <h1>Developer <span class="text-gradient">Dashboard</span></h1>
-            <p>Thasreef Mohomad | Student ID: 20240991 | Role: Student 1 (Global Template, Home & Gallery)</p>
-        </div>
+    <div class="container">
 
-        <div class="dashboard-layout">
-            <aside class="toc-sidebar reveal-element delay-1">
-                <h2>Navigation Directory</h2>
+        <aside>
+            <h3>Core pages developed:</h3>
+
+            <ul class="top-level-ul">
+                <li>Student 1</li>
                 <ul>
-                    <li><a href="#tasks">1. Completed Tasks</a></li>
-                    <li><a href="#tech">2. Technical Implementation</a></li>
-                    <li><a href="#challenges">3. Challenges &amp; Lessons</a></li>
-                    <li><a href="#accessibility">4. Accessibility</a></li>
-                    <li><a href="#janet">5. JANET Compliance</a></li>
-                    <li><a href="#meetings">6. Meeting Log</a></li>
-                    <li><a href="#references">7. References</a></li>
+                    <li><a href="#tasks">Completed Tasks</a></li>
+                    <li><a href="#tech">Technical Implementation</a></li>
                 </ul>
-            </aside>
 
-            <div class="editor-content reveal-element delay-2">
+                <li><a href="#challenges">Challenges and Lessons</a></li>
+                <li><a href="#accessibility">Accessibility</a></li>
+                <li><a href="#compliance">JANET Compliance</a></li>
+                <li><a href="#group">Group Meetings Log</a></li>
+                <li><a href="#ref">References</a></li>
+            </ul>
+        </aside>
 
-                <section id="tasks" class="editor-section">
-                    <h2>1. Completed Tasks &amp; Responsibilities</h2>
-                    <p>As Student 1 for Team Humpty Dumpty, I held the critical responsibility of establishing the
+        <main>
+
+            <div class="editor-header">
+                <h1>Developer <span class="text-gradient">Dashboard</span></h1>
+                <p>Thasreef Mohomad &nbsp;·&nbsp; Student ID: 20240991 &nbsp;·&nbsp; Student 1 (Global Template, Home
+                    &amp; Gallery)</p>
+            </div>
+
+            <div class="editor-content">
+
+                <section id="tasks">
+                    <h2>Completed Tasks &amp; Responsibilities</h2>
+                    <p>
+                        As Student 1 for Team Humpty Dumpty, I held the critical responsibility of establishing the
                         foundational architecture for our entire web application. My primary objective was to design a
                         robust, scalable global template that my teammates could seamlessly integrate their work into,
-                        while also building key introductory pages for SDG 16. My specific deliverables included:</p>
+                        while also building key introductory pages for SDG 16. My specific deliverables included:
+                    </p>
                     <ul>
-                        <li>The Global Template and sitewide CSS architecture (<span class="code-ref">style.css</span>
-                            &amp; <span class="code-ref">main.js</span>).</li>
-                        <li>The main Home Page, serving as the central hub for our initiative (<span
-                                class="code-ref">home.html</span>).</li>
-                        <li>The Interactive Image Gallery, utilizing dynamic layouts (<span
-                                class="code-ref">gallery.html</span>).</li>
-                        <li>My individual Academic Content Page detailing global justice frameworks (<span
-                                class="code-ref">content_ST1.html</span>).</li>
-                        <li>The Developer Page Editor documenting my technical process (<span
-                                class="code-ref">pageEditor_ST1.html</span>).</li>
-                        <li>The W3C Validation Evidence page (<span class="code-ref">validation_ST1.html</span>).</li>
+                        <li>The Global Template and sitewide CSS architecture (<code>style.css</code>).</li>
+                        <li>The main Home Page, serving as the central hub for our initiative (<code>home.html</code>).</li>
+                        <li>The Interactive Image Gallery, utilizing dynamic layouts (<code>gallery.html</code>).</li>
+                        <li>My individual Academic Content Page detailing global justice frameworks
+                            (<code>content_ST1.html</code>).</li>
+                        <li>The Developer Page Editor documenting my technical process
+                            (<code>pageEditor_ST1.html</code>).</li>
+                        <li>The W3C Validation Evidence page (<code>validation_ST1.html</code>).</li>
                     </ul>
+
+                    <h3>Page Links</h3>
+                    <div class="live-link-group">
+                        <a href="home.html" class="live-link">View Home Page</a>
+                        <a href="gallery.html" class="live-link">View Gallery Page</a>
+                        <a href="content_ST1.html" class="live-link">View Content Page</a>
+                        <a href="validation_ST1.html" class="live-link">Validation Evidence</a>
+                    </div>
                 </section>
 
-                <section id="tech" class="editor-section">
-                    <h2>2. Technical Description of Implemented Pages</h2>
+                <section id="tech">
+                    <h2>Technical Description of Implemented Pages</h2>
 
-                    <h3>The Global Template (CSS/JS)</h3>
-                    <p>Before anyone could write HTML, I had to engineer a predictable design system. I achieved this by
-                        utilizing CSS Custom Properties (Variables) within the <code>:root</code> selector. I defined
+                    <h3>The Global Template (CSS)</h3>
+                    <p>
+                        Before anyone could write HTML, I had to engineer a predictable design system. I achieved this
+                        by utilizing CSS Custom Properties (Variables) within the <code>:root</code> selector. I defined
                         global variables for <code>--accent-gold</code>, <code>--glass-bg</code>, typography, and
                         spacing. This ensured that regardless of which teammate built a page, the color palette and
                         branding remained perfectly unified. Furthermore, I built the global sticky Navigation Bar and
-                        Footer, utilizing CSS Flexbox for semantic alignment, and wrote a global JavaScript function to
-                        inject a back-to-top button dynamically across all shared pages.</p>
+                        Footer, utilizing CSS Flexbox for semantic alignment. To optimize performance and reduce script dependencies, 
+                        I implemented interactive elements like hover states, glassmorphism filters, and responsive 
+                        navigation structures entirely through CSS.
+                    </p>
 
                     <h3>Home Page</h3>
-                    <div class="live-link-group">
-                        <a href="home.html" target="_blank" class="live-link">Live Page</a>
-                        <a href="validation_ST1.html#home-val" class="live-link"
-                            style="border-color: var(--c-muted); color: var(--c-text);">Validation</a>
-                    </div>
-                    <p>The Home page acts as the structural anchor for the site. I focused heavily on a semantic HTML5
+                    <p>
+                        The Home page acts as the structural anchor for the site. I focused heavily on a semantic HTML5
                         outline, utilizing a <code>&lt;header&gt;</code> hero section, multiple
                         <code>&lt;section&gt;</code> blocks for content chunks, and a definitive
                         <code>&lt;footer&gt;</code>. To make the landing page visually engaging without relying on heavy
@@ -351,28 +443,18 @@
                     </p>
 
                     <h3>Interactive Gallery</h3>
-                    <div class="live-link-group">
-                        <a href="gallery.html" target="_blank" class="live-link">Live Page</a>
-                        <a href="validation_ST1.html#gallery-val" class="live-link"
-                            style="border-color: var(--c-muted); color: var(--c-text);">Validation</a>
-                    </div>
-                    <p>Building the Gallery required transitioning from simple layouts to advanced 2D mapping. I
-                        engineered the gallery strictly using CSS Grid. By utilizing the
-                        <code>repeat(auto-fill, minmax(300px, 1fr))</code> property, I created a fluid grid that
-                        automatically calculates how many images can fit on the screen without me having to write dozens
-                        of breakpoint media queries. I also implemented a JavaScript-driven "Lightbox" feature. When a
-                        user clicks an image thumbnail, my JS listens for the event, dynamically creates a modal overlay
-                        in the DOM, and passes the high-resolution image <code>src</code> into it, providing a premium
-                        viewing experience.
+                    <p>
+                        Building the Gallery required fluid layout management. I engineered the gallery using CSS
+                        Multi-column layout (<code>columns: 3 320px;</code>). This approach automatically flows the images into
+                        distinct columns without me having to write dozens of breakpoint media queries. I also implemented a
+                        JavaScript-driven "Lightbox" feature natively inside the page. When a user clicks an image thumbnail, 
+                        the script listens for the event, dynamically creates a modal overlay in the DOM, and passes the 
+                        high-resolution image <code>src</code> into it, providing a premium viewing experience.
                     </p>
 
                     <h3>Academic Content Page</h3>
-                    <div class="live-link-group">
-                        <a href="content_ST1.html" target="_blank" class="live-link">Live Page</a>
-                        <a href="validation_ST1.html#content-val" class="live-link"
-                            style="border-color: var(--c-muted); color: var(--c-text);">Validation</a>
-                    </div>
-                    <p>For my Academic Content Page detailing global justice frameworks, I prioritized a highly
+                    <p>
+                        For my Academic Content Page detailing global justice frameworks, I prioritized a highly
                         readable, semantic structure. I utilized HTML5 elements such as <code>&lt;article&gt;</code> and
                         <code>&lt;section&gt;</code> to logically separate the topics, ensuring the browser accurately
                         outlines the document for screen readers. The page fully inherits my global CSS template,
@@ -382,87 +464,107 @@
                     </p>
                 </section>
 
-                <section id="challenges" class="editor-section">
-                    <h2>3. Challenges &amp; Lessons Learned</h2>
+                <section id="challenges">
+                    <h2>Challenges and Lessons Learned</h2>
 
-                    <h3>Challenge 1: The CSS Specificity Wars</h3>
-                    <p>As the "Template Architect," my biggest challenge occurred during integration week. When my
+                    <h3>Challenge 1 — The CSS Specificity Wars</h3>
+                    <p>
+                        As the "Template Architect," my biggest challenge occurred during integration week. When my
                         teammates added their individual CSS rules to my global <code>style.css</code> file, things
                         started breaking everywhere. A style intended for Student 3's form would accidentally override
                         the margins on my global navigation bar. As a beginner, it was incredibly frustrating watching
-                        my perfect layout collapse.</p>
-                    <p>I learned a massive lesson about CSS Specificity and inheritance. I had to research and implement
-                        a stricter naming convention (similar to BEM - Block Element Modifier). Instead of styling
+                        my perfect layout collapse.
+                    </p>
+                    <p>
+                        I learned a massive lesson about CSS Specificity and inheritance. I had to research and
+                        implement a stricter naming convention (similar to BEM - Block Element Modifier). Instead of styling
                         generic tags like <code>div</code> or <code>p</code> globally, I refactored the entire
                         stylesheet to use specific, scoped class names (e.g., <code>.nav-container</code>,
                         <code>.editor-section</code>). This "sandboxed" the CSS, ensuring that global styles only
                         applied where intended, and taught me how crucial architecture is in collaborative coding.
                     </p>
 
-                    <h3>Challenge 2: The Aspect Ratio Problem in the Gallery</h3>
-                    <p>When initially building the Gallery, I tested it with perfectly square placeholder images. It
+                    <h3>Challenge 2 — The Image Proportion Problem in the Gallery</h3>
+                    <p>
+                        When initially building the Gallery, I tested it with perfectly sized placeholder images. It
                         looked flawless. However, when I replaced them with real photographs of varying sizes (some
-                        portrait, some landscape), the CSS Grid completely broke. The grid cells stretched unevenly, and
-                        the layout looked amateurish.</p>
-                    <p>I initially tried to fix this by hardcoding the height and width of the images in HTML, but that
-                        resulted in horribly squished and distorted photos. Through research, I discovered two
-                        incredibly powerful CSS properties: <code>aspect-ratio: 1 / 1;</code> and
-                        <code>object-fit: cover;</code>. By applying these to my image tags, I forced the browser to
-                        crop the images perfectly into uniform squares without losing their natural proportions. It was
-                        a revelation in handling unpredictable user content.
+                        portrait, some landscape), the multi-column layout completely broke. The image containers
+                        stretched unevenly, and the layout looked amateurish.
+                    </p>
+                    <p>
+                        I initially tried to fix this by hardcoding exact heights and widths in HTML, but that
+                        resulted in horribly squished and distorted photos. Through research, I discovered the
+                        <code>object-fit: cover;</code> property and combined it with <code>min-height: 250px;</code>.
+                        By applying these to my image tags, I forced the browser to crop the images perfectly within
+                        their uniform containers without losing their natural proportions. It was a revelation in
+                        handling unpredictable user content.
                     </p>
 
-                    <h3>Challenge 3: Dynamic Active Navigation</h3>
-                    <p>I wanted the global navigation bar to clearly highlight which page the user was currently viewing
-                        (adding an <code>.active</code> class to the link). At first, I was manually adding the class to
-                        the HTML of every single page. But if we renamed a page, I had to change it manually six times.
+                    <h3>Challenge 3 — Handling Active Navigation States reliably</h3>
+                    <p>
+                        I wanted the global navigation bar to clearly highlight which page the user was currently
+                        viewing (adding an <code>.active</code> class to the link). I initially attempted to automate this with
+                        JavaScript by reading the <code>window.location.pathname</code>.
                     </p>
-                    <p>I realized I could automate this with JavaScript. I learned how to use the
-                        <code>window.location.pathname</code> object to read the current URL. I then wrote a loop in
-                        <code>main.js</code> that checks the <code>href</code> of every navigation link against the
-                        current URL. If they match, the script dynamically injects the <code>.active</code> class. This
-                        significantly modularized our code and taught me how to use JS to read browser states.
+                    <p>
+                        However, I realized that relying on JavaScript for core navigation styling caused a noticeable
+                        "flash" of unstyled content before the scripts fully loaded, and completely failed if a user had scripts
+                        disabled. To ensure the site remained robust, performant, and fully accessible, I decided the most
+                        reliable approach was to manually hardcode the <code>class="active"</code> into the HTML of the specific page
+                        being viewed. This taught me that sometimes manual HTML is better than over-engineering a solution with JS, ultimately leading to my decision to drop redundant global JavaScript files.
                     </p>
                 </section>
 
-                <section id="accessibility" class="editor-section">
-                    <h2>4. Accessibility Considerations</h2>
-                    <p>Establishing the global template meant I was responsible for the baseline accessibility of the
-                        entire project. I focused heavily on the WCAG (Web Content Accessibility Guidelines):</p>
+                <section id="accessibility">
+                    <h2>Accessibility Considerations</h2>
+                    <p>
+                        Establishing the global template meant I was responsible for the baseline accessibility of the
+                        entire project. I focused heavily on the WCAG (Web Content Accessibility Guidelines):
+                    </p>
                     <ul>
-                        <li><strong>Color Contrast &amp; Vision:</strong> When designing the dark theme with gold
+                        <li>
+                            <strong>Color Contrast &amp; Vision:</strong> When designing the dark theme with gold
                             accents, I used contrast checking tools to ensure all text against the
                             <code>--glass-bg</code> met the AA standard for readability. I explicitly avoided using
                             color alone to convey information (e.g., links have hover underlines, not just color
                             shifts).
                         </li>
-                        <li><strong>Semantic Landmarks:</strong> I structured the master template using native
+                        <li>
+                            <strong>Semantic Landmarks:</strong> I structured the master template using native
                             landmarks: <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, and
                             <code>&lt;footer&gt;</code>. This provides screen readers with a "table of contents" for the
                             page layout, allowing visually impaired users to skip navigation and jump straight to the
                             content.
                         </li>
-                        <li><strong>Gallery Alt Text:</strong> Every single image within the gallery and home page
+                        <li>
+                            <strong>Gallery Alt Text:</strong> Every single image within the gallery and home page
                             includes highly descriptive <code>alt=""</code> attributes, explaining not just what the
-                            image is, but its context regarding the UN SDG 16 goals.</li>
+                            image is, but its context regarding the UN SDG 16 goals.
+                        </li>
                     </ul>
                 </section>
 
-                <section id="janet" class="editor-section">
-                    <h2>5. Compliance with JANET Regulations</h2>
-                    <p>As the structural lead, I ensured our foundation adhered to the JANET Acceptable Use Policy:</p>
+                <section id="compliance">
+                    <h2>Compliance with JANET Regulations</h2>
+                    <p>
+                        As the structural lead, I ensured our foundation adhered to the JANET Acceptable Use Policy:
+                    </p>
                     <ul>
-                        <li><strong>Asset Licensing:</strong> I sourced all global imagery, including the hero
+                        <li>
+                            <strong>Asset Licensing:</strong> I sourced all global imagery, including the hero
                             backgrounds and gallery photos, from verified royalty-free platforms (Unsplash/Pexels) under
-                            the Creative Commons Zero (CC0) license, strictly avoiding copyright infringement.</li>
-                        <li><strong>Code Efficiency:</strong> I optimized all CSS and minified the global JavaScript to
+                            the Creative Commons Zero (CC0) license, strictly avoiding copyright infringement.
+                        </li>
+                        <li>
+                            <strong>Code Efficiency:</strong> I optimized all CSS architecture to
                             ensure the site consumes minimal bandwidth on university servers, aligning with the mandate
-                            for responsible network resource usage.</li>
+                            for responsible network resource usage and dropping unnecessary JS dependencies.
+                        </li>
                     </ul>
                 </section>
 
-                <section id="meetings" class="editor-section">
-                    <h2>6. Group Meetings &amp; Contribution Log</h2>
+                <section id="group">
+                    <h2>Group Meetings and Individual Contribution Log</h2>
                     <table>
                         <thead>
                             <tr>
@@ -491,7 +593,7 @@
                                 <td>26 Feb 2026 (Hybrid)</td>
                                 <td>Merge core pages and test routing.</td>
                                 <td>Yes</td>
-                                <td>Distributed the final <code>style.css</code> and <code>main.js</code> template to
+                                <td>Distributed the final <code>style.css</code> template to
                                     the team. Helped Student 2 integrate the Splash Screen routing into the Home page.
                                 </td>
                             </tr>
@@ -520,107 +622,96 @@
                     </table>
                 </section>
 
-                <section id="references" class="editor-section">
-                    <h2>7. References &amp; Technical Bibliography</h2>
-                    <p>The following technical documentation and official guidelines were consulted to engineer the
-                        global architecture and my specific deliverables:</p>
+                <section id="ref">
+                    <h2>References &amp; Technical Bibliography</h2>
+                    <p>
+                        The following technical documentation and official guidelines were consulted to engineer the
+                        global architecture and my specific deliverables:
+                    </p>
 
-                    <div class="reference-grid"
-                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">Global CSS &amp; Architecture</h3>
-                            <ul
-                                style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>Using CSS custom properties (variables)</em>
-                                    (Used to engineer the global color palette). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>CSS Specificity Rules</em> (Researched to solve
-                                    integration conflicts). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>CSS-Tricks:</strong> <em>A Complete Guide to Flexbox</em> (Used for global
-                                    Navigation and Footer alignment). <a
-                                        href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">Layout &amp; Image Handling</h3>
-                            <ul
-                                style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>CSS Grid Layout: auto-fill vs auto-fit</em> (Used
-                                    for fluid Gallery layout). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>object-fit property</em> (Essential for
-                                    maintaining image aspect ratios in the Gallery). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>MDN Web Docs:</strong> <em>aspect-ratio property</em> (Used to force uniform
-                                    square thumbnail containers). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">DOM Logic &amp; Interactivity</h3>
-                            <ul
-                                style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>MDN Web Docs:</strong> <em>Window: location property</em> (Used in main.js
-                                    to determine active navigation links). <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/API/Window/location"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>W3Schools:</strong> <em>How To Create a Modal/Lightbox Image Gallery</em>
-                                    (Reference for JS event listeners in the gallery). <a
-                                        href="https://www.w3schools.com/howto/howto_js_lightbox.asp" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="ref-category">
-                            <h3 style="margin-top: 0;">Academic Context &amp; Accessibility</h3>
-                            <ul
-                                style="font-size: 0.9rem; list-style-type: square; padding-left: 20px; line-height: 1.6;">
-                                <li><strong>Web Content Accessibility Guidelines (WCAG):</strong> <em>Contrast
-                                        (Minimum)</em> (Used to verify readability of the global template). <a
-                                        href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>United Nations:</strong> (n.d.). <em>Sustainable Development Goal 16: Peace,
-                                        Justice and Strong Institutions</em>. <a href="https://sdgs.un.org/goals/goal16"
-                                        target="_blank" style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>W3C:</strong> (n.d.). <em>Markup Validation Service</em>. <a
-                                        href="https://validator.w3.org/" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                                <li><strong>Jisc:</strong> (n.d.). <em>Janet Acceptable Use Policy</em>. <a
-                                        href="https://www.jisc.ac.uk/janet/policies/acceptable-use" target="_blank"
-                                        style="color: var(--accent-cyan);">Link</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <ul class="ref">
+                        <li>
+                            MDN Web Docs: <em>Using CSS custom properties (variables)</em>.
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties"
+                                target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties</a>
+                        </li>
+                        <li>
+                            MDN Web Docs: <em>CSS Specificity Rules</em>.
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity"
+                                target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity</a>
+                        </li>
+                        <li>
+                            CSS-Tricks: <em>A Complete Guide to Flexbox</em>.
+                            Available at:
+                            <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
+                                target="_blank">https://css-tricks.com/snippets/css/a-guide-to-flexbox/</a>
+                        </li>
+                        <li>
+                            MDN Web Docs: <em>CSS Multiple-column Layout</em>.
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout"
+                                target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout</a>
+                        </li>
+                        <li>
+                            MDN Web Docs: <em>object-fit property</em>.
+                            Available at:
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit"
+                                target="_blank">https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit</a>
+                        </li>
+                        <li>
+                            W3Schools: <em>How To Create a Modal/Lightbox Image Gallery</em>.
+                            Available at:
+                            <a href="https://www.w3schools.com/howto/howto_js_lightbox.asp"
+                                target="_blank">https://www.w3schools.com/howto/howto_js_lightbox.asp</a>
+                        </li>
+                        <li>
+                            Web Content Accessibility Guidelines (WCAG): <em>Contrast (Minimum)</em>.
+                            Available at:
+                            <a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html"
+                                target="_blank">https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html</a>
+                        </li>
+                        <li>
+                            United Nations: <em>Sustainable Development Goal 16: Peace, Justice and Strong
+                                Institutions</em>.
+                            Available at:
+                            <a href="https://sdgs.un.org/goals/goal16"
+                                target="_blank">https://sdgs.un.org/goals/goal16</a>
+                        </li>
+                        <li>
+                            W3C: <em>Markup Validation Service</em>.
+                            Available at:
+                            <a href="https://validator.w3.org/" target="_blank">https://validator.w3.org/</a>
+                        </li>
+                        <li>
+                            Jisc: <em>Janet Acceptable Use Policy</em>.
+                            Available at:
+                            <a href="https://www.jisc.ac.uk/janet/policies/acceptable-use"
+                                target="_blank">https://www.jisc.ac.uk/janet/policies/acceptable-use</a>
+                        </li>
+                    </ul>
                 </section>
 
             </div>
-        </div>
-    </main>
+            <p class="top"><a href="#top">Back to Top</a></p>
 
+        </main>
+    </div>
     <footer class="site-footer">
         <div class="footer-container">
             <div class="student-info">
                 <h3>Page Author</h3>
                 <p><strong>Name:</strong> Thasreef Mohomad</p>
                 <p><strong>Student ID:</strong> 20240991</p>
-                <p><strong>Role:</strong> Student 1 (Global Template, Home Page & Gallery)</p>
+                <p><strong>Role:</strong> Student 1 (Global Template, Home Page &amp; Gallery)</p>
             </div>
             <div class="footer-links">
                 <h3>Developer Links</h3>
                 <ul>
                     <li><a href="pageEditor_ST1.html">Page Editor (ST1)</a></li>
                     <li><a href="validation_ST1.html">Validation Evidence</a></li>
-                    <li><a href="pageEditor_ST1.html#accessibility">Accessibility & Compliance</a></li>
+                    <li><a href="pageEditor_ST1.html#accessibility">Accessibility &amp; Compliance</a></li>
                 </ul>
             </div>
         </div>
@@ -628,8 +719,6 @@
             <p>&copy; 2026 Team Humpty Dumpty — Peace &amp; Justice Initiative. SDG 16.</p>
         </div>
     </footer>
-
-    <script src="main.js"></script>
 </body>
 
 </html>
